@@ -14,9 +14,8 @@ def supported_shallow_corner(physical, residual_mm, iou):
         and polygon_corner_depths(physical).min() >= max(1.0, 6 * residual_mm)
         and np.abs(polygon_turn_angles_deg(physical)).min() >= 3.0)
 
-def fit_polygon(contour, epsilon, *, mm_scale=None, config=None):
-    """按轮廓顺序分边、鲁棒直线拟合及求交；不使用凸包。"""
-    points = contour.reshape(-1, 2).astype(np.float64)
+def simplify_contour(contour, epsilon, *, mm_scale=None, config=None):
+    """只生成分边种子；不同 epsilon 给出相同边数时无需重复拟合。"""
     coarse = cv2.approxPolyDP(contour, epsilon, True).reshape(-1, 2)
     if len(coarse) < 3:
         raise ValueError("轮廓退化")
@@ -39,6 +38,14 @@ def fit_polygon(contour, epsilon, *, mm_scale=None, config=None):
             if not removable:
                 break
             coarse = np.delete(coarse, min(removable)[1], axis=0)
+    return coarse
+
+
+def fit_polygon(contour, epsilon, *, mm_scale=None, config=None, coarse=None):
+    """按轮廓顺序分边、鲁棒直线拟合及求交；不使用凸包。"""
+    points = contour.reshape(-1, 2).astype(np.float64)
+    if coarse is None:
+        coarse = simplify_contour(contour, epsilon, mm_scale=mm_scale, config=config)
     indices = [int(np.argmin(np.linalg.norm(points - p, axis=1))) for p in coarse]
     lines, residuals = [], []
     for i, start in enumerate(indices):
@@ -115,17 +122,21 @@ class TraditionalVisionDetector:
                 if x <= margin or y <= margin or x + w >= width - margin or y + h >= height - margin:
                     raise ValueError("纸片接触工作区边界")
                 mm_scale = np.array([292.0 / (width - 1), 207.0 / (height - 1)])
+                epsilon = cv2.arcLength(contour, True) * self.config.polygon_epsilon_ratio
                 polygon, residual = fit_polygon(
-                    contour, cv2.arcLength(contour, True) * self.config.polygon_epsilon_ratio,
+                    contour, epsilon,
                     mm_scale=mm_scale, config=self.config)
                 if self.expected_pieces is None and len(polygon) < self.config.max_vertices:
                     # Perimeter-relative simplification can delete a real shallow fifth
                     # corner. Recover it only if separate straight edges explain the data.
                     for factor in (0.5, 0.25):
                         try:
-                            candidate, candidate_residual = fit_polygon(contour,
-                                cv2.arcLength(contour, True) * self.config.polygon_epsilon_ratio * factor,
+                            seed = simplify_contour(contour, epsilon * factor,
                                 mm_scale=mm_scale, config=self.config)
+                            if len(seed) <= len(polygon):
+                                continue  # Recovery only accepts additional vertices.
+                            candidate, candidate_residual = fit_polygon(contour, epsilon * factor,
+                                mm_scale=mm_scale, config=self.config, coarse=seed)
                         except ValueError:
                             continue
                         if len(candidate) > len(polygon) and supported_shallow_corner(candidate * mm_scale,

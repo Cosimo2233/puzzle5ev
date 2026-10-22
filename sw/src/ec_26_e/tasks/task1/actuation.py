@@ -635,6 +635,7 @@ class MovePlanActuator:
             self._transition(MotionLifecycleState.ENABLING)
             xy_controller = MksXYController(
                 transport,
+                speed_level=self._config.xy_speed_level,
                 require_motor_reply=False,
                 monotonic=self._monotonic,
             )

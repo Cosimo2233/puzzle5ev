@@ -1,0 +1,123 @@
+{
+  "host_tests": {
+    "passed": 124,
+    "subtests": 32
+  },
+  "recorded_frames": 12,
+  "max_workspace_delta_px": 0.0,
+  "max_vertex_delta_px": 0.0,
+  "vertex_step_mean_px": {
+    "raw": 0.49600716985339416,
+    "display_smoothed": 0.19980075732606434
+  },
+  "replay_before": {
+    "motion_tested": false,
+    "resize_median_ms": 238.88326799988135,
+    "detect_median_ms": 168.71211700072308
+  },
+  "replay_after": {
+    "motion_tested": false,
+    "resize_median_ms": 158.80166799979634,
+    "detect_median_ms": 144.53994599989528
+  },
+  "preview_before": {
+    "motion_tested": false,
+    "first_frame_seconds": 3.27955089399984,
+    "first_contour_seconds": 5.877158848999898,
+    "software_warmup_seconds": 3.2999996619764715e-06,
+    "frames": 99,
+    "contour_age_median_seconds": 1.0147749520001526,
+    "last_status": {
+      "candidate_count": 4,
+      "valid": true,
+      "reason": "",
+      "overlay_current": true,
+      "paper_detected": true,
+      "piece_count": 4,
+      "analysis_age_seconds": 0.9117438269995546,
+      "frames": 96,
+      "analysis_frames": 8,
+      "display_fps": 14.993214619253077,
+      "analysis_fps": 1.249434551604423,
+      "sequence": 192,
+      "updated_at_unix": 1792517122.8979673
+    }
+  },
+  "preview_after": {
+    "motion_tested": false,
+    "first_frame_seconds": 0.7772886030006703,
+    "first_contour_seconds": 1.7657581370003754,
+    "software_warmup_seconds": 3.794911797000168,
+    "frames": 273,
+    "contour_age_median_seconds": 0.9558640535001359,
+    "last_status": {
+      "candidate_count": 4,
+      "valid": true,
+      "reason": "",
+      "overlay_current": true,
+      "paper_detected": true,
+      "piece_count": 4,
+      "analysis_age_seconds": 0.4725443550005366,
+      "frames": 271,
+      "analysis_frames": 27,
+      "display_fps": 19.162340438274583,
+      "analysis_fps": 1.9091630694959916,
+      "sequence": 424,
+      "updated_at_unix": 1792517590.6658964,
+      "camera_started_seconds": 0.7102982930000508
+    }
+  },
+  "gui": {
+    "preview": {
+      "candidate_count": 4,
+      "valid": true,
+      "reason": "",
+      "overlay_current": true,
+      "paper_detected": true,
+      "piece_count": 4,
+      "analysis_age_seconds": 0.8207857979996334,
+      "frames": 150,
+      "analysis_frames": 13,
+      "display_fps": 17.80694059112552,
+      "analysis_fps": 1.5432681845642118,
+      "sequence": 252,
+      "updated_at_unix": 1792518079.3444529,
+      "camera_started_seconds": 0.70191425899975
+    },
+    "cursor": {
+      "x": 640,
+      "y": 360,
+      "width": 16,
+      "height": 16,
+      "visible_pixels": 118
+    },
+    "ui_received_frames": 173,
+    "elapsed_seconds": 13.06179344300017
+  },
+  "fixed_live_seconds": [
+    4.866583742999865,
+    4.812840006000442,
+    4.939322531000471
+  ],
+  "fixed_live_success": 3,
+  "pure_random_solver": {
+    "frame": "live-00",
+    "success": true,
+    "seconds": 6.702976566999496,
+    "pl": {
+      "request_count": 446,
+      "batch_count": 47,
+      "numerical_cpu_fallbacks": 0,
+      "transfer_seconds": 0.06260637100240274,
+      "kernel_wait_seconds": 0.008254191001469735
+    }
+  },
+  "motion_executed": false,
+  "m0_status": {
+    "armed": false,
+    "magnet": false,
+    "fault": 0,
+    "version": 1,
+    "malformed": 0
+  }
+}

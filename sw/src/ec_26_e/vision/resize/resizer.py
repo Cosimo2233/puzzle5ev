@@ -97,6 +97,49 @@ class _WorkspaceImages:
         return self._chroma
 
 
+class _WorkspaceEdgeImages:
+    """逐边计算原分辨率 Lab/色差；保留卷积边界和完整定位检查。"""
+
+    def __init__(self, image, seed, band):
+        height, width = image.shape[:2]
+        # Include the search band, appearance samples and bilinear neighbours.
+        padding = int(np.ceil(2 * band + max(10, .018 * min(width, height)) + 3))
+        self.bounds = []
+        self._luminance = np.full((height, width), np.nan, np.float32)
+        self._chroma = np.full((height, width), np.nan, np.float32)
+        for start, end in zip(seed, np.roll(seed, -1, axis=0)):
+            low = np.floor(np.minimum(start, end)).astype(int) - padding
+            high = np.ceil(np.maximum(start, end)).astype(int) + padding + 1
+            x0, y0 = np.maximum(low, 0)
+            x1, y1 = np.minimum(high, (width, height))
+            self.bounds.append((x0, y0, x1, y1))
+            # A 5x5 blur needs two extra source pixels. Crop only afterwards;
+            # image-border handling is identical to the full-image operation.
+            sx, sy = max(0, x0 - 2), max(0, y0 - 2)
+            ex, ey = min(width, x1 + 2), min(height, y1 + 2)
+            blurred = cv2.GaussianBlur(image[sy:ey, sx:ex], (5, 5), 0)
+            blurred = blurred[y0-sy:y1-sy, x0-sx:x1-sx]
+            self._luminance[y0:y1, x0:x1] = _luminance_image(blurred, blurred=blurred)
+            self._chroma[y0:y1, x0:x1] = _paper_chroma_image(blurred, blurred=blurred)
+
+    def luminance(self):
+        return self._luminance
+
+    def chroma(self):
+        return self._chroma
+
+    def require_appearance_coverage(self, corners):
+        """候选偏离窄带时回到完整搜索，不读取未计算的像素。"""
+        padding = max(10.0, .018 * min(self._luminance.shape)) + 2
+        height, width = self._luminance.shape
+        for index, (start, end) in enumerate(zip(corners, np.roll(corners, -1, axis=0))):
+            low = np.maximum(np.minimum(start, end) - padding, 0)
+            high = np.minimum(np.maximum(start, end) + padding, (width-1, height-1))
+            x0, y0, x1, y1 = self.bounds[index]
+            if not (low[0] >= x0 and low[1] >= y0 and high[0] < x1 and high[1] < y1):
+                raise ValueError('新工作区边缘超出当前计算区域，重新完整定位')
+
+
 def _reference_corners(
     config: ResizeConfig,
     image_size: tuple[int, int],
@@ -744,16 +787,18 @@ def _locate_workspace(
             # The previous corners only seed a fresh four-edge fit. Every frame
             # still passes the original geometric and appearance checks; neither
             # the old homography nor an old image is reused as an observation.
+            band = max(6.0, _FINE_SEARCH_BAND_RATIO * min(source_width, source_height))
+            edge_images = _WorkspaceEdgeImages(image_bgr, source_seed, band)
             corners, edges = _fit_four_edges(
-                source_images.luminance(), source_seed,
-                max(6.0, _FINE_SEARCH_BAND_RATIO * min(source_width, source_height)),
+                edge_images.luminance(), source_seed, band,
                 _MAX_FINE_RESIDUAL_PX,
             )
             _validate_geometry(corners, source_reference, (source_width, source_height),
                                config.min_workspace_ratio, config.search_band_ratio)
+            edge_images.require_appearance_coverage(corners)
             appearance = _validate_workspace_appearance(
-                image_bgr, corners, luminance=source_images.luminance(),
-                paper_chroma=source_images.chroma())
+                image_bgr, corners, luminance=edge_images.luminance(),
+                paper_chroma=edge_images.chroma())
             return (corners, min(float(np.mean([e.gradient_threshold for e in edges])), appearance),
                     abs(cv2.contourArea(corners))/(source_width*source_height),
                     float(np.mean([e.residual for e in edges])))

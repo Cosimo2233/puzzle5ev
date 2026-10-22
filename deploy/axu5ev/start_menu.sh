@@ -6,6 +6,7 @@ export EC_PL_ACCESS=linux
 export EC_PL_BITSTREAM=${EC_PL_BITSTREAM:-/opt/ec26e/staging/20261020/axu5ev-reset-bundle/puzzle5ev.bit}
 export EC_MENU_CONFIG=/opt/ec26e/config/axu5ev/menu.json
 export EC_MOTION_ENABLED=false
+export EC_VISION_THREADS=${EC_VISION_THREADS:-2}
 export DISPLAY=${DISPLAY:-:0}
 # Dedicated machine display: never blank while the camera/solver is running.
 xset s off

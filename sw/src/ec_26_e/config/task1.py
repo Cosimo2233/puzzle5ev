@@ -273,6 +273,8 @@ def _camera_from_env(environ: Mapping[str, str]) -> CameraConfig:
     if not device_path:
         raise ValueError("环境变量 CAMERA_DEVICE_PATH 不能为空")
     return CameraConfig(
+        focus_absolute=(_env_integer(environ, "CAMERA_FOCUS_ABSOLUTE", 0)
+                        if _env_text(environ, "CAMERA_FOCUS_ABSOLUTE", "").strip() else None),
         device_path=Path(device_path),
         width=_env_integer(
             environ,
@@ -361,6 +363,7 @@ def _actuation_from_env(environ: Mapping[str, str]) -> ActuationConfig:
         "rotation_zero_wait_seconds": 1.0,
     }
     return ActuationConfig(
+        xy_speed_level=_env_integer(environ, "MOTION_XY_SPEED_LEVEL", 64),
         bridge_port=bridge_port,
         serial=MotionSerialConfig(
             device_path=Path(device),

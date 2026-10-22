@@ -1,0 +1,91 @@
+"""应用已验收的焦点与速度配置；持任务锁备份，可单独回滚。"""
+import hashlib
+import json
+import os
+from pathlib import Path
+
+import typer
+
+from ec_26_e.config import load_task1_config, load_task2_config
+from ec_26_e.tasks.execution_lock import TaskExecutionLock
+from install_speed_release import BASE, CONFIG, start_service, stop_service
+
+app = typer.Typer(pretty_exceptions_show_locals=False)
+SETTINGS = dict(CAMERA_FOCUS_ABSOLUTE='68', MOTION_XY_SPEED_LEVEL='80',
+                MOTION_XY_SPEED_MM_PER_SECOND='100', FOC_RPM='20',
+                EC_BLUE_RATIO_Q8='320', EC_BLUE_BACKGROUND_FRACTION_Q8='218')
+
+
+def patch_environment(text):
+    remaining = dict(SETTINGS)
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        key = line.partition('=')[0]
+        if key in SETTINGS:
+            if key not in remaining:
+                raise ValueError(f'配置重复：{key}')
+            lines[index] = key+'='+remaining.pop(key)
+    lines.extend(key+'='+value for key, value in remaining.items())
+    return ('\n'.join(lines)+'\n').encode('utf-8')
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+@app.command()
+def main(release: Path = typer.Option(...), rollback: bool = typer.Option(False)):
+    release = release.resolve()
+    if not release.is_relative_to(BASE/'releases') or not (release/'deployed.json').exists():
+        raise ValueError('先完成对应软件发布')
+    path = CONFIG/'machine.env'
+    backup = release/'machine-before-capture.env'
+    record = release/'settings.json'
+    with TaskExecutionLock():
+        menu = json.loads(Path('/run/ec26e/menu-status.json').read_text())
+        if menu.get('busy') or menu.get('preview') or menu.get('transition'):
+            raise RuntimeError('菜单忙，未修改配置')
+        original = path.read_bytes()
+        if rollback:
+            previous = json.loads(record.read_text())
+            if digest(original) != previous['after_sha256']:
+                raise RuntimeError('配置已被后续修改，请先合并回滚差异')
+            updated = backup.read_bytes()
+        else:
+            if record.exists() or (backup.exists() and backup.read_bytes() != original):
+                raise RuntimeError('不能覆盖已有配置备份')
+            updated = patch_environment(original.decode('utf-8'))
+            if not backup.exists():
+                backup.write_bytes(original)
+        temporary = path.with_suffix('.capture.tmp')
+        temporary.write_bytes(updated)
+        try:
+            for name, loader in (('fixed', load_task1_config), ('random', load_task2_config)):
+                profile = loader(CONFIG/'tasks'/f'{name}.json', env_path=temporary,
+                    environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
+                if not rollback:
+                    assert profile.camera.focus_absolute == 68
+                    assert profile.actuation.xy_speed_level == 80
+                    assert profile.actuation.xy_speed_mm_per_second == 100
+                    assert profile.actuation.rotation.rpm == 20
+                    assert profile.detect1.blue_ratio_q8 == 320
+                    assert profile.detect1.blue_background_fraction_q8 == 218
+            old_pid = stop_service()
+            try:
+                temporary.replace(path)
+                start_service(old_pid)
+            except BaseException:
+                path.write_bytes(original)
+                start_service(old_pid)
+                raise
+        finally:
+            temporary.unlink(missing_ok=True)
+        report = dict(changes=SETTINGS, before_sha256=digest(original),
+                      after_sha256=digest(updated), motion_executed=False, rollback=rollback)
+        if not rollback:
+            record.write_text(json.dumps(report, indent=2))
+        print(json.dumps(report))
+
+
+if __name__ == '__main__':
+    app()

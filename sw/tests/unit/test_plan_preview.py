@@ -58,6 +58,15 @@ def test_preview_hides_old_contours_after_motion_or_age():
     assert image.shape==(495,880,3)
 
 
+def test_preview_tolerates_small_uniform_exposure_change_but_not_local_motion():
+    raw = np.full((90, 160), 100, np.uint8)
+    assert overlay_is_current(raw+5, raw, .3)
+    assert not overlay_is_current(raw+20, raw, .3)
+    moved = raw+5
+    moved[20:35, 20:40] = 180
+    assert not overlay_is_current(moved, raw, .3)
+
+
 def test_prediction_history_is_bounded_without_deleting_unrelated_files(tmp_path):
     unrelated = tmp_path/'config.json'
     unrelated.write_text('{"keep": true}')

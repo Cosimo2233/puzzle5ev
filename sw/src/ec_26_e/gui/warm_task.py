@@ -14,8 +14,8 @@ def prepare():
     from ec_26_e.command.app import app as motion_app
     from ec_26_e.commands.app import app as plan_app
     from ec_26_e.gui.controller import load_profile
-    import cv2
-    cv2.setNumThreads(1)
+    from ec_26_e.vision.runtime import prepare_vision_runtime
+    prepare_vision_runtime()
     return {'ec_26_e': motion_app, 'ec_26_e.commands.app': plan_app}
 
 

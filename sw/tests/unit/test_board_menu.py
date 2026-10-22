@@ -31,13 +31,23 @@ def test_camera_pipe_does_not_publish_truncated_frame():
     assert '截断' in pipe.error
 
 
+def test_warm_camera_ack_is_not_a_frame():
+    pipe = CameraPipe()
+    pipe.process = SimpleNamespace(stdout=io.BytesIO(struct.pack('!I', 0)))
+    pipe._read()
+    assert pipe.ready
+    assert pipe.latest is None and pipe.version == 0
+
+
 def test_menu_updates_changed_text_and_keeps_button_polling():
     menu = BoardMenu.__new__(BoardMenu)
     menu.closing = False
     menu.root = Mock()
     menu.keys = Mock(read=Mock(return_value={'mode': False}))
     menu.edges = Mock(update=Mock(return_value=[]))
-    menu.model = SimpleNamespace(preview=False, message='就绪', motion_enabled=False, poll_task=Mock())
+    menu.model = SimpleNamespace(preview=False, busy=False, message='就绪', motion_enabled=False, poll_task=Mock())
+    menu.transition = None
+    menu.camera = Mock()
     menu.status = Mock()
     menu.health = Mock()
     menu.key_error = ''

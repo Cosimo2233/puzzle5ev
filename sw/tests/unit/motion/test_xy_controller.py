@@ -81,6 +81,7 @@ class FakeXYTransport:
 def ready_controller(
     *,
     require_motor_reply: bool = False,
+    speed_level: int = 64,
 ) -> tuple[MksXYController, FakeXYTransport, FakeClock]:
     """创建控制器并推进到 C 的 READY 状态。"""
 
@@ -88,6 +89,7 @@ def ready_controller(
     transport = FakeXYTransport()
     controller = MksXYController(
         transport,
+        speed_level=speed_level,
         require_motor_reply=require_motor_reply,
         monotonic=clock,
     )
@@ -102,6 +104,27 @@ def ready_controller(
 
 class MksXYNoReplyTest(unittest.TestCase):
     """验证当前 C 宏为 0 时实际执行的 XY 路径。"""
+
+    def test_configured_speed_reaches_frames_and_completion_deadline(self):
+        controller, transport, clock = ready_controller(speed_level=80)
+        transport.sent_frames.clear()
+        self.assertEqual(controller.move_to(100, 200), XYResult.OK)
+        self.assertEqual(transport.sent_frames[-1],
+                         Servo42CProtocol.build_move(MotorAddress.Y, -80, 800))
+        clock.advance_ms(19)
+        controller.process()
+        self.assertEqual(controller.state, XYState.WAIT_MOVE_COMPLETE)
+        clock.advance_ms(1)
+        controller.process()
+        self.assertEqual(controller.state, XYState.READY)
+        self.assertEqual(controller.move_timeout_ms, 540)
+
+    def test_invalid_speed_rejected_before_any_output(self):
+        for speed in (0, 128, True, 1.5):
+            transport = FakeXYTransport()
+            with self.assertRaises(ValueError):
+                MksXYController(transport, speed_level=speed)
+            self.assertEqual(transport.sent_frames, [])
 
     def test_power_wait_enables_all_xy_without_waiting_replies(self) -> None:
         """500 ms 到期前不发送，到期后按 E0/E1/E2 顺序使能。"""

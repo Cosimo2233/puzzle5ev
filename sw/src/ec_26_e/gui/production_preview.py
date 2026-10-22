@@ -17,6 +17,8 @@ from ec_26_e.gui.board_profile import load_menu_config, preview_backend, profile
 from ec_26_e.tasks.execution_lock import TaskExecutionLock
 from ec_26_e.vision import Resize
 from ec_26_e.vision.factory import create_production_detector
+from ec_26_e.gui.preview_tracking import PreviewContours
+from ec_26_e.vision.runtime import prepare_vision_runtime
 
 
 def annotate(raw, resizer, detector):
@@ -29,6 +31,10 @@ def annotate(raw, resizer, detector):
         report['paper_detected'] = True
         result = detector.detect(rect.image_bgr)
         contours = detector.last_preview_contours
+        if result.pieces:
+            # Use the subpixel polygons, not every stair-step of the binary mask.
+            contours = [np.asarray(p.corners_px, np.float32).reshape(-1, 1, 2)
+                        for p in result.pieces]
         report.update(piece_count=len(result.pieces), candidate_count=len(contours),
                       valid=bool(result.pieces), reason=detector.last_failure or '')
         cv2.polylines(canvas, [np.rint(rect.source_corners_px).astype(np.int32)],
@@ -38,8 +44,8 @@ def annotate(raw, resizer, detector):
         inverse = np.linalg.inv(rect.homography)
         for index, contour in enumerate(contours, 1):
             points = cv2.perspectiveTransform(contour.astype(np.float32), inverse)
-            points = np.rint(points).astype(np.int32)
             report['contours_source_px'].append(points.reshape(-1, 2).tolist())
+            points = np.rint(points).astype(np.int32)
             cv2.polylines(canvas, [points], True, (0, 180, 255), 2)
             x, y, _, _ = cv2.boundingRect(points)
             cv2.putText(canvas, str(index), (x, max(20, y)),
@@ -57,7 +63,13 @@ def overlay_is_current(current, analyzed, age):
     """只为未移动、足够新鲜的画面叠加轮廓；不把旧框当作实时检测。"""
     if age < 0 or age > 2.0 or current.shape != analyzed.shape:
         return False
-    difference = cv2.absdiff(current, analyzed)
+    signed = current.astype(np.int16) - analyzed.astype(np.int16)
+    offset = float(np.median(signed))
+    if abs(offset) > 6:
+        return False
+    # Small uniform exposure changes do not move edges. Local changes still
+    # invalidate the overlay immediately; the task's stability gate is separate.
+    difference = np.abs(signed - offset)
     return float(np.mean(difference)) < 3.0 and float(np.mean(difference > 16)) < .01
 
 
@@ -69,6 +81,7 @@ class PreviewAnalysis:
         self.pending = self.result = self.error = None
         self.stopping = False
         self.frames = 0
+        self.contours = PreviewContours()
         self.thread = threading.Thread(target=self._run, name='preview-analysis', daemon=True)
         self.thread.start()
 
@@ -87,6 +100,7 @@ class PreviewAnalysis:
                     frame, small, timestamp = self.pending
                     self.pending = None
                 _, report = annotate(frame.image_bgr, self.resizer, self.detector)
+                report = self.contours.update(report)
                 with self.condition:
                     self.frames += 1
                     self.result = (small, timestamp, report)
@@ -125,7 +139,19 @@ def draw_latest(raw, small, result, now):
 
 
 def main():
-    cv2.setNumThreads(1)
+    prepare_vision_runtime()
+    if '--wait-for-start' in sys.argv:
+        sys.stdout.buffer.write(struct.pack('!I', 0))  # Software ready, no hardware open.
+        sys.stdout.buffer.flush()
+        request = sys.stdin.buffer.readline(4096)
+        if not request:
+            return
+        label = json.loads(request)['label']
+        if label not in MODES:
+            raise ValueError('未知预览模式')
+    else:
+        label = sys.argv[1] if len(sys.argv) > 1 else next(iter(MODES))
+    requested_at = time.monotonic()
     running = True
 
     def stop(*_):
@@ -133,7 +159,6 @@ def main():
         running = False
 
     signal.signal(signal.SIGTERM, stop)
-    label = sys.argv[1] if len(sys.argv) > 1 else next(iter(MODES))
     board = load_menu_config()
     config = load_profile(*profile_paths(board), label, preview_backend(board))
     lock = TaskExecutionLock()
@@ -143,6 +168,7 @@ def main():
         with create_production_detector(config.detect1) as owner:
             resizer = Resize(config.resize)
             camera.start()
+            camera_started_seconds = time.monotonic() - requested_at
             analysis = PreviewAnalysis(resizer, owner.detector)
             sequence = None
             frames = 0
@@ -169,7 +195,8 @@ def main():
                     frames += 1
                     elapsed = max(.001, now-started)
                     report.update(frames=frames, analysis_frames=count, display_fps=frames/elapsed,
-                                  analysis_fps=count/elapsed, sequence=sequence, updated_at_unix=time.time())
+                                  analysis_fps=count/elapsed, sequence=sequence, updated_at_unix=time.time(),
+                                  camera_started_seconds=camera_started_seconds)
                     if now - last_status >= .5:
                         status = Path('/run/ec26e/preview-status.json')
                         status.parent.mkdir(parents=True, exist_ok=True)

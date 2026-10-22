@@ -284,6 +284,21 @@ class FFmpegCommandTest(unittest.TestCase):
 class FFmpegCameraTest(unittest.TestCase):
     """验证最新帧读取、异常状态和资源生命周期。"""
 
+    def test_manual_focus_is_enabled_in_separate_control_requests(self):
+        with patch('ec_26_e.cam.ffmpeg_camera.subprocess.run') as run:
+            camera = self.start_camera(FakeProcess(), create_test_config(focus_absolute=68))
+            self.assertEqual([call.args[0][-1] for call in run.call_args_list],
+                             ['focus_auto=0', 'focus_absolute=68'])
+            camera.close()
+
+    def test_focus_control_failure_never_starts_capture(self):
+        camera = FFmpegCamera(create_test_config(focus_absolute=68))
+        with patch('ec_26_e.cam.ffmpeg_camera.subprocess.run', side_effect=OSError('control failed')), \
+                patch('ec_26_e.cam.ffmpeg_camera.subprocess.Popen') as spawn:
+            with self.assertRaises(CameraCaptureError):
+                camera.start()
+            spawn.assert_not_called()
+
     def start_camera(
         self,
         process: FakeProcess,

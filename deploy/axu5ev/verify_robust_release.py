@@ -26,7 +26,12 @@ def main(release: Path = typer.Option(...), output: Path = typer.Option(...)):
     with TaskExecutionLock():
         deployed = read(release/'deployed.json')
         before = read(release/'hardware-before.json')
-        assert config_hashes() == deployed['config_sha256'], '配置发生变化'
+        expected_config = dict(deployed['config_sha256'])
+        settings = read(release/'settings.json') if (release/'settings.json').exists() else None
+        if settings:
+            assert expected_config['machine.env'] == settings['before_sha256']
+            expected_config['machine.env'] = settings['after_sha256']
+        assert config_hashes() == expected_config, '配置发生未记录的变化'
         assert Path('/proc/sys/kernel/random/boot_id').read_text().strip() == before['boot_id']
         assert read(Path('/run/ec26e/pl-status.json')) == before['pl_status']
         for name in INSTALL_FILES:
@@ -63,7 +68,8 @@ def main(release: Path = typer.Option(...), output: Path = typer.Option(...)):
         cursor = cursor_info()
         assert cursor['visible_pixels'] > 0
         import shapely
-        report = dict(passed=True, checked_package_files=checked, config_unchanged=True,
+        report = dict(passed=True, checked_package_files=checked, config_unchanged=settings is None,
+            settings_changes=settings['changes'] if settings else {},
             hardware_unchanged=True, rebooted=False, motion_executed=False,
             menu=menu, service=service, autostart_links=links, cursor=cursor,
             screen_blanking_disabled=True, shapely=shapely.__version__, geos=shapely.geos_version_string)

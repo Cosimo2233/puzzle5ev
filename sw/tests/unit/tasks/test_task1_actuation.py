@@ -316,6 +316,28 @@ def make_two_piece_plan() -> MovePlan:
 class MovePlanActuatorTest(unittest.TestCase):
     """验证执行器正常、拒绝、故障和 FINISH 后退出路径。"""
 
+    def test_speed_change_preserves_commands_coordinates_and_z_speed(self):
+        streams = []
+        for level in (64, 80):
+            transport = FakeTransport()
+            actuator, _, _ = self._actuator(transport, FakeMagnet(),
+                                            make_config(xy_speed_level=level))
+            actuator.execute(make_plan())
+            streams.append(transport.frames)
+        self.assertEqual(len(streams[0]), len(streams[1]))
+        changed = 0
+        for old, new in zip(*streams):
+            if old == new:
+                continue
+            changed += 1
+            self.assertIn(new[0], (0xE0, 0xE1, 0xE2))
+            self.assertEqual(old[:2], new[:2])
+            self.assertEqual(old[2] & 0x7f, 64)
+            self.assertEqual(new[2] & 0x7f, 80)
+            self.assertEqual(old[2] & 0x80, new[2] & 0x80)
+            self.assertEqual(old[3:-1], new[3:-1])
+        self.assertGreater(changed, 0)
+
     def _actuator(
         self,
         transport: FakeTransport,

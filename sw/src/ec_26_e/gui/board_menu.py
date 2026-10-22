@@ -75,6 +75,7 @@ class BoardMenu:
                                start_task=self.start_task,
                                plan_only=self.config.get('plan_only') is True)
         self.camera = CameraPipe()
+        self.camera.prime()
         self.keys = None
         self.key_error = ''
         if physical_buttons_enabled(self.config):
@@ -239,7 +240,7 @@ class BoardMenu:
         logger.info('菜单动作 %s (%s)', action, source)
         self.events.append({'action': action, 'source': source, 'at': time.time()})
         self.events = self.events[-20:]
-        if self.camera.process is not None and not self.model.busy:
+        if self.camera.active and not self.model.busy:
             self.pending_action = (action, source)
             self.transition_error = None
             def release_camera():
@@ -350,6 +351,8 @@ class BoardMenu:
             except OSError as error:
                 self.key_error = str(error)
         self.model.poll_task()
+        if not self.model.busy and self.transition is None and not self.model.preview:
+            self.camera.prime()
         if hasattr(self, 'buttons'):
             self.update_controls()
             if now - self.last_display_poll >= .1:
@@ -406,7 +409,8 @@ class BoardMenu:
                   'button_error': self.key_error, 'pressed': self.key_levels,
                   'camera_frames': self.camera.version, 'events': self.events}
         report.update(transition=self.transition is not None, prediction_state=self.display_state,
-                      prediction_token=self.display_token, cursor='arrow')
+                      prediction_token=self.display_token, cursor='arrow',
+                      preview_worker_ready=self.camera.ready)
         if self.warm_task is not None:
             report['warm_task_ready'] = self.warm_task.ready
         temporary = path.with_suffix('.tmp')

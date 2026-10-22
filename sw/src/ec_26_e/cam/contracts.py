@@ -42,6 +42,7 @@ class CameraConfig:
     ffmpeg_executable: str = "ffmpeg"
     startup_timeout_seconds: float = 5.0
     read_timeout_seconds: float = 2.0
+    focus_absolute: int | None = None
 
     def __post_init__(self) -> None:
         """在访问设备前校验采集参数和超时边界。"""
@@ -70,6 +71,10 @@ class CameraConfig:
             "read_timeout_seconds",
             self.read_timeout_seconds,
         )
+        if self.focus_absolute is not None and (
+            type(self.focus_absolute) is not int or self.focus_absolute < 0
+        ):
+            raise ValueError("focus_absolute 必须为非负整数或 None（不改变相机对焦）")
 
     @property
     def frame_size_bytes(self) -> int:

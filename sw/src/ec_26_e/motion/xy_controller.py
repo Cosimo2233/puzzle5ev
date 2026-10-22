@@ -57,6 +57,7 @@ class MksXYController:
         transport: XYServoTransport,
         *,
         require_motor_reply: bool = XY_REQUIRE_MOTOR_REPLY,
+        speed_level: int = XY_MOVE_SPEED,
         monotonic: Callable[[], float] = time.monotonic,
     ) -> None:
         """保存依赖；调用 ``initialize`` 后才进入 C 的 WAIT_POWER 状态。"""
@@ -67,6 +68,9 @@ class MksXYController:
             raise TypeError("require_motor_reply 必须是 bool")
         if not callable(monotonic):
             raise TypeError("monotonic 必须可调用")
+        if type(speed_level) is not int or not 1 <= speed_level <= 127:
+            raise ValueError("speed_level 必须是 [1, 127] 内的整数")
+        self.speed_level = speed_level
         self._transport = transport
         self._require_motor_reply = require_motor_reply
         self._monotonic = monotonic
@@ -201,21 +205,24 @@ class MksXYController:
         self.state = XYState.FAULT
 
     @staticmethod
-    def calculate_expected_move_ms(x_pulses: int, y_pulses: int) -> int:
-        """按速度档 64 计算无回包运动的理论完成毫秒数。"""
+    def calculate_expected_move_ms(x_pulses: int, y_pulses: int, speed_level: int = XY_MOVE_SPEED) -> int:
+        """按实际下发速度档计算无回包运动的理论完成毫秒数。"""
 
+        if type(speed_level) is not int or not 1 <= speed_level <= 127:
+            raise ValueError("speed_level 必须是 [1, 127] 内的整数")
         maximum_pulses = max(x_pulses, y_pulses)
         return (
-            2 * maximum_pulses + XY_MOVE_SPEED - 1
-        ) // XY_MOVE_SPEED
+            2 * maximum_pulses + speed_level - 1
+        ) // speed_level
 
     @staticmethod
-    def calculate_move_timeout_ms(x_pulses: int, y_pulses: int) -> int:
+    def calculate_move_timeout_ms(x_pulses: int, y_pulses: int, speed_level: int = XY_MOVE_SPEED) -> int:
         """保留 C 的双倍理论时间加固定余量故障超时。"""
 
         expected_ms = MksXYController.calculate_expected_move_ms(
             x_pulses,
             y_pulses,
+            speed_level,
         )
         return expected_ms * 2 + XY_MOVE_TIMEOUT_MARGIN_MS
 
@@ -406,22 +413,24 @@ class MksXYController:
         self._transport.discard_replies()
         if x_pulses:
             # 原固件增大 X 向左；此处反转为增大 X 向右。
-            x_speed = -XY_MOVE_SPEED if x_delta > 0 else XY_MOVE_SPEED
+            x_speed = -self.speed_level if x_delta > 0 else self.speed_level
             self._send_move(MotorAddress.X0, -x_speed, x_pulses)
             self._send_move(MotorAddress.X1, x_speed, x_pulses)
         if y_pulses:
             # 原固件增大 Y 向上；此处反转为增大 Y 向下。
-            y_speed = -XY_MOVE_SPEED if y_delta > 0 else XY_MOVE_SPEED
+            y_speed = -self.speed_level if y_delta > 0 else self.speed_level
             self._send_move(MotorAddress.Y, y_speed, y_pulses)
 
         now_ms = self._now_ms()
         expected_move_ms = self.calculate_expected_move_ms(
             x_pulses,
             y_pulses,
+            self.speed_level,
         )
         self.move_timeout_ms = self.calculate_move_timeout_ms(
             x_pulses,
             y_pulses,
+            self.speed_level,
         )
         self._state_deadline_ms = now_ms + XY_REPLY_TIMEOUT_MS
         # 无回包模式用理论完成时间提交软件位置；外层任务另加固定安全余量。

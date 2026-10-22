@@ -1,0 +1,20 @@
+{
+  "hardware": {
+    "bit": "07beeb20ef4fcb39662f90a49fb97603a40d592e57c66aa2ba6be3d78e27f2d9",
+    "hwh": "165342e544a7d82234f96a512e05c56fe9a0c3cdc78d10f6342af4932a44155a"
+  },
+  "artifacts": {
+    "validate_menu_runtime.py": "45046eab3bf335a4465f85b4c361e491bb3b6c749afc66f031655398729d3ae3",
+    "ec_26_e-0.1.0-py3-none-any.whl": "6a554a51b289d0720aa25c6a9fe1cb4b31d1d1c62d025720e17b488912b232c3",
+    "verify_robust_release.py": "a1dd50b4000fc11e0a7706ccf9db9bf0a6d829468f14ceacaf0811862cc939eb",
+    "benchmark_preview.py": "a577ef250c7ab8a5213194c5951801fa54b2728a16fba802876d0f3d069ccf3f",
+    "xorg-hdmi.conf": "33d7bec9c97dbb8f5fa7f0e89cc7d245be52e9c96e8895b70f47e11d64f0912f",
+    "puzzle_solver-0.1.0-py3-none-any.whl": "331d7cacc3b368f6e4534b2bc411a54e76c71b97430c4b7c1d16c9fd0e437fbc",
+    "install_speed_release.py": "51781c0b615481d18157d94ecc1b1a5bb96972e8bb21a0dece039876767a6bc3",
+    "configure_capture_release.py": "24ed27b6efcf7fa278b0f3fe8c4b930f167ee8e39aa02182cfaca5865b52ba83",
+    "start_menu.sh": "b886f7182ac158ab7bdaf3ab4c8583d3acfd587ed46eb78c632fb91dede92c88",
+    "shapely-2.1.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.whl": "cc4f7397459b12c0b196c9efe1f9d7e92463cbba142632b4cc6d8bbbbd3e2b09",
+    "install_robust_release.py": "2ce0ca695aea12003f6dbb76daa705f33de714f6fe524f774f188743f11411ca",
+    "validate_capture_release.py": "6ae4029f62cf662b82cc02f57eabb6795164238e5dbea026e2caa2863aeb852b"
+  }
+}

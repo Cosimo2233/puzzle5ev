@@ -94,6 +94,7 @@ class ActuationConfig:
     magnet_release_wait_seconds: float = 0.3
     rotation_zero_wait_seconds: float = 1.0
     bridge_port: str | None = None
+    xy_speed_level: int = 64
 
     def __post_init__(self) -> None:
         """校验全部独立参数及软件限位的组合关系。"""
@@ -124,6 +125,8 @@ class ActuationConfig:
             "xy_speed_mm_per_second",
             self.xy_speed_mm_per_second,
         )
+        if type(self.xy_speed_level) is not int or not 1 <= self.xy_speed_level <= 127:
+            raise ValueError("xy_speed_level 必须是 [1, 127] 内的整数")
         _nonnegative(
             "xy_fixed_wait_seconds",
             self.xy_fixed_wait_seconds,

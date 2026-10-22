@@ -12,6 +12,8 @@
 | PL 适配 | `vision/linux_pl.py`、`control/pl_rigid.py`、`control/pl_clearance.py` | PS 统一持锁调度，传输/协议错误阻止任务继续 |
 | 菜单与任务生命周期 | `gui/board_menu.py`、`menu_model.py`、`controller.py` | Tk 主线程处理鼠标/键盘，后台线程释放相机 |
 | 预览通信 / 识别 | `gui/camera_pipe.py`、`production_preview.py` | 采集进程只保留最新帧；分析慢时画面继续刷新 |
+| 预览顶点显示 | `gui/preview_tracking.py` | 小幅抖动滤波；不影响正式观测或运动坐标 |
+| 视觉运行初始化 | `vision/runtime.py` | 空闲预热 Lab 查找表，限制 OpenCV 工作线程 |
 | 结果投影 | `gui/plan_preview.py` | 只显示已检查的方案，不修改执行坐标；令牌隔离本次结果 |
 | 运动 | `sw/src/ec_26_e/motion/` | 沿用实际机械标定、等待和 M0 桥接策略 |
 | 部署和板端验证 | `deploy/axu5ev/` | 安装器、只读核验、无运动基准分开 |

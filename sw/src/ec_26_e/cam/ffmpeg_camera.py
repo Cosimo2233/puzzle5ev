@@ -119,6 +119,16 @@ class FFmpegCamera:
                 raise CameraCaptureError("相机采集器已经启动")
 
         command = _build_ffmpeg_command(self.config)
+        if self.config.focus_absolute is not None:
+            try:
+                # Some UVC drivers mark the manual control inactive until a
+                # separate auto-focus request has completed.
+                for control in ('focus_auto=0', f'focus_absolute={self.config.focus_absolute}'):
+                    subprocess.run([
+                        'v4l2-ctl', '-d', str(self.config.device_path), '--set-ctrl', control,
+                    ], check=True, capture_output=True, timeout=2)
+            except (OSError, subprocess.SubprocessError) as error:
+                raise CameraCaptureError(f'设置相机固定焦点失败：{error}') from error
         try:
             process = subprocess.Popen(
                 command,
