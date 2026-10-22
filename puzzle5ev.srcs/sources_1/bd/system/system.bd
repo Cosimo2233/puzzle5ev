@@ -29,7 +29,8 @@
         "m02_couplers": {},
         "m03_couplers": {},
         "m04_couplers": {},
-        "m05_couplers": {}
+        "m05_couplers": {},
+        "m06_couplers": {}
       },
       "rst_ps8_0_99M": "",
       "dma_memory": "",
@@ -38,7 +39,8 @@
       "zero": "",
       "hdmi_scanout_0": "",
       "irq_concat": "",
-      "fan_on": ""
+      "fan_on": "",
+      "puzzle_candidate_scan_0": ""
     },
     "interface_ports": {
       "hdmi_out_i2c": {
@@ -3454,7 +3456,7 @@
         "xci_name": "system_ps8_0_axi_periph_0",
         "parameters": {
           "NUM_MI": {
-            "value": "6"
+            "value": "7"
           }
         },
         "interface_ports": {
@@ -3525,6 +3527,17 @@
             }
           },
           "M05_AXI": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "hdl_attributes": {
+              "LOCKED": {
+                "value": "FALSE",
+                "value_src": "default"
+              }
+            }
+          },
+          "M06_AXI": {
             "mode": "Master",
             "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
@@ -3661,6 +3674,22 @@
           "M05_ARESETN": {
             "type": "rst",
             "direction": "I"
+          },
+          "M06_ACLK": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_BUSIF": {
+                "value": "M06_AXI"
+              },
+              "ASSOCIATED_RESET": {
+                "value": "M06_ARESETN"
+              }
+            }
+          },
+          "M06_ARESETN": {
+            "type": "rst",
+            "direction": "I"
           }
         },
         "components": {
@@ -3673,7 +3702,7 @@
             "has_run_ip_tcl": "true",
             "parameters": {
               "NUM_MI": {
-                "value": "6"
+                "value": "7"
               },
               "NUM_SI": {
                 "value": "1"
@@ -3686,7 +3715,7 @@
               "S00_AXI": {
                 "bd_attributes": {
                   "BRIDGES": {
-                    "value": "M00_AXI:M01_AXI:M02_AXI:M03_AXI:M04_AXI:M05_AXI",
+                    "value": "M00_AXI:M01_AXI:M02_AXI:M03_AXI:M04_AXI:M05_AXI:M06_AXI",
                     "value_src": "auto"
                   },
                   "TYPE": {
@@ -3702,7 +3731,8 @@
                   "M02_AXI",
                   "M03_AXI",
                   "M04_AXI",
-                  "M05_AXI"
+                  "M05_AXI",
+                  "M06_AXI"
                 ]
               },
               "M00_AXI": {
@@ -3746,6 +3776,14 @@
                 }
               },
               "M05_AXI": {
+                "bd_attributes": {
+                  "TYPE": {
+                    "value": "interior",
+                    "value_src": "default"
+                  }
+                }
+              },
+              "M06_AXI": {
                 "bd_attributes": {
                   "TYPE": {
                     "value": "interior",
@@ -4346,6 +4384,74 @@
                 ]
               }
             }
+          },
+          "m06_couplers": {
+            "interface_ports": {
+              "M_AXI": {
+                "mode": "Master",
+                "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
+                "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+                "hdl_attributes": {
+                  "LOCKED": {
+                    "value": "FALSE",
+                    "value_src": "default"
+                  }
+                }
+              },
+              "S_AXI": {
+                "mode": "Slave",
+                "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
+                "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+                "hdl_attributes": {
+                  "LOCKED": {
+                    "value": "FALSE",
+                    "value_src": "default"
+                  }
+                }
+              }
+            },
+            "ports": {
+              "M_ACLK": {
+                "type": "clk",
+                "direction": "I",
+                "parameters": {
+                  "ASSOCIATED_BUSIF": {
+                    "value": "M_AXI"
+                  },
+                  "ASSOCIATED_RESET": {
+                    "value": "M_ARESETN"
+                  }
+                }
+              },
+              "M_ARESETN": {
+                "type": "rst",
+                "direction": "I"
+              },
+              "S_ACLK": {
+                "type": "clk",
+                "direction": "I",
+                "parameters": {
+                  "ASSOCIATED_BUSIF": {
+                    "value": "S_AXI"
+                  },
+                  "ASSOCIATED_RESET": {
+                    "value": "S_ARESETN"
+                  }
+                }
+              },
+              "S_ARESETN": {
+                "type": "rst",
+                "direction": "I"
+              }
+            },
+            "interface_nets": {
+              "m06_couplers_to_m06_couplers": {
+                "interface_ports": [
+                  "S_AXI",
+                  "M_AXI"
+                ]
+              }
+            }
           }
         },
         "interface_nets": {
@@ -4383,6 +4489,12 @@
             "interface_ports": [
               "m05_couplers/M_AXI",
               "M05_AXI"
+            ]
+          },
+          "m06_couplers_to_ps8_0_axi_periph": {
+            "interface_ports": [
+              "m06_couplers/M_AXI",
+              "M06_AXI"
             ]
           },
           "ps8_0_axi_periph_to_s00_couplers": {
@@ -4432,6 +4544,12 @@
               "xbar/M05_AXI",
               "m05_couplers/S_AXI"
             ]
+          },
+          "xbar_to_m06_couplers": {
+            "interface_ports": [
+              "xbar/M06_AXI",
+              "m06_couplers/S_AXI"
+            ]
           }
         },
         "nets": {
@@ -4447,12 +4565,14 @@
               "m03_couplers/M_ACLK",
               "m04_couplers/M_ACLK",
               "m05_couplers/M_ACLK",
+              "m06_couplers/M_ACLK",
               "m00_couplers/S_ACLK",
               "m01_couplers/S_ACLK",
               "m02_couplers/S_ACLK",
               "m03_couplers/S_ACLK",
               "m04_couplers/S_ACLK",
-              "m05_couplers/S_ACLK"
+              "m05_couplers/S_ACLK",
+              "m06_couplers/S_ACLK"
             ]
           },
           "ps8_0_axi_periph_ARESETN_net": {
@@ -4467,12 +4587,14 @@
               "m03_couplers/M_ARESETN",
               "m04_couplers/M_ARESETN",
               "m05_couplers/M_ARESETN",
+              "m06_couplers/M_ARESETN",
               "m00_couplers/S_ARESETN",
               "m01_couplers/S_ARESETN",
               "m02_couplers/S_ARESETN",
               "m03_couplers/S_ARESETN",
               "m04_couplers/S_ARESETN",
-              "m05_couplers/S_ARESETN"
+              "m05_couplers/S_ARESETN",
+              "m06_couplers/S_ARESETN"
             ]
           }
         }
@@ -4837,6 +4959,14 @@
             "value": "1"
           }
         }
+      },
+      "puzzle_candidate_scan_0": {
+        "vlnv": "xilinx.com:hls:puzzle_candidate_scan:1.0",
+        "ip_revision": "2114840873",
+        "xci_name": "system_puzzle_candidate_scan_0_0",
+        "xci_path": "ip\\system_puzzle_candidate_scan_0_0\\system_puzzle_candidate_scan_0_0.xci",
+        "inst_hier_path": "puzzle_candidate_scan_0",
+        "has_run_ip_tcl": "true"
       }
     },
     "interface_nets": {
@@ -4916,6 +5046,12 @@
         "interface_ports": [
           "ps8_0_axi_periph/M05_AXI",
           "hdmi_iic/S_AXI"
+        ]
+      },
+      "ps8_0_axi_periph_M06_AXI": {
+        "interface_ports": [
+          "ps8_0_axi_periph/M06_AXI",
+          "puzzle_candidate_scan_0/s_axi_control"
         ]
       },
       "puzzle_preprocess_0_dst": {
@@ -5037,7 +5173,9 @@
           "hdmi_iic/s_axi_aresetn",
           "ps8_0_axi_periph/M05_ARESETN",
           "dma_memory/aresetn",
-          "hdmi_clocks/resetn"
+          "hdmi_clocks/resetn",
+          "puzzle_candidate_scan_0/ap_rst_n",
+          "ps8_0_axi_periph/M06_ARESETN"
         ]
       },
       "zero_dout": {
@@ -5074,7 +5212,9 @@
           "axi_dma_0/m_axi_mm2s_aclk",
           "axi_dma_0/m_axi_s2mm_aclk",
           "hdmi_vdma/m_axi_mm2s_aclk",
-          "hdmi_clocks/clk_in1"
+          "hdmi_clocks/clk_in1",
+          "puzzle_candidate_scan_0/ap_clk",
+          "ps8_0_axi_periph/M06_ACLK"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {
@@ -5104,6 +5244,13 @@
                 "address_block": "/hdmi_vdma/S_AXI_LITE/Reg",
                 "offset": "0x00A0040000",
                 "range": "64K"
+              },
+              "SEG_puzzle_candidate_scan_0_Reg": {
+                "address_block": "/puzzle_candidate_scan_0/s_axi_control/Reg",
+                "offset": "0x00A0060000",
+                "range": "64K",
+                "offset_base_param": "C_S_AXI_CONTROL_BASEADDR",
+                "offset_high_param": "C_S_AXI_CONTROL_HIGHADDR"
               },
               "SEG_puzzle_clearance_scan_0_Reg": {
                 "address_block": "/puzzle_clearance_scan_0/s_axi_control/Reg",

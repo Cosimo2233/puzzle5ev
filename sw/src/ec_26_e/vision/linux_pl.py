@@ -89,6 +89,9 @@ class LinuxOverlay:
     def __init__(self, bitstream):
         verify_loaded_hardware(bitstream)
         self.ip_dict = {name: {} for name in ('puzzle_rigid_fit_0', 'puzzle_clearance_scan_0')}
+        if any(p.read_text().strip() == 'puzzle_candidate_scan_0'
+               for p in Path('/sys/class/uio').glob('uio*/name')):
+            self.ip_dict['puzzle_candidate_scan_0'] = {}
         self._devices = {}
 
     def __getattr__(self, name):

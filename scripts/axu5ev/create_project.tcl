@@ -7,7 +7,7 @@ set mode [expr {$argc ? [lindex $argv 0] : "project"}]
 set part xczu5ev-sfvc784-2-i
 source $root/scripts/axu5ev/check_hls_abi.tcl
 set repos {}
-foreach name {preprocess rigid clearance} {
+foreach name {preprocess rigid clearance candidate} {
     set repo $root/build/axu5ev/hls_$name/solution/impl/ip
     if {![file exists $repo/component.xml]} {error "Missing AXU5EV HLS IP: $repo"}
     lappend repos $repo
@@ -100,6 +100,17 @@ if {[file exists $project_file]} {
         set_property range 64K $seg
         set_property offset $addr $seg
     }
+}
+# Independent concave-capable batch distance core. Migrate the saved BD without
+# replacing existing PS, DMA, HDMI or accelerator connections/address segments.
+if {![llength [get_bd_cells -quiet puzzle_candidate_scan_0]]} {
+    create_bd_cell -type ip -vlnv xilinx.com:hls:puzzle_candidate_scan:1.0 puzzle_candidate_scan_0
+    apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Master "/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD" Clk "/zynq_ultra_ps_e_0/pl_clk0 (100 MHz)"} [get_bd_intf_pins puzzle_candidate_scan_0/s_axi_control]
+    assign_bd_address
+    set candidate_seg [get_bd_addr_segs -of_objects [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] -filter {NAME =~ *puzzle_candidate_scan_0*Reg}]
+    if {[llength $candidate_seg] != 1} {error "Ambiguous candidate scan address"}
+    set_property range 64K $candidate_seg
+    set_property offset 0xA0060000 $candidate_seg
 }
 # Preserve cooling when replacing the factory PL; FAN_PWM is active-high.
 if {![llength [get_bd_ports -quiet fan_pwm]]} {

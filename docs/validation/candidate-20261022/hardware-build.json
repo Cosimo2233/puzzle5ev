@@ -1,0 +1,95 @@
+{
+  "board": "AXU5EV-P",
+  "part": "xczu5ev-sfvc784-2-i",
+  "vivado": "2026.1",
+  "build_date": "2026-10-22",
+  "synthesis_passed": true,
+  "implementation_passed": true,
+  "bitstream_generated": true,
+  "xsa_bit_hwh_identical": true,
+  "timing": {
+    "wns_ns": 3.199,
+    "whs_ns": 0.012,
+    "wpws_ns": 2.0,
+    "tns_ns": 0,
+    "ths_ns": 0,
+    "tpws_ns": 0,
+    "no_clock": 0,
+    "unconstrained_internal_endpoints": 0,
+    "io_exceptions": {
+      "asynchronous_false_path": [
+        "hdmi_out_i2c_scl_io",
+        "hdmi_out_i2c_sda_io"
+      ],
+      "forwarded_clock": "hdmi_out_clk"
+    }
+  },
+  "utilization": {
+    "luts": 36769,
+    "registers": 38289,
+    "bram_tiles": 19.5,
+    "dsps": 119
+  },
+  "drc_errors": 0,
+  "drc_critical_warnings": 0,
+  "methodology": {
+    "LUTAR_1": 3,
+    "XDCB_5": 1,
+    "CLKC_56": 1
+  },
+  "hls_cosim": {
+    "transactions": 12,
+    "max_cycles": 146761,
+    "clock_mhz": 100
+  },
+  "c_stress": {
+    "batches": 69,
+    "candidates": 1724,
+    "max_distance_error_mm": 0.00012207
+  },
+  "reports_sha256": {
+    "check_timing.rpt": "db8b0da5a257a7755476dbf0b19c46d4a3c3a4c8b11c6a32ffb60df5c6b3144a",
+    "cosim.rpt": "447db632469adb560802cedeb25e0ad00147e8f0f6252ee6a04bc680f7f71a44",
+    "drc.rpt": "9518ddf0a24a25cf1e7387ce9991c938c9f17492b23e7b2c70b4d215a79dfdb4",
+    "hls.rpt": "e54cb1117f7051320b000b01d5301385340a8c054e3468ebee74bbe87271020e",
+    "methodology.rpt": "c46b314ee8a153f27375db7feece9bf99164b610d4f26d85f0542fd6c3ae5c76",
+    "timing.rpt": "365c732bb20c12360681b5509ccc963886dca8c3dce85e5e79500954ede9cc8b",
+    "utilization.rpt": "7a42d9f1ac30fe5043dcd361029addd4c964c4029358e0d24fd20f841d08b322"
+  },
+  "manifest_sha256": "b3ed833f1fcea619131ab18a6992777e3079d733b09fc15e52b925e10c263e88",
+  "bundle_files": {
+    "puzzle5ev.bit": "4c5018108f512bcb3bc03f0e53aee7054f2c2819b219f0513ee56666483c1cf9",
+    "puzzle5ev.bit.bin": "f6c8b605dd0e15700d5ce297849363f7aa19b7725c2076a8197cb586e3197e72",
+    "puzzle5ev.hwh": "1c48f33ebb041a50b3d8782963c7005016d0b371f45e5c97c37095bfae8bbeae",
+    "puzzle5ev.xsa": "7d7c8e22da3ed876638921905e47fbdc9d963c572fdf4f907e2185acdb432dd0",
+    "puzzle5ev.dtbo": "3ca01817afd789830bd6478d4a50a198b6e26a3f0552c005d7d8699f61b18eb4",
+    "ec26e_accel.ko": "cedb302c58bf088847acaf7a41fc7537aa75e21105ddbce0c32bce5858ac97c0",
+    "ec26e_hdmi_fb.ko": "883eb68b176ce3e917c99899b4ad07c6df3736e2a2505e0dd8465efec42e91a9",
+    "ch341.ko": "b1f5a623f43d7a212b4b011aac8be8f58546fff006191d819fd6f9f602d625c9",
+    "ftdi_sio.ko": "1a24821055de54b70d96c4eba1a86a3b5d428e18e3b5965a5df2358b163cb42b",
+    "pl2303.ko": "6c202855651531e0fdd94ddc1e097b1fef6ad21f857724c54c3892805a0f31de",
+    "load_hardware.py": "caa2d354638aaab7ff493ac26053c15a3ac6a5c154e3b4ffc792c3195b80629c",
+    "xorg-hdmi.conf": "33d7bec9c97dbb8f5fa7f0e89cc7d245be52e9c96e8895b70f47e11d64f0912f",
+    "start_hdmi_x.sh": "4d1ff19138b2fcccb7ed93578ad10fb07d1b57ba34d2d93c22599e653be4a3b4",
+    "setup_x11_fonts.sh": "eece9f71dfe53bdc577d1a673d432f22a744530391916734a9e52ac8dc1611c4",
+    "99-ec26e-camera.rules": "49f2c40bdec2a0b7221d7cd27bd545b422b68a4bd1731391ec1f983a59847be6",
+    "validate_accelerators.py": "2edb317ba427896e233e46e339cb0da6422292724c56388f025c653a2a37c649",
+    "99-ec26e-m0.rules": "9af8f166e077f5aa6b01b64904cee4b19ae1d9ebc6191e8364b386bef92bf5ad",
+    "fix_ch341_baud.py": "93523e5fd4ed813e06c69eb230f957941d0fbdee02bdb8a2b6517e7b0ab880d1",
+    "setup_m0.sh": "8f21323eb8a860924056c29329af6d1d07838a06fba10d91db884231971d1979",
+    "wqy-microhei-ui.ttf": "1df099ec0af9e28bdb949e98e663200d92d3ad719db8118c1027f84eb6de0f68",
+    "copyright": "aee4111b1e01dd3d36514ee7d1e5b144f45e72f4dba83045bb9ff6e47fa4e680"
+  },
+  "project_verification": {
+    "files_checked": 1001,
+    "source_dependencies_ok": true,
+    "runs_need_refresh": false
+  },
+  "board_staging": {
+    "path": "/opt/ec26e/releases/candidate-20261022/hardware",
+    "preflight_passed": true,
+    "loaded": false,
+    "cold_restart_pending": true
+  },
+  "motion_executed": false
+}

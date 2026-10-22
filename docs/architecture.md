@@ -10,6 +10,7 @@
 | 任务编排 | `sw/src/ec_26_e/tasks/` | 固定/随机共用稳定审查、求解和执行检查 |
 | 几何求解 | `../puzzle-solver/src/puzzle_solver/` | 公共输入输出 `PuzzlePiece → MovePlan`；批量拟合可注入后端 |
 | PL 适配 | `vision/linux_pl.py`、`control/pl_rigid.py`、`control/pl_clearance.py` | PS 统一持锁调度，传输/协议错误阻止任务继续 |
+| 随机候选距离 | `src/hls/candidate/`、`control/pl_candidate.py` | 凹/凸多边形批量距离，只做带保护带的候选粗筛；见 [接口说明](pl-candidate-scan.md) |
 | 菜单与任务生命周期 | `gui/board_menu.py`、`menu_model.py`、`controller.py` | Tk 主线程处理鼠标/键盘，后台线程释放相机 |
 | 预览通信 / 识别 | `gui/camera_pipe.py`、`production_preview.py` | 采集进程只保留最新帧；分析慢时画面继续刷新 |
 | 预览顶点显示 | `gui/preview_tracking.py` | 小幅抖动滤波；不影响正式观测或运动坐标 |

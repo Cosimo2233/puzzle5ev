@@ -10,6 +10,7 @@ from puzzle_solver import PlanningOptions
 _backend_lock = threading.Lock()
 _backend = None
 _clearance_backend = None
+_candidate_backend = None
 
 
 def _selected(name, supplied):
@@ -34,19 +35,24 @@ def _timed_plan(pieces, options, kwargs):
             dict(mode=options.mode, elapsed_seconds=time.perf_counter()-started, backends=stats)))
 
 
-def plan_sheet_moves(pieces, options=PlanningOptions(), *, rigid_backend=None, clearance_backend=None):
+def plan_sheet_moves(pieces, options=PlanningOptions(), *, rigid_backend=None, clearance_backend=None, candidate_backend=None):
     """固定和随机共享配准核；四凸片间隙核仅用于固定模式。"""
-    global _backend, _clearance_backend
+    global _backend, _clearance_backend, _candidate_backend
     rigid = _selected('EC_RIGID_BACKEND', rigid_backend)
     clearance = _selected('EC_CLEARANCE_BACKEND', clearance_backend)
+    candidate = _selected('EC_CANDIDATE_BACKEND', candidate_backend)
     if options.mode == 'random':
         clearance = 'cpu'
+    else:
+        candidate = 'cpu'
     kwargs = {}
     if rigid_backend is not None:
         kwargs['rigid_backend'] = rigid_backend
     if clearance_backend is not None:
         kwargs['clearance_backend'] = clearance_backend
-    if rigid == 'cpu' and clearance == 'cpu':
+    if candidate_backend is not None:
+        kwargs['candidate_backend'] = candidate_backend
+    if rigid == 'cpu' and clearance == 'cpu' and candidate == 'cpu':
         return _timed_plan(pieces, options, kwargs)
     with _backend_lock:
         bitstream = os.environ.get('EC_PL_BITSTREAM', '')
@@ -58,9 +64,14 @@ def plan_sheet_moves(pieces, options=PlanningOptions(), *, rigid_backend=None, c
         if clearance == 'pl' and _clearance_backend is None:
             from .pl_clearance import PynqClearanceScanBackend
             _clearance_backend = PynqClearanceScanBackend(bitstream)
+        if candidate == 'pl' and _candidate_backend is None:
+            from .pl_candidate import PynqCandidateScanBackend
+            _candidate_backend = PynqCandidateScanBackend(bitstream)
         if rigid == 'pl':
             kwargs['rigid_backend'] = _backend
         if clearance == 'pl':
             kwargs['clearance_backend'] = _clearance_backend
+        if candidate == 'pl':
+            kwargs['candidate_backend'] = _candidate_backend
         return _timed_plan(pieces, options, kwargs)
 __all__ = ["plan_sheet_moves"]

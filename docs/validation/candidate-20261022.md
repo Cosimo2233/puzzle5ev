@@ -1,0 +1,42 @@
+# 随机留缝候选的 PL 加速验证
+
+新增独立 `puzzle_candidate_scan`，用于随机 2～4 片、含凹多边形的候选距离计算。原四凸片间隙核保留。软件将 190 个留缝候选按最多 64 项分批交给新核，PS 用 0.02 mm 保护带构造乐观评分下界，只跳过不可能改进已有合格候选的布局；最终方案仍经原完整几何和执行检查。接口、地址和构建命令见 [候选核说明](../pl-candidate-scan.md)。
+
+## 已验证的软件改动
+
+随机留缝规划原先对同一组多边形重复计算 161 次质心；现计算一次后复用，候选及顺序不变。板端已部署软件包 `/opt/ec26e/releases/candidate-20261022`，旧软件保存在 `production-before/`。安装核验通过 328 个软件文件，机械标定、旋转 20 RPM、XY 档位 80、运动权限、菜单自启和鼠标光标均保留；本轮没有执行运动。
+
+在 AXU5EV PS 上对同一几何输入集测试。两组均使用原有 PL 刚体配准；“候选 CPU”指本轮新增的距离计算尚在 CPU。每种片数 30 次，共 90 次，全部成功，优化前后 `MovePlan.to_dict()` 逐项相同。
+
+| 输入 | 修改前中位数 / P95 | 预计算优化后、候选 CPU 中位数 / P95 |
+| --- | ---: | ---: |
+| 随机 2 片 | 1.321 / 1.466 s | 0.848 / 0.996 s |
+| 随机 3 片 | 2.131 / 2.761 s | 1.440 / 2.062 s |
+| 随机 4 片 | 6.366 / 7.833 s | 5.463 / 7.002 s |
+
+这些是输入毫米轮廓到完整方案的时间，包含所用 PL 的传输和调度，不包含相机开启、稳定采图或机械搬运；不能代替随机实物和端到端验收。原始输入及逐次结果在板端 `/opt/ec26e/validation/candidate-20261022/`，输入集来自已有 `speed-20261021/corpus.json`。
+
+[原版本结果](candidate-20261022/baseline.summary.json) · [优化 CPU 结果](candidate-20261022/optimized-cpu.summary.json) · [软件安装核验](candidate-20261022/installed-before-hardware.json)
+
+## 新核验证阶段
+
+- C 仿真：9 批独立 GEOS 向量通过，包含 2、3、4 片与 1、63、64 项批次，最大距离误差 0.00000763 mm。
+- C 压力验证：69 批通过，扩展至 3～8 顶点、正反绕序和坐标/平移边界，最大误差 0.00012207 mm。使用同一已编译 C 仿真程序及 `generate_candidate_vectors.py --stress` 生成的独立参考。
+- HLS 综合：100 MHz 目标，估算 57 DSP、4 个 BRAM18、15,732 LUT；这些是核级估算，不是完整实现资源。
+- C/RTL 协同仿真：Verilog 12 次事务通过，包括连续不同批次、非法批量和 NaN 拒绝。最大延迟 146,761 周期，100 MHz 下约 1.468 ms；该数值不包含实际 PS 传输与整次求解。
+- 四个 HLS 核的导出寄存器 ABI 检查通过。
+- 新设备树已与准备好的基底完成离线合并，没有修改运行中的设备树。
+- 完整 Vivado 2026.1 综合、布局布线、bitstream 与 XSA 导出完成；保存工程复查通过，1001 个引用文件存在，无旧工程依赖，综合/实现均不需要刷新。
+- 路由后 WNS **3.199 ns**、WHS **0.012 ns**、WPWS **2.000 ns**，TNS/THS/TPWS 均为 0。内部无无时钟寄存器或未约束端点。外部报告的两条输入和两条输出为既有异步 HDMI I²C false path，另一输出为转发时钟 `hdmi_out_clk`；本轮未改约束，不把这些端口计为普通同步 I/O 时序验收。
+- 完整设计占用 36,769 LUT（31.39%）、38,289 寄存器（16.35%）、19.5 BRAM Tile（13.54%）、119 DSP（9.54%）。DRC 无 Error/Critical Warning，保留 DSP 流水线、BRAM 碰撞等普通警告；methodology 保留 AXI 生成 IP 的 LUTAR-1×3、既有 HDMI 约束查询 XDCB-5×1 和 MMCM CLKC-56 advisory，未降低检查严重性。
+- 部署打包验证 XSA 内 bit/HWH 与独立导出文件逐字节一致。新包 21 个文件已上传至 `/opt/ec26e/releases/candidate-20261022/hardware` 并通过板端哈希和基底检查；尚未切换运行中的旧 PL，新增候选核的真实传输、数值和完整求解计时待冷启动验证。
+
+[完整构建与部署包摘要](candidate-20261022/hardware-build.json)。完整原始报告保存于本地 `build/axu5ev/candidate-hardware-reports/`，其 SHA-256 收录在摘要中。
+
+主机测试覆盖批次 0/1/63/64/65/190、结果对应关系、凹片、绕序、错误序号/ABI/状态、超时、NaN、非法填充、失步后禁止复用，以及误差保护带两端的完整方案一致性。扩大求解器回归为 79 项通过、12 子测试通过、2 条历史固定模板断言失败；在改动前 `323c4e3` 原源码上复现相同数值（固定外框 111.831 mm 对旧断言 100 mm、最小间隙 4.56965 mm 对旧断言 5 mm），未修改断言掩盖它们。
+
+## 版本选择和回滚
+
+新硬件选择通过 `/opt/ec26e/config/axu5ev/hardware.json` 显式指定。没有该文件时继续原硬件包及候选 CPU 路径。`select_candidate_hardware.py` 校验新包、备份监督程序和选择配置后，仅更新下次启动选择；不会在 HDMI/DMA 驱动运行时热重载 PL。
+
+软件可用发布目录的 `install_robust_release.py --release /opt/ec26e/releases/candidate-20261022 --apply --rollback` 恢复。若已切换硬件选择，先用 `select_candidate_hardware.py --release /opt/ec26e/releases/candidate-20261022 --apply --rollback` 恢复旧包选择，再冷启动；它检查配置哈希，拒绝覆盖后续人工修改。机械参数与运动权限不属于本轮回滚范围。

@@ -74,7 +74,10 @@ def bind_hls_uio():
     # The factory boot may already have loaded this module for axi-pmon.
     # A later modprobe of_id=... does not change a loaded module's match table.
     driver = Path('/sys/bus/platform/drivers/uio_pdrv_genirq')
-    for name in ('a0020000.rigid', 'a0030000.clearance'):
+    names = ['a0020000.rigid', 'a0030000.clearance']
+    if (Path('/sys/bus/platform/devices')/'a0060000.candidate').exists():
+        names.append('a0060000.candidate')
+    for name in names:
         device = Path('/sys/bus/platform/devices') / name
         if (device / 'of_node/compatible').read_bytes() != b'generic-uio\0':
             raise RuntimeError(f'Unexpected HLS device identity: {name}')
@@ -162,6 +165,9 @@ def main(bundle: Path = typer.Option(...), apply: bool = typer.Option(False, '--
             names = {p.read_text().strip() for p in Path('/sys/class/uio').glob('uio*/name')}
             if not {'puzzle_rigid_fit_0','puzzle_clearance_scan_0'}.issubset(names):
                 raise RuntimeError('Missing HLS UIO nodes')
+            if ('puzzle_candidate_scan_0' in (bundle/'puzzle5ev.hwh').read_text()
+                    and 'puzzle_candidate_scan_0' not in names):
+                raise RuntimeError('New hardware bundle is missing candidate scan UIO')
             status.update(loaded=True, state='loaded', hardware_acceptance=False)
             write_status(status)
             log.info('Hardware loaded; camera/display/DMA acceptance remains required')

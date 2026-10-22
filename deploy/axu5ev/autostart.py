@@ -18,6 +18,20 @@ LOGS = BASE / 'logs/autostart'
 stopping = False
 
 
+def hardware_selection(config=BASE/'config/axu5ev/hardware.json', base=BASE):
+    """显式选择可回滚硬件包；无配置时沿用已验证的旧包。"""
+    if not config.exists():
+        return BUNDLE, 'cpu'
+    value = json.loads(config.read_text())
+    bundle = Path(value['bundle']).resolve()
+    backend = value.get('candidate_backend', 'cpu')
+    if not bundle.is_relative_to(base.resolve()) or not (bundle/'manifest.json').is_file():
+        raise ValueError('硬件包必须位于 /opt/ec26e 且包含发布清单')
+    if backend not in ('cpu', 'pl'):
+        raise ValueError('candidate_backend 必须为 cpu 或 pl')
+    return bundle, backend
+
+
 def require_candidate():
     if not MARKER.exists() or MARKER.read_bytes() != b'axu5ev-v1\0':
         raise RuntimeError('未启动工程设备树；禁止在厂家平台加载 PL')
@@ -50,10 +64,11 @@ def main():
     RUN.mkdir(parents=True, exist_ok=True)
     LOGS.mkdir(parents=True, exist_ok=True)
     boot_id = Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+    bundle, candidate_backend = hardware_selection()
     logging.basicConfig(filename=LOGS/'supervisor.log', level=logging.INFO,
                         format='%(asctime)s %(levelname)s %(message)s')
     state = dict(boot_id=boot_id, pid=os.getpid(), motion_enabled=False,
-                 bundle=str(BUNDLE), state='starting')
+                 bundle=str(bundle), state='starting')
 
     def save(**changes):
         state.update(changes)
@@ -75,6 +90,8 @@ def main():
         logs = []
         env = dict(os.environ, DISPLAY=':0', EC_MOTION_ENABLED='false',
                    EC_MENU_CONFIG=str(BASE/'config/axu5ev/menu.json'),
+                   EC_PL_BITSTREAM=str(bundle/'puzzle5ev.bit'),
+                   EC_CANDIDATE_BACKEND=candidate_backend,
                    PATH=f'{BASE}/venv-python311/bin:/sbin:/usr/sbin:/bin:/usr/bin',
                    OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1')
 
@@ -109,17 +126,17 @@ def main():
             status = RUN/'pl-status.json'
             if status.exists():
                 pl = json.loads(status.read_text())
-                manifest = json.loads((BUNDLE/'manifest.json').read_text())
+                manifest = json.loads((bundle/'manifest.json').read_text())
                 if not pl.get('loaded') or pl.get('bit_sha256') != manifest['files']['puzzle5ev.bit']:
                     raise RuntimeError('已有失败或不同的 PL 状态；不自动重载')
             else:
-                run([PYTHON, str(BUNDLE/'load_hardware.py'), '--bundle', str(BUNDLE), '--apply'], 'hardware')
+                run([PYTHON, str(bundle/'load_hardware.py'), '--bundle', str(bundle), '--apply'], 'hardware')
             if stopping:
                 return
             # Loading the USB driver does not open/arm the bridge. A missing
             # bridge must not prevent the camera/menu from being usable.
             try:
-                run(['sh', str(BUNDLE/'setup_m0.sh'), str(BUNDLE)], 'm0-driver')
+                run(['sh', str(bundle/'setup_m0.sh'), str(bundle)], 'm0-driver')
             except RuntimeError as error:
                 logging.warning('%s', error)
                 save(peripheral_warning=str(error))

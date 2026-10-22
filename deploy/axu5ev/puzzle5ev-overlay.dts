@@ -44,6 +44,11 @@
                     linux,uio-name = "puzzle_clearance_scan_0";
                     reg = <0 0xa0030000 0 0x10000>;
                 };
+                candidate@a0060000 {
+                    compatible = "generic-uio";
+                    linux,uio-name = "puzzle_candidate_scan_0";
+                    reg = <0 0xa0060000 0 0x10000>;
+                };
                 framebuffer@a0040000 {
                     compatible = "ec26e,hdmi-fb";
                     reg = <0 0xa0040000 0 0x10000>;

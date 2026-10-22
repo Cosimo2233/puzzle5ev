@@ -4,6 +4,11 @@ open_project $root/puzzle5ev.xpr
 if {[get_property PART [current_project]] ne "xczu5ev-sfvc784-2-i"} {error "Wrong part"}
 if {[get_property TOP [current_fileset]] ne "system_wrapper"} {error "Wrong top"}
 open_bd_design [get_files system.bd]
+if {[llength [get_bd_cells -quiet puzzle_candidate_scan_0]] != 1} {error "Missing candidate scan core"}
+set candidate_seg [get_bd_addr_segs -of_objects [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] -filter {NAME =~ *puzzle_candidate_scan_0*Reg}]
+if {[llength $candidate_seg] != 1 || [get_property OFFSET $candidate_seg] != 0xA0060000} {
+    error "Candidate scan address differs from the Linux overlay"
+}
 if {[get_property CONFIG.C_AUX_RESET_HIGH [get_bd_cells hdmi_reset]] != 0 ||
     [get_property CONFIG.CONST_VAL [get_bd_cells fan_on]] != 1 ||
     [get_bd_nets -of_objects [get_bd_pins hdmi_reset/aux_reset_in]] ne

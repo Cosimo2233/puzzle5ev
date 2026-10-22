@@ -1,0 +1,20 @@
+{
+  "2": {
+    "trials": 30,
+    "successes": 30,
+    "median_seconds": 1.3210075144997973,
+    "p95_seconds": 1.4660954543003755
+  },
+  "3": {
+    "trials": 30,
+    "successes": 30,
+    "median_seconds": 2.1308205370005453,
+    "p95_seconds": 2.760660091299633
+  },
+  "4": {
+    "trials": 30,
+    "successes": 30,
+    "median_seconds": 6.3664457120003135,
+    "p95_seconds": 7.832902645948707
+  }
+}
