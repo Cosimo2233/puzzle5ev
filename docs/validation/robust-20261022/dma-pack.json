@@ -1,0 +1,378 @@
+{
+  "summary": {
+    "numpy": {
+      "median": 0.02638499399995453,
+      "p95": 0.026471392949929395
+    },
+    "opencv_direct": {
+      "median": 0.0007806379999237834,
+      "p95": 0.0008170870499384364
+    },
+    "opencv_staged": {
+      "median": 0.0015127205000453614,
+      "p95": 0.0015663244500501606
+    }
+  },
+  "rows": [
+    {
+      "method": "opencv_staged",
+      "seconds": 0.00282017800009271
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007828570001038315
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026369903999921007
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02636549399994692
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0008180190000075527
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015063749999626452
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.001512855000100899
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0008199680000871012
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026359464000051958
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026354214000093634
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007804580000083661
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.001545946000078402
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015417160000197327
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.000779438000108712
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026371823999852495
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026412414000105855
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007830679999187851
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015068249999785621
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015402149999772519
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007812379999450059
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02656430599995474
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02640236399997775
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007778469998811488
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.001512585999989824
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015055950000260054
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007783279997966019
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026354244000003746
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026405963999877713
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007773069999075233
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.001574775000108275
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015055950000260054
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007815379999556171
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026365073999841115
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.0264251339999646
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007791670000187878
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015074559998993209
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.001545104999877367
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007768279999709193
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026437165000061214
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026368073999947228
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0008159479998539609
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015072450000843673
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015025650000097812
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007884980000198993
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02641370400010601
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026356523999993442
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007803680000506574
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015559959999791317
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0014626639999733015
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007804879999184777
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026470584999970015
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026371223999831273
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.000780787999929089
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015104250001058972
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015437860001838999
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007839980000881042
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026390034000087326
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02638412399983281
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007790480001403921
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015090459999100858
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015058049998515344
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007840279999982158
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026357063999967068
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.0263506139999663
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.000791108000157692
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015494550000312302
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015129449998312339
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007835479998448136
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02642129500009105
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02647205399989616
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007804279998708807
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015275850000762148
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015423449999616423
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007766179999180167
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026431914000113466
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026385864000076253
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007799479999448522
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015167550000114716
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015053549998356175
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007787780000398925
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.0263990640000884
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026372843999979523
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007803679998232838
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015047249999042833
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015092249998360785
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007870280001043284
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.026467343999911463
+    },
+    {
+      "method": "numpy",
+      "seconds": 0.02637242400010109
+    },
+    {
+      "method": "opencv_direct",
+      "seconds": 0.0007825279999451595
+    },
+    {
+      "method": "opencv_staged",
+      "seconds": 0.0015247649998855195
+    }
+  ]
+}

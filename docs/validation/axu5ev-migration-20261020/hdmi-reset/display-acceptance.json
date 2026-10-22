@@ -1,0 +1,11 @@
+{
+  "board": "AXU5EV-P",
+  "mode": "1280x720",
+  "bit_sha256": "07beeb20ef4fcb39662f90a49fb97603a40d592e57c66aa2ba6be3d78e27f2d9",
+  "physical_color_bars_user_confirmed": true,
+  "physical_chinese_menu_user_confirmed": true,
+  "camera_currently_enumerated": true,
+  "camera_recovery": "Cold boot directly into candidate v1; hot reboot USB3 recovery is unresolved",
+  "motion_executed": false,
+  "whole_system_acceptance": false
+}

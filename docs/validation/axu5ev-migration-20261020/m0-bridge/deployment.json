@@ -1,0 +1,75 @@
+{
+  "application_deployed": true,
+  "software_manifest": {
+    "hardware_validated": false,
+    "wheels": [
+      {
+        "file": "puzzle_solver-0.1.0-py3-none-any.whl",
+        "sha256": "cdb41d77bd2dbf9d0b1db24a01674625e9e9b47a71efdf240d2bf65d066ddff7",
+        "requires_dist": [
+          "matplotlib (>=3.8,<4) ; extra == \"diagnostics\"",
+          "numpy (>=2.0,<3)",
+          "pillow (>=10,<13) ; extra == \"diagnostics\"",
+          "psutil (>=5.9,<8) ; extra == \"diagnostics\"",
+          "scipy (>=1.13,<2)",
+          "shapely (>=2,<3)",
+          "typer (>=0.12,<1)"
+        ]
+      },
+      {
+        "file": "puzzle_m0_bridge-0.1.0-py3-none-any.whl",
+        "sha256": "6da8b2c72463f9ff0459b394deaa7947abff94f440f0edccde1060312f9066ca",
+        "requires_dist": [
+          "click (>=8.1,<8.2)",
+          "pyserial (>=3.5,<4.0)",
+          "typer (>=0.12.5,<0.13.0)"
+        ]
+      },
+      {
+        "file": "ec_26_e-0.1.0-py3-none-any.whl",
+        "sha256": "631f375167f99535831ec1bfa3d516d64949fa58193878b5b129f85602dcccac",
+        "requires_dist": [
+          "gpiod (>=1.5,<2.0) ; sys_platform == \"linux\"",
+          "numpy (>=2.0.0)",
+          "opencv-python (>=4.10.0.84)",
+          "puzzle-m0-bridge (==0.1.0)",
+          "puzzle-solver (==0.1.0)",
+          "pyserial (>=3.5,<4.0)",
+          "python-periphery (>=2.4,<3.0) ; sys_platform == \"linux\"",
+          "scipy (>=1.13.0,<2.0.0)",
+          "shapely (>=2.0.0,<3.0.0)",
+          "typer (>=0.12.0)"
+        ]
+      }
+    ],
+    "solver": {
+      "commit": "c2ed72d246839e6cc539d6978d02abb5287d642c",
+      "dirty": true,
+      "source_sha256": "a9dfe4d71ff8d87424051e88e43092f83f38edfc74461bdc6f7e1393c34912da"
+    },
+    "bridge": {
+      "commit": "0a9d029e790c683b2116ae5d3e050c7f437b8886",
+      "dirty": false,
+      "source_sha256": "58e585bb9d28b46111a316e038faa8ebb7ba057858f1b5b485dcb9ced97dc7d2"
+    },
+    "application": {
+      "commit": null,
+      "dirty": true,
+      "source_sha256": "7dafd0832d1f5c2d79f9cae3c7dc1d493035f15e6d527c2ace158bf247b66d98"
+    }
+  },
+  "bridge_alias": "/dev/ttyUSB0",
+  "ch341_sha256": "b1f5a623f43d7a212b4b011aac8be8f58546fff006191d819fd6f9f602d625c9",
+  "backend": "m0",
+  "menu_pid": 1302,
+  "motion_enabled": false,
+  "plan_only": true,
+  "firmware_status_fix_flashed": true,
+  "firmware_readback_sha256": "977775d87eacff4e578a0f4f81e439d3984fbdcc1d82620f35bdf5f8a817873e",
+  "bridge_status_query_passed": true,
+  "bridge_downstream_fault": 0,
+  "firmware_variant": "xyz-tx-only",
+  "bridge_status_queries_passed": 100,
+  "xyz_rx_enabled": false,
+  "rotation_rx_enabled": true
+}

@@ -1,0 +1,39 @@
+{
+  "application_tests": {
+    "passed": 75,
+    "subtests_passed": 27,
+    "bridge_host_tests_passed": 12,
+    "existing_config_failures": [
+      "Task1: expected 20 mm but old/new config is 8 mm",
+      "Task2: expected 20 mm but old/new config is 12 mm"
+    ]
+  },
+  "firmware_tests": [
+    "original bridge C protocol/state tests passed",
+    "actual main.c fake UART IRQ/status/fault tests passed"
+  ],
+  "firmware_build": "gmake BUILD_DIR=build/status-fix all",
+  "firmware_flashed": true,
+  "jlink_blocker": null,
+  "firmware_files": {
+    "D:\\FPGA\\mspm0g3507-puzzle-bridge\\build\\status-fix\\firmware.out": "bdf567ff9bc6b2bac35489647f840f841b1fada76809b444da1d634a6cd56600",
+    "D:\\FPGA\\mspm0g3507-puzzle-bridge\\build\\status-fix\\firmware.hex": "ed686d6faf83c46e1a7d51b0c70d8eb97d5be1187a01916a83b0720d306c468e",
+    "D:\\FPGA\\mspm0g3507-puzzle-bridge\\build\\status-fix\\firmware.bin": "afa87d89c39abf3cdb63e49d4855e717adbcb8de30cec137e893d191c8764926"
+  },
+  "firmware_sources": {
+    "src/main.c": "e398fd57f793dca813666ecb9ea8108f11aeef1698f05a90aa822b7bff98c301",
+    "src/modules/bridge.c": "fb22820f2f8266ff2d81de2d18d21655a4a17ba905f325f012fe38d2ff847da9",
+    "config/app.syscfg": "9500c26ebafbd96ba06560f8621b04a69a15dd0a721d70f9276a766aa7a7dc80",
+    "Makefile": "b6f03d962503fecc77a14a149242c1b594d2fb26d40856530a5dba467e780e26"
+  },
+  "corrected_driver_sha256": "b1f5a623f43d7a212b4b011aac8be8f58546fff006191d819fd6f9f602d625c9",
+  "status_query_passed": true,
+  "valid_rx_frames_in_saved_probe": 180,
+  "motion_commands_sent": false,
+  "status_queries_passed": 5,
+  "firmware_readback_verified": true,
+  "downstream_fault": 2,
+  "downstream_accepted": false,
+  "readback_sha256": "afa87d89c39abf3cdb63e49d4855e717adbcb8de30cec137e893d191c8764926",
+  "previous_firmware_readback_sha256": "4394f0447d151de2fbdceed201248c0e0c4eb71fca9c546a5487d08689c64d57"
+}

@@ -1,0 +1,75 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/FPGA/puzzle5ev/src/rtl/hdmi_scanout.v" into library work
+INFO: [VRFC 10-311] analyzing module hdmi_scanout
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/FPGA/puzzle5ev/src/rtl/test_hdmi_scanout.sv" into library work
+INFO: [VRFC 10-311] analyzing module test_hdmi_scanout
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/AMD/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe test_hdmi_scanout -s hdmi_test 
+Multi-threading is on. Using 22 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.hdmi_scanout(H_ACTIVE=4,H_FRONT=...
+Compiling module work.test_hdmi_scanout
+Built simulation snapshot hdmi_test
+
+****** xsim v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 11:05:54 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/hdmi_test/xsim_script.tcl
+# xsim {hdmi_test} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: raster, RGB order, frame alignment, blanking and underrun recovery (51 pixels)
+$finish called at time : 2430 ns : File "D:/FPGA/puzzle5ev/src/rtl/test_hdmi_scanout.sv" Line 55
+exit
+INFO: [Common 17-206] Exiting xsim at Tue Oct 20 11:05:56 2026...
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/FPGA/puzzle5ev/src/rtl/axu5ev_scanout.v" into library work
+INFO: [VRFC 10-311] analyzing module axu5ev_scanout
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/FPGA/puzzle5ev/src/rtl/test_axu5ev_scanout.sv" into library work
+INFO: [VRFC 10-311] analyzing module test_axu5ev_scanout
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/AMD/2026.1/data/verilog/src/glbl.v" into library work
+INFO: [VRFC 10-311] analyzing module glbl
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/AMD/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe -L unisims_ver test_axu5ev_scanout glbl -s axu5ev_hdmi_test 
+Multi-threading is on. Using 22 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.hdmi_scanout(H_ACTIVE=4,H_FRONT=...
+Compiling module unisims_ver.ODDRE1(SIM_DEVICE="ULTRASCALE_PL...
+Compiling module work.axu5ev_scanout
+Compiling module work.test_axu5ev_scanout
+Compiling module work.glbl
+Built simulation snapshot axu5ev_hdmi_test
+
+****** xsim v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 11:05:59 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/axu5ev_hdmi_test/xsim_script.tcl
+# xsim {axu5ev_hdmi_test} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: ADV7511 RGB order, inverted ODDRE1 clock, raster, frame alignment, blanking and underrun recovery (51 pixels)
+$finish called at time : 2600 ns : File "D:/FPGA/puzzle5ev/src/rtl/test_axu5ev_scanout.sv" Line 63
+exit
+INFO: [Common 17-206] Exiting xsim at Tue Oct 20 11:06:01 2026...

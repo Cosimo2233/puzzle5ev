@@ -1,0 +1,47 @@
+{
+  "commands": [
+    "STATUS",
+    "STATUS",
+    "STATUS",
+    "STATUS",
+    "STATUS"
+  ],
+  "results": [
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 2,
+      "version": 1,
+      "malformed": 0
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 2,
+      "version": 1,
+      "malformed": 0
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 2,
+      "version": 1,
+      "malformed": 0
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 2,
+      "version": 1,
+      "malformed": 0
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 2,
+      "version": 1,
+      "malformed": 0
+    }
+  ],
+  "motion_commands_sent": false
+}

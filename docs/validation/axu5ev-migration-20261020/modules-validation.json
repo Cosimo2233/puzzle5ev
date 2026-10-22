@@ -1,0 +1,43 @@
+{
+  "kernel": "5.4.0-xilinx-v2020.1",
+  "modules": [
+    {
+      "module": "ec26e_accel.ko",
+      "vermagic": "vermagic=5.4.0-xilinx-v2020.1 SMP mod_unload aarch64",
+      "undefined_not_in_kallsyms": [
+        "jiffies"
+      ]
+    },
+    {
+      "module": "ch341.ko",
+      "vermagic": "vermagic=5.4.0-xilinx-v2020.1 SMP mod_unload aarch64",
+      "undefined_not_in_kallsyms": [
+        "kmalloc_caches"
+      ]
+    },
+    {
+      "module": "pl2303.ko",
+      "vermagic": "vermagic=5.4.0-xilinx-v2020.1 SMP mod_unload aarch64",
+      "undefined_not_in_kallsyms": [
+        "kmalloc_caches"
+      ]
+    },
+    {
+      "module": "ftdi_sio.ko",
+      "vermagic": "vermagic=5.4.0-xilinx-v2020.1 SMP mod_unload aarch64",
+      "undefined_not_in_kallsyms": [
+        "kmalloc_caches",
+        "param_ops_int"
+      ]
+    },
+    {
+      "module": "ec26e_hdmi_fb.ko",
+      "vermagic": "vermagic=5.4.0-xilinx-v2020.1 SMP mod_unload aarch64",
+      "undefined_not_in_kallsyms": []
+    }
+  ],
+  "loaded": false,
+  "modversions": false,
+  "compiler": "GCC 11.4.0; running kernel GCC 9.2.0",
+  "symbol_check": "Symbol presence only; kernel does not expose __ksymtab entries in kallsyms; module load not tested."
+}

@@ -1,0 +1,22 @@
+﻿[
+    {
+        "Path":  "D:\\FPGA\\puzzle7020\\build\\axu5ev\\backup-20261020\\BOOT.BIN",
+        "Hash":  "62AD38078FF151CB6BBFAE95DF0E966AA848541E0AFABCEE02217D029A963412"
+    },
+    {
+        "Path":  "D:\\FPGA\\puzzle7020\\build\\axu5ev\\backup-20261020\\boot.scr",
+        "Hash":  "FE59D89502276F981752BE4EB277B4979D8440A4EF46A28B52A23E1B84F03745"
+    },
+    {
+        "Path":  "D:\\FPGA\\puzzle7020\\build\\axu5ev\\backup-20261020\\config.gz",
+        "Hash":  "26EC547FF111E8465AFF9061567232D956E9DF7C0A3976DC1C68A2614A0D6CC9"
+    },
+    {
+        "Path":  "D:\\FPGA\\puzzle7020\\build\\axu5ev\\backup-20261020\\image.ub",
+        "Hash":  "8DAAE218EF087C9FF22CAC0336F2514F93A65C42553F19D1987A43838A5C769A"
+    },
+    {
+        "Path":  "D:\\FPGA\\puzzle7020\\build\\axu5ev\\backup-20261020\\live.dtb",
+        "Hash":  "344B4489F0C3E5DFAFC1C0A6038EF515B476E8772153E5DEA615EF578DB9F063"
+    }
+]

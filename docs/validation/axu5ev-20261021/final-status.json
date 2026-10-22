@@ -1,0 +1,50 @@
+{
+  "autostart-status.json": {
+    "boot_id": "14b6eaee-dd01-4959-9c79-14b66597fb36",
+    "pid": 761,
+    "motion_enabled": false,
+    "bundle": "/opt/ec26e/staging/20261020/axu5ev-reset-bundle",
+    "state": "running",
+    "xorg_pid": 799,
+    "menu_pid": 808
+  },
+  "pl-status.json": {
+    "board": "axu5ev",
+    "loaded": true,
+    "state": "loaded",
+    "bit_sha256": "07beeb20ef4fcb39662f90a49fb97603a40d592e57c66aa2ba6be3d78e27f2d9",
+    "hwh_sha256": "165342e544a7d82234f96a512e05c56fe9a0c3cdc78d10f6342af4932a44155a",
+    "hardware_acceptance": false
+  },
+  "menu-status.json": {
+    "boot_id": "14b6eaee-dd01-4959-9c79-14b66597fb36",
+    "pid": 808,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": true,
+    "busy": false,
+    "motion_enabled": false,
+    "message": "正式识别候选 4 个：单帧轮廓合格；启动任务后仍需稳定性检查",
+    "board": "axu5ev",
+    "plan_only": true,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 126,
+    "events": [
+      {
+        "action": "preview",
+        "source": "keyboard",
+        "at": 1792481506.066011
+      }
+    ]
+  },
+  "preview-status.json": {
+    "paper_detected": true,
+    "piece_count": 4,
+    "candidate_count": 4,
+    "valid": true,
+    "reason": "",
+    "frames": 127,
+    "updated_at_unix": 1792481608.0746279
+  }
+}

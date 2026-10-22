@@ -1,0 +1,16 @@
+{
+  "boot_id": "14b6eaee-dd01-4959-9c79-14b66597fb36",
+  "pid": 1006,
+  "python": "3.11.17",
+  "mode": "固定四片",
+  "preview": false,
+  "busy": false,
+  "motion_enabled": true,
+  "message": "选择任务模式，按确认开始；按预览查看摄像头",
+  "board": "axu5ev",
+  "plan_only": false,
+  "button_error": "",
+  "pressed": {},
+  "camera_frames": 0,
+  "events": []
+}

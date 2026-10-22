@@ -1,0 +1,8 @@
+INFO: [SIM 2] *************** CSIM start ***************
+   Compiling ../../../../../../src/hls/rigid/test_rigid_fit.cpp in debug mode
+   Compiling ../../../../../../src/hls/rigid/rigid_fit.cpp in debug mode
+   Generating csim.exe
+SVD golden maximum absolute field error: 0.000630670422
+PASS rigid fit protocol and numeric cases
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

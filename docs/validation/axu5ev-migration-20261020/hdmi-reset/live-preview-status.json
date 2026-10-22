@@ -1,0 +1,1 @@
+{"paper_detected": true, "piece_count": 0, "candidate_count": 5, "valid": false, "reason": "预期 4 片，检测到 5 个连通域；请分开放置", "frames": 51, "updated_at_unix": 1792476218.7418401}

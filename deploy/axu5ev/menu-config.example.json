@@ -1,0 +1,13 @@
+{
+  "board": "axu5ev",
+  "plan_only": true,
+  "motion_enabled": false,
+  "physical_buttons": false,
+  "preprocess_backend": "cpu",
+  "rigid_backend": "cpu",
+  "clearance_backend": "cpu",
+  "calibration_profile_accepted": false,
+  "wiring_and_calibration_verified": false,
+  "machine_env": "/opt/ec26e/config/axu5ev/machine.env",
+  "task_config_dir": "/opt/ec26e/config/axu5ev/tasks"
+}

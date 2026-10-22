@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "installed_files_checked": 189,
+  "mechanics_preserved": true,
+  "motion_authorization_preserved": true,
+  "motion_executed": false,
+  "hardware_unchanged": true,
+  "rebooted": false,
+  "menu": {
+    "boot_id": "14b6eaee-dd01-4959-9c79-14b66597fb36",
+    "pid": 2703,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": false,
+    "busy": false,
+    "motion_enabled": true,
+    "message": "选择任务模式，按确认开始；按预览查看摄像头",
+    "board": "axu5ev",
+    "plan_only": false,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 0,
+    "events": [],
+    "warm_task_ready": true
+  },
+  "autostart": {
+    "boot_id": "14b6eaee-dd01-4959-9c79-14b66597fb36",
+    "pid": 2673,
+    "motion_enabled": true,
+    "bundle": "/opt/ec26e/staging/20261020/axu5ev-reset-bundle",
+    "state": "running",
+    "xorg_pid": 2694,
+    "menu_pid": 2703
+  },
+  "autostart_links": [
+    "/etc/rc0.d/K05ec26e-menu",
+    "/etc/rc1.d/K05ec26e-menu",
+    "/etc/rc5.d/S99ec26e-menu",
+    "/etc/rc6.d/K05ec26e-menu"
+  ],
+  "artifacts": {
+    "ec_26_e-0.1.0-py3-none-any.whl": "986c893bf64ad08fc107c20e79b3c46534aeac2fd7bd303af2da145d9686afcb",
+    "puzzle_solver-0.1.0-py3-none-any.whl": "437e093fc360159a50c2ddbecbac2c0aaa4df439758f817b629b3f33e1ec5a78",
+    "start_menu.sh": "b604974973ecfdb220529df34901000ebc5948d83a3517233cc4b450e6b8ed09",
+    "install_speed_release.py": "51781c0b615481d18157d94ecc1b1a5bb96972e8bb21a0dece039876767a6bc3"
+  }
+}

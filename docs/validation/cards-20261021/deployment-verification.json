@@ -1,0 +1,22 @@
+{
+  "installed_files": 87,
+  "profiles": {
+    "fixed": [
+      275,
+      45,
+      0
+    ],
+    "random": [
+      320,
+      45,
+      218
+    ]
+  },
+  "boot_id": "14b6eaee-dd01-4959-9c79-14b66597fb36",
+  "hardware_unchanged": true,
+  "mechanics_unchanged": true,
+  "motion_permissions_unchanged": true,
+  "solver_unchanged": true,
+  "menu_pid": 3954,
+  "wheel_sha256": "205116acc8e9fdfb16c2ce6b7d01be256c4c085b5890b247f32ae56b18e11f16"
+}

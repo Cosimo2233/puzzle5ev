@@ -1,0 +1,7 @@
+INFO: [SIM 2] *************** CSIM start ***************
+   Compiling ../../../../../../src/hls/clearance/test_clearance_scan.cpp in debug mode
+   Compiling ../../../../../../src/hls/clearance/clearance_scan.cpp in debug mode
+   Generating csim.exe
+PASS 8 scans; max distance error 1.52588e-05 mm
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

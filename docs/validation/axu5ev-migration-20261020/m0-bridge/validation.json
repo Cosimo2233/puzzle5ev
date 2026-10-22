@@ -1,0 +1,48 @@
+{
+  "application_tests": {
+    "passed": 75,
+    "subtests_passed": 27,
+    "bridge_host_tests_passed": 12,
+    "existing_config_failures": [
+      "Task1: expected 20 mm but old/new config is 8 mm",
+      "Task2: expected 20 mm but old/new config is 12 mm"
+    ]
+  },
+  "firmware_tests": [
+    "original bridge C protocol/state tests passed",
+    "actual main.c fake UART IRQ/status/fault tests passed",
+    "XYZ RX errors ignored, XYZ TX and rotation RX retained; native fake hardware test passed"
+  ],
+  "firmware_build": "gmake BUILD_DIR=build/xyz-tx-only all; tools/package.ps1",
+  "firmware_flashed": true,
+  "jlink_blocker": null,
+  "firmware_files": {
+    "D:\\FPGA\\mspm0g3507-puzzle-bridge\\build\\xyz-tx-only\\firmware.out": "8942f0ab1f35a21951b40bba8acac61ba69ac9b113d75b337d7a84f3f3ab1e49",
+    "D:\\FPGA\\mspm0g3507-puzzle-bridge\\build\\xyz-tx-only\\firmware.hex": "88cfc97f4f3f287b3c7c1f29154a7489d0d4f1cedf199f3c99740e5964f5002f",
+    "D:\\FPGA\\mspm0g3507-puzzle-bridge\\build\\xyz-tx-only\\firmware.bin": "977775d87eacff4e578a0f4f81e439d3984fbdcc1d82620f35bdf5f8a817873e"
+  },
+  "firmware_sources": {
+    "src/main.c": "6bde8ad6d99e0cc7e7a8e84448357ebd39c2a788c997141cb5cba00ada9c7fcf",
+    "src/modules/bridge.c": "fb22820f2f8266ff2d81de2d18d21655a4a17ba905f325f012fe38d2ff847da9",
+    "config/app.syscfg": "044116d57ce6226868e1327e38889967e31c8e523dda1015d46671bc65a01653",
+    "Makefile": "b6f03d962503fecc77a14a149242c1b594d2fb26d40856530a5dba467e780e26"
+  },
+  "corrected_driver_sha256": "b1f5a623f43d7a212b4b011aac8be8f58546fff006191d819fd6f9f602d625c9",
+  "status_query_passed": true,
+  "valid_rx_frames_in_saved_probe": 180,
+  "motion_commands_sent": false,
+  "status_queries_passed": 100,
+  "firmware_readback_verified": true,
+  "downstream_fault": 0,
+  "downstream_accepted": false,
+  "readback_sha256": "977775d87eacff4e578a0f4f81e439d3984fbdcc1d82620f35bdf5f8a817873e",
+  "previous_firmware_readback_sha256": "4394f0447d151de2fbdceed201248c0e0c4eb71fca9c546a5487d08689c64d57",
+  "firmware_variant": "xyz-tx-only",
+  "xyz_transmit_verified_on_hardware": false,
+  "rotation_feedback_verified_on_hardware": false,
+  "application_status_preflight_passed": true,
+  "xyz_rx_enabled": false,
+  "rotation_rx_enabled": true,
+  "status_evidence": "xyz-tx-only-status.json",
+  "fault_clearance_observation": "Before update fault=2; after disabling unused XYZ RX, 100 consecutive STATUS replies fault=0 over 20.148 seconds; application STATUS preflight later also passed."
+}

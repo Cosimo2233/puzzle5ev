@@ -1,0 +1,450 @@
+{
+  "timing": {
+    "baseline-cpu": {
+      "fixed4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 2.1767083509994336,
+        "p95_seconds": 2.2297121817503465,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 2.003311462000056,
+        "p95_seconds": 2.2435959110495785,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 4.1611629895005535,
+        "p95_seconds": 6.7275065431003895,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random4": {
+        "trials": 30,
+        "successes": 12,
+        "median_seconds": 29.087022802999854,
+        "p95_seconds": 29.625847312648876,
+        "failed_cases": [
+          "random4-00-four_fan",
+          "random4-02-nonparallel",
+          "random4-04-four_fan",
+          "random4-06-nonparallel",
+          "random4-08-four_fan",
+          "random4-10-nonparallel",
+          "random4-12-four_fan",
+          "random4-14-nonparallel",
+          "random4-15-difficult_similar",
+          "random4-16-four_fan",
+          "random4-18-nonparallel",
+          "random4-19-difficult_similar",
+          "random4-20-four_fan",
+          "random4-22-nonparallel",
+          "random4-24-four_fan",
+          "random4-26-nonparallel",
+          "random4-27-difficult_similar",
+          "random4-28-four_fan"
+        ],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      }
+    },
+    "release-geometry-cpu": {
+      "fixed4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 2.1002378720004344,
+        "p95_seconds": 2.1407152107009098,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 1.8415531899991038,
+        "p95_seconds": 2.1576111113992735,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 3.5731480194999676,
+        "p95_seconds": 3.9635449014503137,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 6.080683493999459,
+        "p95_seconds": 10.328037653049705,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      }
+    },
+    "release-geometry-pl": {
+      "fixed4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 1.836611210499541,
+        "p95_seconds": 1.910510837100628,
+        "failed_cases": [],
+        "rigid_request_count": 2340,
+        "rigid_batch_count": 61,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 30
+      },
+      "random2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 1.8285094345010293,
+        "p95_seconds": 2.1543765286511185,
+        "failed_cases": [],
+        "rigid_request_count": 403,
+        "rigid_batch_count": 30,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 3.58269540549918,
+        "p95_seconds": 3.9440529050501936,
+        "failed_cases": [],
+        "rigid_request_count": 1912,
+        "rigid_batch_count": 160,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 6.072683179998421,
+        "p95_seconds": 10.286776754599668,
+        "failed_cases": [],
+        "rigid_request_count": 14239,
+        "rigid_batch_count": 1052,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      }
+    },
+    "release-replay-cpu": {
+      "fixed4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 7.088491686999987,
+        "p95_seconds": 7.1338942590502485,
+        "failed_cases": [],
+        "rigid_request_count": 0,
+        "rigid_batch_count": 0,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      }
+    },
+    "release-replay-pl": {
+      "fixed4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 6.130231944998741,
+        "p95_seconds": 6.133326063499044,
+        "failed_cases": [],
+        "rigid_request_count": 2340,
+        "rigid_batch_count": 60,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 30
+      }
+    },
+    "release-synthetic-pipeline-pl": {
+      "random2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 5.25249567749961,
+        "p95_seconds": 5.5774997967997475,
+        "failed_cases": [],
+        "rigid_request_count": 404,
+        "rigid_batch_count": 30,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 7.282308789999661,
+        "p95_seconds": 7.683116282049923,
+        "failed_cases": [],
+        "rigid_request_count": 2087,
+        "rigid_batch_count": 162,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      },
+      "random4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 10.036222628501491,
+        "p95_seconds": 14.91989901710058,
+        "failed_cases": [],
+        "rigid_request_count": 15849,
+        "rigid_batch_count": 1011,
+        "rigid_numerical_cpu_fallbacks": 0,
+        "clearance_scan_count": 0
+      }
+    }
+  },
+  "exported_plan_checks": {
+    "baseline-cpu": {
+      "passed": 102,
+      "failures": []
+    },
+    "release-geometry-cpu": {
+      "passed": 120,
+      "failures": []
+    },
+    "release-geometry-pl": {
+      "passed": 120,
+      "failures": []
+    },
+    "release-replay-cpu": {
+      "passed": 30,
+      "failures": []
+    },
+    "release-replay-pl": {
+      "passed": 30,
+      "failures": []
+    },
+    "release-synthetic-pipeline-pl": {
+      "passed": 90,
+      "failures": []
+    }
+  },
+  "limits": [
+    "Geometry-only timings exclude acquisition and vision.",
+    "Recorded and synthetic scenes do not establish real-camera P95 or physical accuracy.",
+    "All validation is plan-only; no actuator was started."
+  ],
+  "pipeline_metrics": {
+    "release-replay-cpu": {
+      "fixed4": {
+        "measured_trials": 30,
+        "capture_seconds": {
+          "median": 0.4354627244974836,
+          "p95": 0.4379284541575544
+        },
+        "resize_seconds": {
+          "median": 2.274415172998488,
+          "p95": 2.284085251597753
+        },
+        "detect_seconds": {
+          "median": 0.8913810784997622,
+          "p95": 0.8954626518001533
+        },
+        "preprocess_seconds": {
+          "median": 0.31812702100251045,
+          "p95": 0.31981483810195643
+        },
+        "review_seconds": {
+          "median": 0.13118013550592877,
+          "p95": 0.1386961986510869
+        },
+        "solve_seconds": {
+          "median": 2.7792368204991362,
+          "p95": 2.8074756129490197
+        },
+        "click_to_plan_seconds": {
+          "median": 6.548460816500665,
+          "p95": 6.579625847200441
+        },
+        "vision_pl_frame_count": 0,
+        "vision_pl_pack_seconds": 0,
+        "vision_pl_dma_seconds": 0,
+        "vision_pl_copy_seconds": 0,
+        "fixed_cpu_tie_fallbacks": 0
+      }
+    },
+    "release-replay-pl": {
+      "fixed4": {
+        "measured_trials": 30,
+        "capture_seconds": {
+          "median": 0.42021250649850117,
+          "p95": 0.4233198446007009
+        },
+        "resize_seconds": {
+          "median": 2.2348693474978063,
+          "p95": 2.2404278114969203
+        },
+        "detect_seconds": {
+          "median": 0.7945385945004091,
+          "p95": 0.7987149015007162
+        },
+        "preprocess_seconds": {
+          "median": 0.21543845350242918,
+          "p95": 0.21577780795123544
+        },
+        "review_seconds": {
+          "median": 0.13127532800353947,
+          "p95": 0.13842949264999332
+        },
+        "solve_seconds": {
+          "median": 1.9076079999995272,
+          "p95": 1.9246183654500784
+        },
+        "click_to_plan_seconds": {
+          "median": 5.56280217550011,
+          "p95": 5.580122956747982
+        },
+        "vision_pl_frame_count": 180,
+        "vision_pl_pack_seconds": 4.760009962021286,
+        "vision_pl_dma_seconds": 0.9151130810350878,
+        "vision_pl_copy_seconds": 0.5000435289621237,
+        "fixed_cpu_tie_fallbacks": 0
+      }
+    },
+    "release-synthetic-pipeline-pl": {
+      "random2": {
+        "measured_trials": 30,
+        "capture_seconds": {
+          "median": 0.030456379006864154,
+          "p95": 0.033098487151801234
+        },
+        "resize_seconds": {
+          "median": 1.9831920019969402,
+          "p95": 1.9867162169462973
+        },
+        "detect_seconds": {
+          "median": 0.7076929170016228,
+          "p95": 0.7653051528986907
+        },
+        "preprocess_seconds": {
+          "median": 0.21536292849668826,
+          "p95": 0.2156878064517514
+        },
+        "review_seconds": {
+          "median": 0.0757179369993537,
+          "p95": 0.08392796750395064
+        },
+        "solve_seconds": {
+          "median": 1.821200056499947,
+          "p95": 2.150892948998808
+        },
+        "click_to_plan_seconds": {
+          "median": 4.6911655545009125,
+          "p95": 5.019188150699847
+        },
+        "vision_pl_frame_count": 180,
+        "vision_pl_pack_seconds": 4.759655498008215,
+        "vision_pl_dma_seconds": 0.9146032769676822,
+        "vision_pl_copy_seconds": 0.5014915020074113,
+        "fixed_cpu_tie_fallbacks": 0
+      },
+      "random3": {
+        "measured_trials": 30,
+        "capture_seconds": {
+          "median": 0.030466294494544854,
+          "p95": 0.030795708600817307
+        },
+        "resize_seconds": {
+          "median": 1.983873967998079,
+          "p95": 1.985759960552059
+        },
+        "detect_seconds": {
+          "median": 0.9119790745025966,
+          "p95": 0.9336020458960774
+        },
+        "preprocess_seconds": {
+          "median": 0.21537485400040168,
+          "p95": 0.21563537505171554
+        },
+        "review_seconds": {
+          "median": 0.11039169949617644,
+          "p95": 0.12849529674913357
+        },
+        "solve_seconds": {
+          "median": 3.617609769500632,
+          "p95": 3.9816087566981877
+        },
+        "click_to_plan_seconds": {
+          "median": 6.740710314001262,
+          "p95": 7.121253812900432
+        },
+        "vision_pl_frame_count": 180,
+        "vision_pl_pack_seconds": 4.758512044976669,
+        "vision_pl_dma_seconds": 0.9132323150261072,
+        "vision_pl_copy_seconds": 0.5000090849971457,
+        "fixed_cpu_tie_fallbacks": 0
+      },
+      "random4": {
+        "measured_trials": 30,
+        "capture_seconds": {
+          "median": 0.03062091650281218,
+          "p95": 0.03264909089921275
+        },
+        "resize_seconds": {
+          "median": 1.9845236250002927,
+          "p95": 1.9902472939034852
+        },
+        "detect_seconds": {
+          "median": 1.112003118998473,
+          "p95": 1.1479559265455463
+        },
+        "preprocess_seconds": {
+          "median": 0.21540836500025762,
+          "p95": 0.2159183652507636
+        },
+        "review_seconds": {
+          "median": 0.19107065000207513,
+          "p95": 0.192558493199067
+        },
+        "solve_seconds": {
+          "median": 6.082212339500984,
+          "p95": 10.930015990400898
+        },
+        "click_to_plan_seconds": {
+          "median": 9.461289649001628,
+          "p95": 14.34754594875194
+        },
+        "vision_pl_frame_count": 180,
+        "vision_pl_pack_seconds": 4.758563137005694,
+        "vision_pl_dma_seconds": 0.9159109580177756,
+        "vision_pl_copy_seconds": 0.5012141109691584,
+        "fixed_cpu_tie_fallbacks": 0
+      }
+    }
+  },
+  "preprocessing": {
+    "trials": 90,
+    "detected": 90,
+    "exact_masks": 90,
+    "reference_preprocess_cpu_seconds_median": 0.04304650100000096,
+    "reference_preprocess_wall_seconds_median": 0.04306691549936659,
+    "selected_preprocess_cpu_seconds_median": 0.0294381239999999,
+    "selected_preprocess_wall_seconds_median": 0.03443903949846572
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "protocol_vectors",
+  "motion_executed": false,
+  "frames": {
+    "X0_enable": "e0f301d4",
+    "X0_disable": "e0f300d3",
+    "X0_move_3200": "e0fd4000000c80a9",
+    "X1_enable": "e1f301d5",
+    "X1_disable": "e1f300d4",
+    "X1_move_3200": "e1fd4000000c80aa",
+    "Y_enable": "e2f301d6",
+    "Y_disable": "e2f300d5",
+    "Y_move_3200": "e2fd4000000c80ab",
+    "Z_enable": "e3f301d7",
+    "Z_disable": "e3f300d6",
+    "Z_move_3200": "e3fd4000000c80ac",
+    "rotation_speed_15": "7a0201000f767b",
+    "rotation_90": "7a020200000384fd7b"
+  }
+}

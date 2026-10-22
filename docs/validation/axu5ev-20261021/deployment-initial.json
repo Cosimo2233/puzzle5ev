@@ -1,0 +1,16 @@
+{
+  "installed": true,
+  "boot_tested": false,
+  "motion_executed": false,
+  "factory_base_guard_passed": true,
+  "files": {
+    "autostart.py": "9cdc5c3e7a4b7bf13e15ca79ae5e4a4c145598bb0d42d0937899575013a6fa74",
+    "ec26e-menu.init": "14b5d75b71c82f98548084130b0b43354fced7e17dcf7a23933dccceb29cc256",
+    "fixed.json": "41577a904fdc15ba20340fbb445d44c2e631e530564d074eb3106919ed28a225",
+    "random.json": "0e744cedfd5e33c7c405359d74f4b5baa92cc3f007a806e885c7a6b9af949e4c",
+    "boot.scr": "2a14405389f31fe60a6d040f3182497e0eb331c78b70d02925004a471143af4f",
+    "ec_26_e-0.1.0-py3-none-any.whl": "0dc6f7571b0118840e0741b77c065eb4d3000902d1b0adefc098960da9bf63a3"
+  },
+  "factory_backup": "/media/sd-mmcblk1p1/boot.factory-20261021.scr",
+  "candidate_sha256": "68149a9752c3b8527f3f7f89c52de154a2326d73513bd7924f78f0939bfc0d18"
+}

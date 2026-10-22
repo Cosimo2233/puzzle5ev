@@ -1,0 +1,75 @@
+﻿{
+  "timestamp_unix": 1792463854.2601972,
+  "kernel": "5.4.0-xilinx-v2020.1",
+  "arch": "aarch64",
+  "usb": [
+    {
+      "path": "1-1",
+      "idVendor": "05e3",
+      "idProduct": "0610",
+      "serial": null,
+      "manufacturer": "GenesysLogic",
+      "product": "USB2.1 Hub",
+      "speed": "480"
+    },
+    {
+      "path": "2-1",
+      "idVendor": "05e3",
+      "idProduct": "0620",
+      "serial": null,
+      "manufacturer": "GenesysLogic",
+      "product": "USB3.1 Hub",
+      "speed": "5000"
+    },
+    {
+      "path": "usb1",
+      "idVendor": "1d6b",
+      "idProduct": "0002",
+      "serial": "xhci-hcd.0.auto",
+      "manufacturer": "Linux 5.4.0-xilinx-v2020.1 xhci-hcd",
+      "product": "xHCI Host Controller",
+      "speed": "480"
+    },
+    {
+      "path": "usb2",
+      "idVendor": "1d6b",
+      "idProduct": "0003",
+      "serial": "xhci-hcd.0.auto",
+      "manufacturer": "Linux 5.4.0-xilinx-v2020.1 xhci-hcd",
+      "product": "xHCI Host Controller",
+      "speed": "5000"
+    }
+  ],
+  "serial": [],
+  "video": [
+    {
+      "device": "/dev/video0",
+      "name": "vcap_mipi output 0",
+      "sysfs": "/sys/devices/platform/amba_pl@0/amba_pl@0:vcap_mipi/video4linux/video0"
+    }
+  ],
+  "display": [
+    {
+      "name": "card0-DP-1",
+      "status": "disconnected",
+      "modes": ""
+    }
+  ],
+  "kernel_options": {
+    "USB_VIDEO_CLASS": "y",
+    "USB_SERIAL_CP210X": "y",
+    "USB_SERIAL_CH341": "n",
+    "USB_SERIAL_FTDI_SIO": "n",
+    "USB_SERIAL_PL2303": "n",
+    "USB_ACM": "n",
+    "DRM_I2C_ADV7511": "n",
+    "UIO_PDRV_GENIRQ": "m",
+    "DMA_CMA": "y",
+    "MODVERSIONS": "n"
+  },
+  "cmdline": "earlycon console=ttyPS0,115200 clk_ignore_unused root=/dev/mmcblk1p2 rw rootwait",
+  "framebuffer": "",
+  "fpga_state": "operating",
+  "motion_executed": false,
+  "hardware_modified": false
+}

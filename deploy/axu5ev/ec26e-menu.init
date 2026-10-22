@@ -1,0 +1,24 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: ec26e-menu
+# Required-Start: $local_fs $remote_fs $network
+# Required-Stop: $local_fs $remote_fs
+# Default-Start: 5
+# Default-Stop: 0 1 6
+### END INIT INFO
+set -eu
+pid=/run/ec26e-menu.pid
+python=/opt/ec26e/venv-python311/bin/python
+script=/opt/ec26e/install/autostart.py
+case "${1:-}" in
+    start)
+        start-stop-daemon -S -o -b -m -p "$pid" -x "$python" -- -u "$script"
+        ;;
+    stop)
+        start-stop-daemon -K -p "$pid" -x "$python" -s TERM || true
+        ;;
+    status)
+        cat /run/ec26e/autostart-status.json
+        ;;
+    *) echo "Usage: $0 {start|stop|status}" >&2; exit 2 ;;
+esac

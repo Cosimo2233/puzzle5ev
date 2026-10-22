@@ -1,0 +1,22 @@
+{
+  "boot_id": "bd0d8829-e287-480a-a000-9e4f3be64266",
+  "pid": 665,
+  "python": "3.11.17",
+  "mode": "固定四片",
+  "preview": true,
+  "busy": false,
+  "motion_enabled": false,
+  "message": "正式识别候选 4 个：单帧轮廓合格；启动任务后仍需稳定性检查",
+  "board": "axu5ev",
+  "plan_only": true,
+  "button_error": "",
+  "pressed": {},
+  "camera_frames": 50,
+  "events": [
+    {
+      "action": "preview",
+      "source": "keyboard",
+      "at": 1792476170.5884602
+    }
+  ]
+}

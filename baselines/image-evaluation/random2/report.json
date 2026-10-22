@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "input_sha256": "5aa0de3e2c1953005c2748d8245c211486e0bd3526b8ddd0db7d9957d6e89ad6",
+  "motion_executed": false,
+  "temporal_stability_validated": false,
+  "timings_ms": {
+    "read_decode": 2.581099994131364,
+    "resize": 32.76950000145007,
+    "vision": 14.137000005575828,
+    "solve": 85.2496000006795,
+    "total": 138.6698999995133
+  },
+  "detection": {
+    "image_size": [
+      876,
+      621
+    ],
+    "coordinate_system": "a4_landscape_top_left",
+    "piece_count": 2,
+    "groups": [
+      {
+        "group_id": 0,
+        "corners_px": [
+          [
+            732.0263061523438,
+            24.95853614807129
+          ],
+          [
+            807.9801025390625,
+            109.06324005126953
+          ],
+          [
+            740.9396362304688,
+            208.06488037109375
+          ],
+          [
+            724.0355834960938,
+            328.0492858886719
+          ],
+          [
+            577.01220703125,
+            166.01295471191406
+          ]
+        ],
+        "center_px": [
+          698.5010615350789,
+          161.6478555923902
+        ],
+        "corners_relative": [
+          [
+            0.836601,
+            0.040256
+          ],
+          [
+            0.923406,
+            0.175908
+          ],
+          [
+            0.846788,
+            0.335589
+          ],
+          [
+            0.827469,
+            0.529112
+          ],
+          [
+            0.659443,
+            0.267763
+          ]
+        ],
+        "center_relative": [
+          0.798287,
+          0.260722
+        ],
+        "area_px": 31589.440846681944,
+        "area_relative": 0.058069252065606994,
+        "polygon_iou": 0.9929144720341109,
+        "line_residual": 0.3959579149151977,
+        "confidence": 0.9929144720341109
+      },
+      {
+        "group_id": 1,
+        "corners_px": [
+          [
+            821.0055541992188,
+            378.9620666503906
+          ],
+          [
+            848.9668579101562,
+            563.0052490234375
+          ],
+          [
+            641.94140625,
+            595.0042724609375
+          ],
+          [
+            630.0196533203125,
+            514.9923706054688
+          ],
+          [
+            709.9087524414062,
+            425.0955505371094
+          ]
+        ],
+        "center_px": [
+          745.7065632900674,
+          500.6154118821273
+        ],
+        "corners_relative": [
+          [
+            0.938292,
+            0.611229
+          ],
+          [
+            0.970248,
+            0.908073
+          ],
+          [
+            0.733647,
+            0.959684
+          ],
+          [
+            0.720022,
+            0.830633
+          ],
+          [
+            0.811324,
+            0.685638
+          ]
+        ],
+        "center_relative": [
+          0.852236,
+          0.807444
+        ],
+        "area_px": 31100.454465455376,
+        "area_relative": 0.057170373431891734,
+        "polygon_iou": 0.9992684012977925,
+        "line_residual": 0.4639486382087853,
+        "confidence": 0.9992684012977925
+      }
+    ],
+    "diagnostics": {
+      "foreground_threshold": 0.0,
+      "workspace_area_px": 532084
+    }
+  },
+  "diagnostics": {
+    "native_timing": {
+      "preprocess_ms": 0.0,
+      "input_flush_ms": 0.0,
+      "network_ms": 0.0,
+      "output_map_ms": 0.0,
+      "detection_decode_ms": 0.0,
+      "nms_ms": 0.0,
+      "mask_decode_ms": 0.0,
+      "output_unmap_ms": 0.0,
+      "total_ms": 0.0
+    },
+    "stage_ms": {
+      "preprocess": 9.9292,
+      "total": 12.4426
+    },
+    "yolo_count": 0,
+    "contained_duplicate_count": 0,
+    "refined_count": 2,
+    "driver_version": 0,
+    "instances": [
+      {
+        "score": 0.9929,
+        "edge_support": 0.0,
+        "normal_residual_px": 0.396,
+        "direction_std_deg": 0.0,
+        "intersection_uncertainty_px": 0.0,
+        "coarse_refined_iou": 0.0,
+        "minimum_edge_mm": 0.0,
+        "merged_below_minimum_edges": 0,
+        "boundary_source": "traditional_contour",
+        "edge_sources": [],
+        "fallback_used": false,
+        "failure": null
+      },
+      {
+        "score": 0.9993,
+        "edge_support": 0.0,
+        "normal_residual_px": 0.4639,
+        "direction_std_deg": 0.0,
+        "intersection_uncertainty_px": 0.0,
+        "coarse_refined_iou": 0.0,
+        "minimum_edge_mm": 0.0,
+        "merged_below_minimum_edges": 0,
+        "boundary_source": "traditional_contour",
+        "edge_sources": [],
+        "fallback_used": false,
+        "failure": null
+      }
+    ]
+  },
+  "plan": {
+    "mode": "random",
+    "confidence": 0.99,
+    "ambiguous": false,
+    "target_rectangle": {
+      "width_mm": 100.21251182707839,
+      "height_mm": 69.95580883807152,
+      "center_a4_mm": [
+        103.5,
+        219.0
+      ]
+    },
+    "moves": [
+      {
+        "order": 1,
+        "piece_id": "0",
+        "pick_xy_a4_mm": [
+          57.05197994531251,
+          65.35101244531249
+        ],
+        "pick_clearance_mm": 24.06306403659655,
+        "rotation_deg_clockwise": 222.16793915774753,
+        "place_xy_a4_mm": [
+          131.6483932908085,
+          207.05886475823092
+        ],
+        "observed_vertices_a4_mm": [
+          [
+            8.332992,
+            47.712507999999985
+          ],
+          [
+            36.412956,
+            22.365448000000015
+          ],
+          [
+            69.46692300000001,
+            44.73790400000001
+          ],
+          [
+            109.526184,
+            50.379051999999994
+          ],
+          [
+            55.42694099999999,
+            99.442644
+          ]
+        ],
+        "target_vertices_a4_mm": [
+          [
+            155.91711692353704,
+            252.83752440135572
+          ],
+          [
+            118.08916699086822,
+            252.7740202566464
+          ],
+          [
+            108.60897897976729,
+            214.00267056150165
+          ],
+          [
+            82.70477800622031,
+            182.9295420652251
+          ],
+          [
+            155.73875548068918,
+            182.88171556328422
+          ]
+        ],
+        "rigid_transform": {
+          "rotation_deg_clockwise": 222.16793915774753,
+          "translation_a4_mm": [
+            130.0636761672991,
+            293.7950850756173
+          ]
+        }
+      },
+      {
+        "order": 2,
+        "piece_id": "1",
+        "pick_xy_a4_mm": [
+          165.30092879687498,
+          39.65500639062498
+        ],
+        "pick_clearance_mm": 27.0650032088591,
+        "rotation_deg_clockwise": 188.60564256478904,
+        "place_xy_a4_mm": [
+          78.35702552528801,
+          227.84417475581242
+        ],
+        "observed_vertices_a4_mm": [
+          [
+            126.524403,
+            18.018735999999997
+          ],
+          [
+            187.971111,
+            8.687584000000001
+          ],
+          [
+            198.654588,
+            77.77507599999998
+          ],
+          [
+            171.94103099999998,
+            81.75357599999998
+          ],
+          [
+            141.927066,
+            55.09339199999999
+          ]
+        ],
+        "target_vertices_a4_mm": [
+          [
+            113.45949769644979,
+            255.03909333934115
+          ],
+          [
+            51.308332628688675,
+            255.07075410812408
+          ],
+          [
+            51.08288307646296,
+            185.1624755986443
+          ],
+          [
+            78.0910032606471,
+            185.2259890532505
+          ],
+          [
+            103.77782477076038,
+            216.07709448956604
+          ]
+        ],
+        "rigid_transform": {
+          "rotation_deg_clockwise": 188.60564256478904,
+          "translation_a4_mm": [
+            235.86325223980927,
+            291.787158257553
+          ]
+        }
+      }
+    ]
+  },
+  "success": true
+}

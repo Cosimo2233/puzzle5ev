@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "ec_26_e-0.1.0-py3-none-any.whl": "7047fa3cfa12def6813fbc4add5aa81be1765c6cd4d5563586ff1d37541a0b52",
+    "install_robust_release.py": "2ce0ca695aea12003f6dbb76daa705f33de714f6fe524f774f188743f11411ca",
+    "install_speed_release.py": "51781c0b615481d18157d94ecc1b1a5bb96972e8bb21a0dece039876767a6bc3",
+    "puzzle_solver-0.1.0-py3-none-any.whl": "331d7cacc3b368f6e4534b2bc411a54e76c71b97430c4b7c1d16c9fd0e437fbc",
+    "shapely-2.1.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.whl": "cc4f7397459b12c0b196c9efe1f9d7e92463cbba142632b4cc6d8bbbbd3e2b09",
+    "start_menu.sh": "2d387398826e8abd93f6a63850c91dfaf4b1e18738bbd498cc257962f95d811a",
+    "validate_menu_runtime.py": "45046eab3bf335a4465f85b4c361e491bb3b6c749afc66f031655398729d3ae3",
+    "verify_robust_release.py": "6cd917b8c63595ebb688f2b7920f0b66e27140bc7d9c15f1961714b2ae5efb0f",
+    "xorg-hdmi.conf": "33d7bec9c97dbb8f5fa7f0e89cc7d245be52e9c96e8895b70f47e11d64f0912f"
+  },
+  "hardware": {
+    "bit": "07beeb20ef4fcb39662f90a49fb97603a40d592e57c66aa2ba6be3d78e27f2d9",
+    "hwh": "165342e544a7d82234f96a512e05c56fe9a0c3cdc78d10f6342af4932a44155a"
+  },
+  "boot_id": "40449fb0-b3c2-4118-a522-4272249eb0bc",
+  "config_sha256": {
+    "menu.json": "0046eddb46f61aaa70da790a61a2e91ff2c31f0204be565084540988525d516b",
+    "machine.env": "263c5b219aa46cc5fbf6719d15231d211a264b52094c24fb62cc4408f73e398d",
+    "tasks/random.json": "1fb1eedc27a91d4a60fcf6ba5539b88edfc468acd9448b5d0690d258049fadf1",
+    "tasks/fixed.json": "179bc5026cc960e7c23104025e537d42a6475f0af961ba9575f3740190353c0e"
+  },
+  "motion_tested": false,
+  "hardware_changed": false
+}

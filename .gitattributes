@@ -1,0 +1,21 @@
+* text=auto
+*.py text eol=lf
+*.tcl text eol=lf
+*.md text eol=lf
+*.v text eol=lf
+*.sv text eol=lf
+*.xdc text eol=lf
+*.c text eol=lf
+*.sh text eol=lf
+*.service text eol=lf
+*.dts text eol=lf
+*.dtsi text eol=lf
+*.dts.in text eol=lf
+**/Makefile text eol=lf
+# sha256sum treats CRLF carriage returns as part of the listed filename.
+**/SHA256SUMS text eol=lf
+# Preserve tool report spacing; it is not authored source whitespace.
+docs/validation/**/*.txt text eol=lf -whitespace
+docs/validation/**/*.rpt text eol=lf -whitespace
+# Preserve vendor reference source formatting.
+docs/vendor/* -whitespace

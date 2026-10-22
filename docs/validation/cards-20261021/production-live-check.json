@@ -1,0 +1,70 @@
+{
+  "rows": [
+    {
+      "sequence": 1,
+      "count": 4,
+      "stable": 0,
+      "reason": null
+    },
+    {
+      "sequence": 41,
+      "count": 4,
+      "stable": 0,
+      "reason": null
+    },
+    {
+      "sequence": 54,
+      "count": 4,
+      "stable": 0,
+      "reason": null
+    },
+    {
+      "sequence": 69,
+      "count": 4,
+      "stable": 0,
+      "reason": null
+    },
+    {
+      "sequence": 82,
+      "count": 4,
+      "stable": 0,
+      "reason": null
+    },
+    {
+      "sequence": 97,
+      "count": 4,
+      "stable": 4,
+      "reason": null
+    },
+    {
+      "sequence": 112,
+      "count": 4,
+      "stable": 4,
+      "reason": null
+    },
+    {
+      "sequence": 129,
+      "count": 4,
+      "stable": 4,
+      "reason": null
+    },
+    {
+      "sequence": 149,
+      "count": 4,
+      "stable": 4,
+      "reason": null
+    },
+    {
+      "sequence": 164,
+      "count": 4,
+      "stable": 4,
+      "reason": null
+    }
+  ],
+  "metrics": {
+    "frames": 10,
+    "calibration_seconds": 0.013566437999543268
+  },
+  "production": true,
+  "motion_executed": false
+}

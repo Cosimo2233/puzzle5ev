@@ -1,0 +1,19 @@
+{
+  "state": "finished",
+  "task": "task1",
+  "mode": "fixed",
+  "retry": false,
+  "calibration_and_initial_position_user_confirmed": true,
+  "initial_bridge_status": {
+    "armed": false,
+    "magnet": false,
+    "fault": 0,
+    "version": 1,
+    "malformed": 0
+  },
+  "started_at": 1792479174.342911,
+  "pid": 1433,
+  "exit_code": 75,
+  "finished_at": 1792479298.9917266,
+  "restored_menu_pid": 1491
+}

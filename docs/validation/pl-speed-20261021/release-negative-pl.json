@@ -1,0 +1,46 @@
+{
+  "motion_executed": false,
+  "passed": true,
+  "cases": [
+    {
+      "case": "missing_fixed_piece",
+      "rejected": true,
+      "reason": "fixed 模式必须恰好输入 4 片纸片"
+    },
+    {
+      "case": "one_random_piece",
+      "rejected": true,
+      "reason": "控制输入必须包含 2～4 片纸片"
+    },
+    {
+      "case": "five_random_pieces",
+      "rejected": true,
+      "reason": "控制输入必须包含 2～4 片纸片"
+    },
+    {
+      "case": "no_legal_rectangle",
+      "rejected": true,
+      "reason": "recovery exhausted without a machine-executable random candidate"
+    },
+    {
+      "case": "short_random_edge",
+      "rejected": true,
+      "reason": "a: 最短边不满足 20 mm（含端点观测误差）"
+    },
+    {
+      "case": "empty_workspace",
+      "rejected": true,
+      "reason": "随机拼图需要 2～4 片，检测到 0 个连通域；请分开放置"
+    },
+    {
+      "case": "boundary_occlusion",
+      "rejected": true,
+      "reason": "纸片接触工作区边界"
+    },
+    {
+      "case": "covered_a4",
+      "rejected": true,
+      "reason": "工作区定位失败，请检查参考四角、遮挡或光照：A4 边缘有效支持不足：0.000 < 0.450；边线重试：A4 边缘有效支持不足：0.000 < 0.450"
+    }
+  ]
+}

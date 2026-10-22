@@ -1,0 +1,1 @@
+{"trial": 0, "variant": "cards", "backend": "pl", "mode": "random", "measurement": "live_dispatch_to_plan", "success": false, "returncode": 1, "seconds": 38.62514410499716, "preloaded_modules": true}

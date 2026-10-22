@@ -1,0 +1,7 @@
+{
+  "baseline": "docs/validation/fixed4-clearance-20261013/accept.json",
+  "same_discrete_fields": true,
+  "numeric_rtol": 1e-08,
+  "numeric_atol": 1e-06,
+  "passed": true
+}

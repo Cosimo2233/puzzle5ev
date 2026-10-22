@@ -1,0 +1,78 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 23-sep-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Tue Oct 20 11:19:26 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source ../../scripts/axu5ev/verify_project.tcl
+# try {
+# set root [file normalize [file dirname [info script]]/../..]
+# open_project $root/puzzle5ev.xpr
+# if {[get_property PART [current_project]] ne "xczu5ev-sfvc784-2-i"} {error "Wrong part"}
+# if {[get_property TOP [current_fileset]] ne "system_wrapper"} {error "Wrong top"}
+# set count 0
+# foreach f [get_files -all] {
+#     set path [string tolower [file normalize [get_property NAME $f]]]
+#     if {[string first "puzzle7020" $path] >= 0 || [string first "/26-e/" $path] >= 0} {error "Old source dependency: $path"}
+#     if {![file exists $path]} {error "Missing project file: $path"}
+#     incr count
+# }
+# foreach repo [get_property IP_REPO_PATHS [current_project]] {
+#     if {[string first [string tolower $root/] [string tolower [file normalize $repo]]] != 0} {error "External IP repository: $repo"}
+# }
+# foreach run {synth_1 impl_1} {
+#     if {[get_property NEEDS_REFRESH [get_runs $run]]} {error "Stale $run"}
+#     puts "RUN $run: [get_property STATUS [get_runs $run]]"
+# }
+# source $root/scripts/axu5ev/check_hls_abi.tcl
+# puts "PASS: $count project files exist; no old-workspace source dependencies; part/top/HLS ABI verified"
+# close_project
+# } on error {message options} {
+#     puts stderr [dict get $options -errorinfo]
+#     exit 1
+# }
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/FPGA/puzzle5ev/build/axu5ev/hls_preprocess/solution/impl/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/FPGA/puzzle5ev/build/axu5ev/hls_rigid/solution/impl/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/FPGA/puzzle5ev/build/axu5ev/hls_clearance/solution/impl/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/AMD/2026.1/Vivado/data/ip'.
+INFO: [Project 1-5698] Found the below utility IPs instantiated in block design D:/FPGA/puzzle5ev/puzzle5ev.srcs/sources_1/bd/system/system.bd which have equivalent inline hdl with improved performance and reduced diskspace.
+It is recommended to migrate these utility IPs to inline hdl  using the command upgrade_project -migrate_to_inline_hdl.  The utility IPs may be deprecated in future releases.
+More information on inline hdl is available in UG994.
+Utility IP Component Instances:
+ system_zero_0
+system_irq_concat_0
+system_fan_on_0
+open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 682.145 ; gain = 353.938
+RUN synth_1: synth_design Complete!
+RUN impl_1: write_bitstream Complete!
+## set abi_root [file normalize [file dirname [info script]]/../..]
+## foreach {abi_name abi_top abi_map} {
+##     preprocess puzzle_preprocess {ADDR_WIDTH_DATA 0x10 ADDR_HEIGHT_DATA 0x18 ADDR_RATIO_DATA 0x20 ADDR_BLUE_MIN_DATA 0x28 ADDR_BRIGHTNESS_MIN_DATA 0x30 ADDR_FRAME_ID_DATA 0x38 ADDR_COMPLETED_FRAME_ID_DATA 0x40}
+##     rigid puzzle_rigid_fit {ADDR_INPUT_R_BASE 0x4000 ADDR_OUTPUT_R_BASE 0x8000 ADDR_REQUEST_ID_DATA 0x0010 ADDR_COUNT_DATA 0x0018 ADDR_COMPLETED_ID_DATA 0x0020 ADDR_ABI_DATA 0x0028 ADDR_STATUS_DATA 0x0030}
+##     clearance puzzle_clearance_scan {ADDR_REQUEST_ID_DATA 0x0010 ADDR_COMPLETED_ID_DATA 0x0020 ADDR_ABI_DATA 0x0028 ADDR_STATUS_DATA 0x0030 ADDR_INPUT_R_BASE 0x1000 ADDR_OUTPUT_R_BASE 0x2000 DEPTH_INPUT_R 76 DEPTH_OUTPUT_R 401}
+## } {
+##     set abi_path $abi_root/build/axu5ev/hls_$abi_name/solution/impl/ip/drivers/${abi_top}_v1_0/src/x${abi_top}_hw.h
+##     set abi_fd [open $abi_path r]
+##     set abi_text [read $abi_fd]
+##     close $abi_fd
+##     foreach {abi_reg abi_value} $abi_map {
+##         set abi_macro X[string toupper $abi_top]_CONTROL_$abi_reg
+##         if {![regexp "#define ${abi_macro} +${abi_value}\\y" $abi_text]} {
+##             error "HLS ABI mismatch: $abi_macro must be $abi_value"
+##         }
+##     }
+##     puts "PASS HLS ABI: $abi_name"
+## }
+PASS HLS ABI: preprocess
+PASS HLS ABI: rigid
+PASS HLS ABI: clearance
+PASS: 886 project files exist; no old-workspace source dependencies; part/top/HLS ABI verified
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 11:19:41 2026...

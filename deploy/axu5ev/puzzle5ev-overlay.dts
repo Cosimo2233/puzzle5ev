@@ -1,0 +1,66 @@
+/dts-v1/;
+/plugin/;
+
+/* AXU5EV-P, addresses/IRQ order from the saved puzzle5ev Block Design.
+ * Apply only AFTER programming PL, with the prepared base DT booted.
+ */
+/ {
+    fragment@0 {
+        target-path = "/";
+        __overlay__ {
+            #address-cells = <2>;
+            #size-cells = <2>;
+            ec26e_pixel: ec26e-pixel-clock {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                /* 99.999001 MHz * 24.875 / 2 / 16.750 */
+                clock-frequency = <74252989>;
+            };
+        };
+    };
+    /* Linux 5.4's OF notifier does not recursively populate a newly added
+     * simple-bus. Attach devices to the already populated PS amba bus. */
+    fragment@1 {
+        target-path = "/amba";
+        __overlay__ {
+                #address-cells = <2>;
+                #size-cells = <2>;
+                ranges;
+                vision@a0000000 {
+                    compatible = "ec26e,axu5ev-vision";
+                    reg = <0 0xa0000000 0 0x10000>, <0 0xa0010000 0 0x10000>;
+                    clocks = <&zynqmp_clk 71>;
+                    clock-names = "axi";
+                    assigned-clocks = <&zynqmp_clk 71>;
+                    assigned-clock-rates = <99999001>;
+                };
+                rigid@a0020000 {
+                    compatible = "generic-uio";
+                    linux,uio-name = "puzzle_rigid_fit_0";
+                    reg = <0 0xa0020000 0 0x10000>;
+                };
+                clearance@a0030000 {
+                    compatible = "generic-uio";
+                    linux,uio-name = "puzzle_clearance_scan_0";
+                    reg = <0 0xa0030000 0 0x10000>;
+                };
+                framebuffer@a0040000 {
+                    compatible = "ec26e,hdmi-fb";
+                    reg = <0 0xa0040000 0 0x10000>;
+                    clocks = <&zynqmp_clk 71>, <&ec26e_pixel>;
+                    clock-names = "axi", "pixel";
+                };
+                i2c@a0050000 {
+                    compatible = "xlnx,xps-iic-2.00.a";
+                    reg = <0 0xa0050000 0 0x10000>;
+                    interrupt-parent = <&gic>;
+                    interrupts = <0 92 4>; /* PL IRQ0[3] -> SPI 92 */
+                    clocks = <&zynqmp_clk 71>;
+                    clock-names = "pclk";
+                    clock-frequency = <100000>;
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                };
+        };
+    };
+};

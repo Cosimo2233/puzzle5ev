@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "motion_executed": false,
+  "idle_hardware_open": false,
+  "reused_pid": 2604,
+  "seconds": 2.5197164970013546,
+  "idle_descriptors": [
+    "pipe:[51349]",
+    "/opt/ec26e/validation/speed-20261021/release-warm-worker.log",
+    "/opt/ec26e/validation/speed-20261021/release-warm-worker.log"
+  ]
+}

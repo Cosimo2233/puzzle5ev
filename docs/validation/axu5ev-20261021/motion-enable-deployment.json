@@ -1,0 +1,7 @@
+{
+  "motion_permission_enabled": true,
+  "automatic_task_started": false,
+  "motion_commands_sent": false,
+  "calibration_basis": "User confirmed inherited mechanics, A4 placement and camera position",
+  "wheel_sha256": "b2f0e3a41b9fb3e8a4c1e8d9168b6c9371fefa782a3ee7ddee994cf9ec040741"
+}

@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "input_sha256": "77d87b5b929001e15062e14dc354366d9a9cf522914709dc9aeee31ed96a89b0",
+  "motion_executed": false,
+  "temporal_stability_validated": false,
+  "timings_ms": {
+    "read_decode": 2.271299992571585,
+    "resize": 23.588700001710095,
+    "vision": 14.44850000552833,
+    "solve": 226.76279999723192,
+    "total": 270.75919999333564
+  },
+  "detection": {
+    "image_size": [
+      876,
+      621
+    ],
+    "coordinate_system": "a4_landscape_top_left",
+    "piece_count": 3,
+    "groups": [
+      {
+        "group_id": 0,
+        "corners_px": [
+          [
+            652.0175170898438,
+            38.03726577758789
+          ],
+          [
+            742.9715576171875,
+            49.961307525634766
+          ],
+          [
+            810.9970703125,
+            178.03359985351562
+          ],
+          [
+            747.9896850585938,
+            269.9703063964844
+          ],
+          [
+            574.9535522460938,
+            150.99647521972656
+          ]
+        ],
+        "center_px": [
+          700.8454785708253,
+          145.2874258319208
+        ],
+        "corners_relative": [
+          [
+            0.745163,
+            0.06135
+          ],
+          [
+            0.84911,
+            0.080583
+          ],
+          [
+            0.926854,
+            0.287151
+          ],
+          [
+            0.854845,
+            0.435436
+          ],
+          [
+            0.65709,
+            0.243543
+          ]
+        ],
+        "center_relative": [
+          0.800966,
+          0.234335
+        ],
+        "area_px": 31494.516405142844,
+        "area_relative": 0.057894757323845844,
+        "polygon_iou": 0.9944951242529098,
+        "line_residual": 0.4049780393039326,
+        "confidence": 0.9944951242529098
+      },
+      {
+        "group_id": 1,
+        "corners_px": [
+          [
+            563.1995239257812,
+            62.48863220214844
+          ],
+          [
+            559.8363647460938,
+            226.16441345214844
+          ],
+          [
+            477.8709716796875,
+            223.8463134765625
+          ],
+          [
+            481.140625,
+            103.30091094970703
+          ]
+        ],
+        "center_px": [
+          522.5933540838469,
+          153.5934129002709
+        ],
+        "corners_relative": [
+          [
+            0.643657,
+            0.100788
+          ],
+          [
+            0.639813,
+            0.364781
+          ],
+          [
+            0.546138,
+            0.361042
+          ],
+          [
+            0.549875,
+            0.166614
+          ]
+        ],
+        "center_relative": [
+          0.59725,
+          0.247731
+        ],
+        "area_px": 11590.963442011038,
+        "area_relative": 0.02130707476159942,
+        "polygon_iou": 0.9981401640037196,
+        "line_residual": 0.5037905244516195,
+        "confidence": 0.9981401640037196
+      },
+      {
+        "group_id": 2,
+        "corners_px": [
+          [
+            646.9456176757812,
+            275.960693359375
+          ],
+          [
+            823.9760131835938,
+            342.0032653808594
+          ],
+          [
+            716.0884399414062,
+            438.95947265625
+          ],
+          [
+            601.8663940429688,
+            396.0093994140625
+          ]
+        ],
+        "center_px": [
+          699.9944301990648,
+          359.36135452831377
+        ],
+        "corners_relative": [
+          [
+            0.739366,
+            0.445098
+          ],
+          [
+            0.941687,
+            0.551618
+          ],
+          [
+            0.818387,
+            0.707999
+          ],
+          [
+            0.687847,
+            0.638725
+          ]
+        ],
+        "center_relative": [
+          0.799994,
+          0.579615
+        ],
+        "area_px": 19968.86665836349,
+        "area_relative": 0.03670774538482542,
+        "polygon_iou": 0.9894632698491219,
+        "line_residual": 0.43869435402348245,
+        "confidence": 0.9894632698491219
+      }
+    ],
+    "diagnostics": {
+      "foreground_threshold": 0.0,
+      "workspace_area_px": 532084
+    }
+  },
+  "diagnostics": {
+    "native_timing": {
+      "preprocess_ms": 0.0,
+      "input_flush_ms": 0.0,
+      "network_ms": 0.0,
+      "output_map_ms": 0.0,
+      "detection_decode_ms": 0.0,
+      "nms_ms": 0.0,
+      "mask_decode_ms": 0.0,
+      "output_unmap_ms": 0.0,
+      "total_ms": 0.0
+    },
+    "stage_ms": {
+      "preprocess": 9.7304,
+      "total": 12.8536
+    },
+    "yolo_count": 0,
+    "contained_duplicate_count": 0,
+    "refined_count": 3,
+    "driver_version": 0,
+    "instances": [
+      {
+        "score": 0.9945,
+        "edge_support": 0.0,
+        "normal_residual_px": 0.405,
+        "direction_std_deg": 0.0,
+        "intersection_uncertainty_px": 0.0,
+        "coarse_refined_iou": 0.0,
+        "minimum_edge_mm": 0.0,
+        "merged_below_minimum_edges": 0,
+        "boundary_source": "traditional_contour",
+        "edge_sources": [],
+        "fallback_used": false,
+        "failure": null
+      },
+      {
+        "score": 0.9981,
+        "edge_support": 0.0,
+        "normal_residual_px": 0.5038,
+        "direction_std_deg": 0.0,
+        "intersection_uncertainty_px": 0.0,
+        "coarse_refined_iou": 0.0,
+        "minimum_edge_mm": 0.0,
+        "merged_below_minimum_edges": 0,
+        "boundary_source": "traditional_contour",
+        "edge_sources": [],
+        "fallback_used": false,
+        "failure": null
+      },
+      {
+        "score": 0.9895,
+        "edge_support": 0.0,
+        "normal_residual_px": 0.4387,
+        "direction_std_deg": 0.0,
+        "intersection_uncertainty_px": 0.0,
+        "coarse_refined_iou": 0.0,
+        "minimum_edge_mm": 0.0,
+        "merged_below_minimum_edges": 0,
+        "boundary_source": "traditional_contour",
+        "edge_sources": [],
+        "fallback_used": false,
+        "failure": null
+      }
+    ]
+  },
+  "plan": {
+    "mode": "random",
+    "confidence": 0.99,
+    "ambiguous": false,
+    "target_rectangle": {
+      "width_mm": 100.47585566657796,
+      "height_mm": 70.21088464011154,
+      "center_a4_mm": [
+        103.5,
+        219.0
+      ]
+    },
+    "moves": [
+      {
+        "order": 1,
+        "piece_id": "0",
+        "pick_xy_a4_mm": [
+          43.26331259375,
+          61.513424906250016
+        ],
+        "pick_clearance_mm": 27.77657365425425,
+        "rotation_deg_clockwise": 325.555653601007,
+        "place_xy_a4_mm": [
+          128.80099475417848,
+          226.10722433819546
+        ],
+        "observed_vertices_a4_mm": [
+          [
+            12.69945,
+            74.412404
+          ],
+          [
+            16.680681,
+            44.05987999999999
+          ],
+          [
+            59.440256999999995,
+            21.358632000000014
+          ],
+          [
+            90.135252,
+            42.38526000000001
+          ],
+          [
+            50.413401,
+            100.12972000000002
+          ]
+        ],
+        "target_vertices_a4_mm": [
+          [
+            110.89144472128113,
+            254.03179015272116
+          ],
+          [
+            97.00711683654283,
+            226.74898691267603
+          ],
+          [
+            119.42996182096824,
+            183.84276331677205
+          ],
+          [
+            156.6361623499846,
+            183.82166130189134
+          ],
+          [
+            156.53908837597967,
+            253.90902595630942
+          ]
+        ],
+        "rigid_transform": {
+          "rotation_deg_clockwise": 325.555653601007,
+          "translation_a4_mm": [
+            58.33045113561861,
+            199.84854686986057
+          ]
+        }
+      },
+      {
+        "order": 2,
+        "piece_id": "1",
+        "pick_xy_a4_mm": [
+          60.353787621093765,
+          118.50339308984375
+        ],
+        "pick_clearance_mm": 13.629366345986274,
+        "rotation_deg_clockwise": 178.7840781151254,
+        "place_xy_a4_mm": [
+          66.61721555142705,
+          242.96865452793566
+        ],
+        "observed_vertices_a4_mm": [
+          [
+            20.863116,
+            104.052156
+          ],
+          [
+            75.50966700000001,
+            105.17460400000002
+          ],
+          [
+            74.735694,
+            132.527704
+          ],
+          [
+            34.489098000000006,
+            131.4365
+          ]
+        ],
+        "target_vertices_a4_mm": [
+          [
+            106.40565369519148,
+            256.57863573996417
+          ],
+          [
+            51.747589097224555,
+            256.6160538209136
+          ],
+          [
+            51.940948267766025,
+            229.25268915123348
+          ],
+          [
+            92.20163736734573,
+            229.48960471386522
+          ]
+        ],
+        "rigid_transform": {
+          "rotation_deg_clockwise": 178.7840781151254,
+          "translation_a4_mm": [
+            129.47208434411317,
+            360.16464133240066
+          ]
+        }
+      },
+      {
+        "order": 3,
+        "piece_id": "2",
+        "pick_xy_a4_mm": [
+          121.227525125,
+          59.444456625
+        ],
+        "pick_clearance_mm": 21.429994277855965,
+        "rotation_deg_clockwise": 69.55036015840881,
+        "place_xy_a4_mm": [
+          77.86559153902587,
+          202.89470706824838
+        ],
+        "observed_vertices_a4_mm": [
+          [
+            92.135286,
+            76.10512800000001
+          ],
+          [
+            114.184926,
+            17.027395999999985
+          ],
+          [
+            146.55579300000002,
+            53.03099600000001
+          ],
+          [
+            132.216075,
+            91.14867600000001
+          ]
+        ],
+        "target_vertices_a4_mm": [
+          [
+            52.090519993533206,
+            181.4568425571395
+          ],
+          [
+            115.14894268038897,
+            181.476094550856
+          ],
+          [
+            92.72416404931265,
+            224.38601818908816
+          ],
+          [
+            51.99860645013571,
+            224.26770023590322
+          ]
+        ],
+        "rigid_transform": {
+          "rotation_deg_clockwise": 69.55036015840881,
+          "translation_a4_mm": [
+            91.20888475908598,
+            68.53804442207547
+          ]
+        }
+      }
+    ]
+  },
+  "success": true
+}

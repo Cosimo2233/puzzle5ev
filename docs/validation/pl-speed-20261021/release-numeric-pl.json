@@ -1,0 +1,36 @@
+{
+  "measurement": "resident_board_pl_vs_cpu",
+  "motion_executed": false,
+  "batches": [
+    {
+      "size": 0,
+      "max_parameter_error": 0.0
+    },
+    {
+      "size": 1,
+      "max_parameter_error": 2.6539167983230527e-05
+    },
+    {
+      "size": 63,
+      "max_parameter_error": 1.7430711125143716e-05
+    },
+    {
+      "size": 64,
+      "max_parameter_error": 0.00015632647833285773
+    },
+    {
+      "size": 65,
+      "max_parameter_error": 2.9092059548929683e-05
+    },
+    {
+      "size": 129,
+      "max_parameter_error": 5.424960913558152e-05
+    }
+  ],
+  "rigid_requests": 322,
+  "rigid_batches_including_probe": 9,
+  "numerical_cpu_fallbacks": 0,
+  "clearance_max_error_mm": 3.2162241119237933e-06,
+  "clearance_samples": 401,
+  "passed": true
+}

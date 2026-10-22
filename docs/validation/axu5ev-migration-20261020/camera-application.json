@@ -1,0 +1,92 @@
+[
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 0,
+    "processing_ms": 1989.11
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 60,
+    "processing_ms": 500.87
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 75,
+    "processing_ms": 473.36
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 89,
+    "processing_ms": 529.32
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 105,
+    "processing_ms": 532.71
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 121,
+    "processing_ms": 509.16
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 136,
+    "processing_ms": 541.85
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 153,
+    "processing_ms": 505.05
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 167,
+    "processing_ms": 511.63
+  },
+  {
+    "paper_detected": true,
+    "piece_count": 0,
+    "candidate_count": 8,
+    "valid": false,
+    "reason": "预期 4 片，检测到 8 个连通域；请分开放置",
+    "sequence": 183,
+    "processing_ms": 510.77
+  }
+]

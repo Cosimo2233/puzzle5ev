@@ -1,0 +1,2 @@
+# CH340E has no unique serial; this follows the currently verified USB socket.
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="7523", ENV{ID_PATH}=="platform-xhci-hcd.0.auto-usb-0:1.4:1.0", SYMLINK+="ec26e-m0-bridge"

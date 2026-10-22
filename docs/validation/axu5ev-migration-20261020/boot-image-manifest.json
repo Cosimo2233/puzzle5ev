@@ -1,0 +1,18 @@
+{
+  "source_sha256": "8daae218ef087c9ff22cac0336f2514f93a65c42553f19d1987a43838a5c769a",
+  "output_sha256": "68149a9752c3b8527f3f7f89c52de154a2326d73513bd7924f78f0939bfc0d18",
+  "images": [
+    {
+      "name": "kernel@1",
+      "changed": false,
+      "sha256": "3cbcde93e7412fd43c8ed65646bacfeaa7ba7097e46dfbbe3bbae7a0387be2c9"
+    },
+    {
+      "name": "fdt@system-top.dtb",
+      "changed": true,
+      "sha256": "736b051b0bceca7fa2387b97f0c424f0207db30a7bc9bde6d2663573eafef7ea"
+    }
+  ],
+  "boot_tested": false,
+  "active_boot_modified": false
+}

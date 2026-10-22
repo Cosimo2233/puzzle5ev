@@ -1,0 +1,45 @@
+[project]
+name = "ec-26-e"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "wcy",email = "wcy@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "puzzle-solver==0.1.0",
+    "puzzle-m0-bridge==0.1.0",
+    "numpy>=2.0.0",
+    "opencv-python>=4.10.0.84",
+    "pyserial>=3.5,<4.0",
+    "gpiod>=1.5,<2.0; sys_platform == 'linux'",
+    "python-periphery>=2.4,<3.0; sys_platform == 'linux'",
+    "scipy>=1.13.0,<2.0.0",
+    "shapely>=2.0.0,<3.0.0",
+    "typer>=0.12.0",
+]
+
+[project.scripts]
+ec-26-e = "ec_26_e.command.app:app"
+ec-7020 = "ec_26_e.commands.app:app"
+
+[tool.poetry]
+packages = [{include = "ec_26_e", from = "src"}]
+
+[tool.poetry.dependencies]
+puzzle-solver = {path = "../../puzzle-solver", develop = true}
+puzzle-m0-bridge = {path = "../../mspm0g3507-puzzle-bridge/host", develop = true}
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit", "tests/integration"]
+
+[dependency-groups]
+dev = [
+    "pypdf (>=6.19.0,<7.0.0)",
+    "pytest (>=9.1.1,<10.0.0)"
+]
