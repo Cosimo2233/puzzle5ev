@@ -1,0 +1,12 @@
+{
+  "changes": {
+    "MOTION_XY_SPEED_LEVEL": "120",
+    "MOTION_XY_SPEED_MM_PER_SECOND": "150",
+    "FOC_RPM": "38",
+    "FOC_MAX_RPM": "38"
+  },
+  "before_sha256": "ef5754f05275dc472ac434ed234ece220cf2ff93c9f69517af2224ad5fff10e6",
+  "after_sha256": "faa3b84adadebe40d0134f0a205890ab8dcb589ffd7edfbecaf606ae9369991d",
+  "motion_executed": false,
+  "rollback": false
+}
