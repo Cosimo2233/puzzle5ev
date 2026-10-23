@@ -1,0 +1,47 @@
+{
+  "profiles": {
+    "fixed": {
+      "xy_speed_level": 127,
+      "xy_speed_mm_per_second": 158.75,
+      "rotation_rpm": 50,
+      "rotation_max_rpm": 50,
+      "z_speed_level": 80,
+      "xy_fixed_wait_seconds": 1.0,
+      "z_move_wait_seconds": 1.0,
+      "rotation_zero_wait_seconds": 1.0
+    },
+    "random": {
+      "xy_speed_level": 127,
+      "xy_speed_mm_per_second": 158.75,
+      "rotation_rpm": 50,
+      "rotation_max_rpm": 50,
+      "z_speed_level": 80,
+      "xy_fixed_wait_seconds": 1.0,
+      "z_move_wait_seconds": 1.0,
+      "rotation_zero_wait_seconds": 1.0
+    }
+  },
+  "rotation_frame_hex": "7a020100324b7b",
+  "xy_speed_bytes": [
+    127,
+    255
+  ],
+  "z_speed_bytes": [
+    80,
+    208
+  ],
+  "menu": {
+    "pid": 2684,
+    "mode": "固定四片",
+    "busy": false,
+    "preview": false,
+    "transition": false,
+    "motion_enabled": true,
+    "plan_only": false,
+    "warm_task_ready": true,
+    "preview_worker_ready": true,
+    "cursor": "arrow"
+  },
+  "configuration_script_sha256": "0bc324bb3d2ae5cbea00dd6561bd23c1a240a428f3b3950449f67dcb75199bac",
+  "motion_executed": false
+}

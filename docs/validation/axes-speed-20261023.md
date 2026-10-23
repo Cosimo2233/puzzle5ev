@@ -1,4 +1,24 @@
-# X/Y 与旋转轴按当前速度提高 1.5 倍
+# X/Y、旋转与 Z 轴速度配置记录
+
+## 最新配置：X/Y 127、旋转 50、Z 80
+
+用户进一步要求 X/Y 200、旋转 50 并提高 Z 速度；确认当前 Servo42C 速度字段最高位为方向、低七位为速度，200 无法作为速度档位编码后，用户明确选择 X/Y 127。
+
+本轮将 X/Y 120 → 127 档，外层距离时间估算 150 → 158.75 mm/s（按档位比例调整，并非实测速度）；旋转指令及软件上限 38 → 50 RPM；Z 64 → 80 档。Z 每次升降 1 秒等待、XY 固定余量 1 秒、旋转最小回零等待 1 秒及角度检查保留。Z 指令提速不代表整次任务按同比例缩短。
+
+固定、随机两个模式完整配置对象核对通过，只改五个速度字段；核对 X/Y 正反速度字节为 `7f/ff`，Z 为 `50/d0`，旋转 50 RPM 报文为 `7a020100324b7b`。菜单重启并预热就绪，运动权限和开机自启保留，未发送实际运动命令，未修改 PL/M0 或重装应用软件。
+
+主机相关回归：`poetry run pytest tests/unit/test_capture_settings.py tests/unit/tasks/test_task1_actuation.py tests/unit/motion/test_foc_rotation.py tests/unit/motion/test_protocol.py -q`，49 项测试、32 个子测试通过。板端证据：[配置修改](axes-speed-20261023/max-settings.json)、[实际配置与菜单核验](axes-speed-20261023/max-verified.json)。实物提速精度仍由用户手动验收。
+
+配置工具 `configure_capture_release.py --axes-max` 在 `/opt/ec26e/releases/camera-start-20261023` 下保存独立备份 `machine-before-axes-max.env` 和记录 `axes-max-settings.json`。菜单空闲、板端 Python 环境及 `EC_PL_BITSTREAM` 配置正确时，可执行以下命令恢复本轮之前的 X/Y 120、旋转 38、Z 64：
+
+```sh
+python /opt/ec26e/releases/camera-start-20261023/configure_capture_release.py --release /opt/ec26e/releases/camera-start-20261023 --axes-max --rollback
+```
+
+若还要恢复更早速度，先完成上述回滚，再按下文 `--axes-speed --rollback` 恢复；工具拒绝覆盖后续未经合并的配置差异。
+
+## 前次配置：按当前速度提高 1.5 倍
 
 用户要求以当前配置提速。应用前板端为 X/Y 80 档、距离等待估算 100 mm/s、旋转 25 RPM、旋转软件上限 30 RPM。
 
