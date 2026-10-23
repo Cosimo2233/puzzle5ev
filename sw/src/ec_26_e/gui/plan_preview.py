@@ -12,7 +12,7 @@ import cv2
 import numpy as np
 
 logger = logging.getLogger(__name__)
-COLORS = ((95, 210, 65), (35, 180, 255), (235, 150, 90), (215, 90, 225))  # BGR
+COLORS = ((95, 210, 65), (35, 180, 255), (75, 85, 255), (215, 90, 225))  # BGR
 
 
 def sheet_to_camera(points, homography, target_size, rotation):
@@ -55,10 +55,14 @@ def render_plan(raw, homography, target_size, rotation, plan):
             color='#%02x%02x%02x' % tuple(reversed(color))))
     cv2.addWeighted(fill, .28, canvas, .72, 0, canvas)
     for move, source, target, color in projected:
-        cv2.polylines(canvas, [np.rint(source).astype(np.int32)], True, color, 2, cv2.LINE_AA)
+        source = np.rint(source).astype(np.int32)
+        cv2.polylines(canvas, [source], True, (15, 15, 15), 6, cv2.LINE_AA)
+        cv2.polylines(canvas, [target], True, (15, 15, 15), 7, cv2.LINE_AA)
+        cv2.polylines(canvas, [source], True, color, 3, cv2.LINE_AA)
         cv2.polylines(canvas, [target], True, color, 3, cv2.LINE_AA)
         endpoints = sheet_to_camera((move.pick_xy_a4_mm, move.place_xy_a4_mm), homography, target_size, rotation)
         start, end = [tuple(np.rint(p).astype(int)) for p in endpoints]
+        cv2.arrowedLine(canvas, start, end, (15, 15, 15), 5, cv2.LINE_AA, tipLength=.08)
         cv2.arrowedLine(canvas, start, end, color, 2, cv2.LINE_AA, tipLength=.08)
         for point, prefix in ((start, 'S'), (end, 'T')):
             cv2.putText(canvas, prefix + str(move.order), point, cv2.FONT_HERSHEY_SIMPLEX, .65, (0, 0, 0), 4, cv2.LINE_AA)

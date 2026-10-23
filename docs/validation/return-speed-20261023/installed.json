@@ -1,0 +1,73 @@
+{
+  "profiles": {
+    "fixed": {
+      "rpm": 25,
+      "max_rpm": 30,
+      "rotation_zero_wait_seconds": 1.0,
+      "z_up": 90.0,
+      "z_down": 0.0
+    },
+    "random": {
+      "rpm": 25,
+      "max_rpm": 30,
+      "rotation_zero_wait_seconds": 1.0,
+      "z_up": 90.0,
+      "z_down": 0.0
+    }
+  },
+  "colors_bgr": [
+    [
+      95,
+      210,
+      65
+    ],
+    [
+      35,
+      180,
+      255
+    ],
+    [
+      75,
+      85,
+      255
+    ],
+    [
+      215,
+      90,
+      225
+    ]
+  ],
+  "menu": {
+    "boot_id": "ebfb5660-301e-485b-b0c7-27cf5cf4a970",
+    "pid": 1084,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": false,
+    "busy": false,
+    "motion_enabled": true,
+    "message": "选择任务模式，按确认开始；按预览查看摄像头",
+    "board": "axu5ev",
+    "plan_only": false,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 0,
+    "events": [],
+    "transition": false,
+    "prediction_state": null,
+    "prediction_token": null,
+    "cursor": "arrow",
+    "preview_worker_ready": true,
+    "warm_task_ready": true
+  },
+  "cursor": {
+    "x": 640,
+    "y": 360,
+    "width": 16,
+    "height": 16,
+    "visible_pixels": 118
+  },
+  "installed_source_sha256": {
+    "actuation.py": "63a97bc5d8bef7c0ad42a8d2e8f20a4dd9a4d4a4a7badd7917f179d3ad3216bd"
+  },
+  "motion_executed": false
+}

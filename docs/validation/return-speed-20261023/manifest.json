@@ -1,0 +1,15 @@
+{
+  "artifacts": {
+    "configure_capture_release.py": "b3856e19f707a939e06e91f07c05d45cbb5a4becd50fceb6ac3e1f9d65a8d408",
+    "ec_26_e-0.1.0-py3-none-any.whl": "7c7fd70c574886976b31d21f4933b822f4f0a94ddfac18e3dc3cde1ba39bc886",
+    "install_robust_release.py": "43ddf3b362df7c17e9ff7b36d666387004f9562957560b969346f5306ea6fb64",
+    "install_speed_release.py": "51781c0b615481d18157d94ecc1b1a5bb96972e8bb21a0dece039876767a6bc3",
+    "start_menu.sh": "b886f7182ac158ab7bdaf3ab4c8583d3acfd587ed46eb78c632fb91dede92c88",
+    "validate_menu_runtime.py": "16dc998b1b1edbd2fbcd484672149816c51afb6f7a08480c44d364a0252879dd",
+    "xorg-hdmi.conf": "33d7bec9c97dbb8f5fa7f0e89cc7d245be52e9c96e8895b70f47e11d64f0912f"
+  },
+  "hardware": {
+    "bit": "4c5018108f512bcb3bc03f0e53aee7054f2c2819b219f0513ee56666483c1cf9",
+    "hwh": "1c48f33ebb041a50b3d8782963c7005016d0b371f45e5c97c37095bfae8bbeae"
+  }
+}

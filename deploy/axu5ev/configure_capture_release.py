@@ -1,5 +1,6 @@
 """应用已验收的焦点与速度配置；持任务锁备份，可单独回滚。"""
 import hashlib
+from dataclasses import replace
 import json
 import os
 from pathlib import Path
@@ -37,14 +38,18 @@ def digest(data):
 
 @app.command()
 def main(release: Path = typer.Option(...), rollback: bool = typer.Option(False),
-         fixed_vision: bool = typer.Option(False)):
+         fixed_vision: bool = typer.Option(False), rotation_speed: bool = typer.Option(False)):
+    if fixed_vision and rotation_speed:
+        raise ValueError('一次只修改一种配置')
     release = release.resolve()
     if not release.is_relative_to(BASE/'releases') or not (release/'deployed.json').exists():
         raise ValueError('先完成对应软件发布')
     path = CONFIG/'machine.env'
-    backup = release/('machine-before-vision.env' if fixed_vision else 'machine-before-capture.env')
-    record = release/('vision-settings.json' if fixed_vision else 'settings.json')
-    settings = FIXED_VISION if fixed_vision else SETTINGS
+    backup = release/('machine-before-rotation.env' if rotation_speed else
+                      'machine-before-vision.env' if fixed_vision else 'machine-before-capture.env')
+    record = release/('rotation-settings.json' if rotation_speed else
+                      'vision-settings.json' if fixed_vision else 'settings.json')
+    settings = {'FOC_RPM': '25'} if rotation_speed else FIXED_VISION if fixed_vision else SETTINGS
     with TaskExecutionLock():
         menu = json.loads(Path('/run/ec26e/menu-status.json').read_text())
         if menu.get('busy') or menu.get('preview') or menu.get('transition'):
@@ -68,7 +73,13 @@ def main(release: Path = typer.Option(...), rollback: bool = typer.Option(False)
                 profile = loader(CONFIG/'tasks'/f'{name}.json', env_path=temporary,
                     environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
                 if not rollback:
-                    if fixed_vision:
+                    if rotation_speed:
+                        previous = loader(CONFIG/'tasks'/f'{name}.json', env_path=path,
+                            environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
+                        expected = replace(previous, actuation=replace(previous.actuation,
+                            rotation=replace(previous.actuation.rotation, rpm=25)))
+                        assert profile == expected
+                    elif fixed_vision:
                         previous = loader(CONFIG/'tasks'/f'{name}.json', env_path=path,
                             environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
                         assert profile.camera == previous.camera and profile.actuation == previous.actuation

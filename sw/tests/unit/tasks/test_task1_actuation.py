@@ -599,7 +599,7 @@ class MovePlanActuatorTest(unittest.TestCase):
                         (-1 if frame[2] & 0x80 else 1)
                         * int.from_bytes(frame[3:7], "big") for frame in moves
                     ), 0)
-                return_start = len(rotation.frames_before_counterclockwise[-1])
+                return_start = len(rotation.frames_before_counterclockwise[-1]) - 3
                 return_frames = transport.frames[return_start:-4]
                 self.assertEqual([frame[0] for frame in return_frames],
                                  [0xE0, 0xE1, 0xE2, 0xE3, 0xE3])
@@ -628,6 +628,65 @@ class MovePlanActuatorTest(unittest.TestCase):
                                 result.state_history.index(MotionLifecycleState.FINISH))
                 self.assertEqual(result.completed_cycles, len(plan.moves))
 
+    def test_final_return_overlaps_xy_and_waits_before_lowering_z(self) -> None:
+        """固定/随机收尾耗时取两路较大值；Z 必须等到两路都完成。"""
+        for mode in ('fixed', 'random'):
+            for rotation_seconds in (0.4, 2.0):
+                with self.subTest(mode=mode, rotation_seconds=rotation_seconds):
+                    return_times = []
+
+                    class SlowReturn(FakeRotation):
+                        def return_counterclockwise_to_zero(self, target_degrees, *, wait=True):
+                            started = clock.monotonic()
+                            result = super().return_counterclockwise_to_zero(target_degrees, wait=wait)
+                            clock.sleep(rotation_seconds)
+                            return_times.append((started, clock.monotonic()))
+                            return result
+
+                    transport = FakeTransport()
+                    rotation = SlowReturn(transport=transport)
+                    config = make_config(a4_origin_x_mm=0.0, a4_origin_y_mm=0.0,
+                                         xy_speed_mm_per_second=10.0,
+                                         xy_fixed_wait_seconds=0.5)
+                    actuator, clock, led = self._actuator(
+                        transport, FakeMagnet(), config, rotation=rotation)
+                    actuator.execute(replace(make_plan(place=(10.0, 4.0)), mode=mode))
+                    frames = rotation.frames_before_counterclockwise[-1]
+                    self.assertEqual([f[0] for f in frames[-5:]],
+                                     [0xE3, 0xE3, 0xE0, 0xE1, 0xE2])
+                    xy_started = transport.frame_times[len(frames) - 3]
+                    rotation_started, rotation_done = return_times[-1]
+                    self.assertLessEqual(xy_started, rotation_started)
+                    # XY is 10 mm / 10 mm/s + 0.5 s, not that plus rotation time.
+                    expected = max(xy_started + 1.5, rotation_started + max(
+                        rotation_seconds, config.rotation_zero_wait_seconds))
+                    self.assertAlmostEqual(led.value_times[0], expected, delta=0.01)
+                    final_z = transport.frame_times[len(frames)]
+                    self.assertGreaterEqual(final_z, rotation_done)
+                    self.assertGreaterEqual(final_z, xy_started + 1.5)
+                    self.assertGreaterEqual(final_z, led.value_times[-1])
+
+    def test_final_rotation_failure_stops_parallel_xy_without_lowering_z(self) -> None:
+        for failure, expected in ((F32CTimeoutError('return timeout'), ActuationExecutionError),
+                                  (KeyboardInterrupt(), KeyboardInterrupt)):
+            with self.subTest(failure=type(failure).__name__):
+                class FailedReturn(FakeRotation):
+                    def return_counterclockwise_to_zero(self, target_degrees, *, wait=True):
+                        if target_degrees:
+                            self.return_error = failure
+                        return super().return_counterclockwise_to_zero(target_degrees, wait=wait)
+                transport = FakeTransport()
+                rotation = FailedReturn(transport=transport)
+                actuator, _, led = self._actuator(transport, FakeMagnet(), rotation=rotation)
+                with self.assertRaises(expected):
+                    actuator.execute(make_plan())
+                frames = rotation.frames_before_counterclockwise[-1]
+                self.assertEqual([f[0] for f in frames[-3:]], [0xE0, 0xE1, 0xE2])
+                self.assertTrue(all(f[1] in (0xF7, 0xF3) for f in transport.frames[len(frames):]))
+                self.assertNotIn(MotionLifecycleState.FINAL_Z_LOWERING, actuator.state_history)
+                self.assertNotIn(MotionLifecycleState.FINISH, actuator.state_history)
+                self.assertFalse(led.opened)
+
     def test_return_handles_zero_distance_and_single_axis(self) -> None:
         """末片已位于起点或只偏离一个轴时，不应发出多余轴移动。"""
 
@@ -647,7 +706,7 @@ class MovePlanActuatorTest(unittest.TestCase):
 
                 result = actuator.execute(make_plan(place=place))
 
-                return_start = len(rotation.frames_before_counterclockwise[-1])
+                return_start = len(rotation.frames_before_counterclockwise[-1]) - len(expected_addresses)
                 self.assertEqual(
                     [frame[0] for frame in transport.frames[return_start:-4]],
                     expected_addresses + [0xE3, 0xE3],

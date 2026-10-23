@@ -1,0 +1,9 @@
+{
+  "changes": {
+    "FOC_RPM": "25"
+  },
+  "before_sha256": "53ba707587b3481c6cd3867a06b31fd8b47570d0439b902848b92e5f2a9d3ee0",
+  "after_sha256": "ef5754f05275dc472ac434ed234ece220cf2ff93c9f69517af2224ad5fff10e6",
+  "motion_executed": false,
+  "rollback": false
+}

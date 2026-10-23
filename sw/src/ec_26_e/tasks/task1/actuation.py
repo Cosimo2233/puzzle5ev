@@ -369,9 +369,8 @@ class MovePlanActuator:
         xy_controller: MksXYController,
         rotation: RotationAxis,
     ) -> None:
-        """XY 移向下一拾取点与回零并行，二者完成后才允许下一次吸取。"""
+        """XY 移向下一拾取点（末片返回起点）与旋转回零并行。"""
 
-        xy_deadline: float | None = None
         if next_cycle is not None:
             LOGGER.info("正在移动到下一片拾取位置，同时旋转轴逆时针回零")
             xy_deadline = self._start_xy_move(
@@ -379,13 +378,18 @@ class MovePlanActuator:
                 next_cycle.pick_y_0p01mm,
                 xy_controller,
             )
+        else:
+            # 末片已释放且 Z 已抬升；先启动 XY，再等待旋转，两路均完成才收尾。
+            self._transition(MotionLifecycleState.RETURNING_TO_START)
+            LOGGER.info("正在返回 XY 起点，同时旋转轴逆时针回零")
+            xy_deadline = self._start_xy_move(0, 0, xy_controller)
         self._return_rotation_to_zero(
             rotation,
             cycle.rotation_degrees_clockwise,
             xy_controller,
         )
-        if xy_deadline is not None:
-            self._wait_xy_move(xy_deadline, xy_controller)
+        self._wait_xy_move(xy_deadline, xy_controller)
+        if next_cycle is not None:
             LOGGER.info("下一片拾取位置已到达，旋转轴已回零，可以开始吸取")
 
     def _signal_completion(
@@ -692,10 +696,6 @@ class MovePlanActuator:
                 LOGGER.info("第 %d/%d 片搬运指令执行完成", index + 1, len(cycles))
 
             self._require_rotation_angle(rotation, 0.0, "任务结束旋转轴零位检查")
-            self._transition(MotionLifecycleState.RETURNING_TO_START)
-            # 末片已释放、Z 已抬升且旋转轴已回零，空载返回启动时记下的 XY 零点。
-            # 复用正常移动等待，完成提示和失能必须在返回结束之后。
-            self._move_xy_to(0, 0, xy_controller)
             self._signal_completion(
                 transport,
                 magnet,
