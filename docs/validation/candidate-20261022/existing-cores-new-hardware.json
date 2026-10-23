@@ -1,0 +1,101 @@
+{
+  "motion_executed": false,
+  "passed": true,
+  "preprocess": [
+    {
+      "shape": [
+        1,
+        1,
+        3
+      ],
+      "frame_id": 1,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 22.718657000012854
+    },
+    {
+      "shape": [
+        8,
+        8,
+        3
+      ],
+      "frame_id": 2,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 1.1859420000064347
+    },
+    {
+      "shape": [
+        72,
+        128,
+        3
+      ],
+      "frame_id": 3,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 1.2294120000149178
+    },
+    {
+      "shape": [
+        720,
+        1280,
+        3
+      ],
+      "frame_id": 4,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 17.490535000007412
+    },
+    {
+      "shape": [
+        720,
+        1280,
+        3
+      ],
+      "frame_id": 5,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 17.93879900000661
+    },
+    {
+      "shape": [
+        72,
+        128,
+        3
+      ],
+      "frame_id": 6,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 1.3779139999883228
+    },
+    {
+      "shape": [
+        8,
+        8,
+        3
+      ],
+      "frame_id": 7,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 1.2346929999864642
+    },
+    {
+      "shape": [
+        1,
+        1,
+        3
+      ],
+      "frame_id": 8,
+      "mismatched_pixels": 0,
+      "transport_and_pl_ms": 1.1669820000008713
+    }
+  ],
+  "bit_sha256": "4c5018108f512bcb3bc03f0e53aee7054f2c2819b219f0513ee56666483c1cf9",
+  "hwh_sha256": "1c48f33ebb041a50b3d8782963c7005016d0b371f45e5c97c37095bfae8bbeae",
+  "rigid": {
+    "requests": 129,
+    "batches": 4,
+    "numerical_cpu_fallbacks": 0,
+    "max_angle_error_degrees": 2.1362304693184342e-05,
+    "max_translation_error_mm": 1.525878909092171e-05,
+    "transport_and_pl_ms": 79.6153060000222
+  },
+  "clearance": {
+    "samples": 401,
+    "max_distance_error_mm": 3.2162241083710796e-06,
+    "transport_and_pl_ms": 14.042751000005183
+  }
+}

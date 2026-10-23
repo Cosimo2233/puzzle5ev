@@ -1,0 +1,102 @@
+{
+  "passed": true,
+  "trials": 90,
+  "complete_plans_identical": {
+    "baseline": [],
+    "optimized-cpu": []
+  },
+  "motion_executed": false,
+  "summaries": {
+    "baseline": {
+      "2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 1.3210075144997973,
+        "p95_seconds": 1.4660954543003755
+      },
+      "3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 2.1308205370005453,
+        "p95_seconds": 2.760660091299633
+      },
+      "4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 6.3664457120003135,
+        "p95_seconds": 7.832902645948707
+      }
+    },
+    "optimized-cpu": {
+      "2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 0.8478454980004244,
+        "p95_seconds": 0.9955949819001944
+      },
+      "3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 1.4400684149995868,
+        "p95_seconds": 2.0622381509997467
+      },
+      "4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 5.462865746500029,
+        "p95_seconds": 7.00201935455043
+      }
+    },
+    "optimized-pl": {
+      "2": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 0.3650929855000058,
+        "p95_seconds": 0.4419933710999991
+      },
+      "3": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 0.6540619955000011,
+        "p95_seconds": 1.1698287447499978
+      },
+      "4": {
+        "trials": 30,
+        "successes": 30,
+        "median_seconds": 4.223450992499991,
+        "p95_seconds": 5.85883147105001
+      }
+    }
+  },
+  "candidate_totals_by_count": {
+    "2": {
+      "request_count": 11400,
+      "batch_count": 180,
+      "transfer_seconds": 0.5709227079999266,
+      "kernel_wait_seconds": 0.0638692180000362,
+      "unsupported_count": 0,
+      "pruned": 10430,
+      "candidates": 11400
+    },
+    "3": {
+      "request_count": 11400,
+      "batch_count": 180,
+      "transfer_seconds": 0.5754995420001308,
+      "kernel_wait_seconds": 0.15161077100016485,
+      "unsupported_count": 0,
+      "pruned": 10478,
+      "candidates": 11400
+    },
+    "4": {
+      "request_count": 12920,
+      "batch_count": 204,
+      "transfer_seconds": 0.6576907479998226,
+      "kernel_wait_seconds": 0.31463889099994446,
+      "unsupported_count": 0,
+      "pruned": 10985,
+      "candidates": 12920
+    }
+  },
+  "input_sha256": "962edd6f7753fbf11ccdb9c1c443fd77d63c301f8843226ca6f9d74cf97b52dd",
+  "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8"
+}

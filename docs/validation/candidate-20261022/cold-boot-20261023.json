@@ -1,0 +1,90 @@
+{
+  "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+  "menu": {
+    "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+    "pid": 681,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": false,
+    "busy": false,
+    "motion_enabled": true,
+    "message": "选择任务模式，按确认开始；按预览查看摄像头",
+    "board": "axu5ev",
+    "plan_only": false,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 0,
+    "events": [],
+    "transition": false,
+    "prediction_state": null,
+    "prediction_token": null,
+    "cursor": "arrow",
+    "preview_worker_ready": true,
+    "warm_task_ready": true
+  },
+  "service": {
+    "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+    "pid": 592,
+    "motion_enabled": true,
+    "bundle": "/opt/ec26e/releases/candidate-20261022/hardware",
+    "state": "running",
+    "xorg_pid": 671,
+    "menu_pid": 681
+  },
+  "hardware": {
+    "board": "axu5ev",
+    "loaded": true,
+    "state": "loaded",
+    "bit_sha256": "4c5018108f512bcb3bc03f0e53aee7054f2c2819b219f0513ee56666483c1cf9",
+    "hwh_sha256": "1c48f33ebb041a50b3d8782963c7005016d0b371f45e5c97c37095bfae8bbeae",
+    "hardware_acceptance": false
+  },
+  "runtime_backend": {
+    "EC_CANDIDATE_BACKEND": "pl",
+    "EC_PL_BITSTREAM": "/opt/ec26e/releases/candidate-20261022/hardware/puzzle5ev.bit",
+    "EC_PL_ACCESS": "linux"
+  },
+  "user_confirmed_hdmi_menu": true,
+  "motion_executed": false,
+  "physical_recognition_accepted": false,
+  "preview": {
+    "preview": {
+      "candidate_count": 0,
+      "valid": false,
+      "reason": "蓝底采样不足，无法校准分割亮度；请检查遮挡、底色和光照",
+      "overlay_current": true,
+      "paper_detected": true,
+      "piece_count": 0,
+      "analysis_age_seconds": 0.41494707999999036,
+      "frames": 262,
+      "analysis_frames": 49,
+      "display_fps": 18.198890864442514,
+      "analysis_fps": 3.4036093601438293,
+      "sequence": 440,
+      "updated_at_unix": 1792571312.0806587,
+      "camera_started_seconds": 3.01467461499999
+    },
+    "cursor": {
+      "x": 754,
+      "y": 527,
+      "width": 16,
+      "height": 16,
+      "visible_pixels": 118
+    },
+    "ui_received_frames": 281,
+    "elapsed_seconds": 20.963565077
+  },
+  "config_sha256": {
+    "/opt/ec26e/config/axu5ev/menu.json": "0046eddb46f61aaa70da790a61a2e91ff2c31f0204be565084540988525d516b",
+    "/opt/ec26e/config/axu5ev/machine.env": "c49300d8ee0bfe2a30eb83bcf4e7628d02d27a39e8b92587ca1036b23b85ad60",
+    "/opt/ec26e/config/axu5ev/hardware.json": "7521a6e49b94cac4b5383cd06754d7276216bdc1d6ec07b8427b7a80290dd40d",
+    "/opt/ec26e/config/axu5ev/tasks/random.json": "1fb1eedc27a91d4a60fcf6ba5539b88edfc468acd9448b5d0690d258049fadf1",
+    "/opt/ec26e/config/axu5ev/tasks/fixed.json": "179bc5026cc960e7c23104025e537d42a6475f0af961ba9575f3740190353c0e"
+  },
+  "validation_passed": [
+    "candidate_numeric",
+    "90_geometry_plans",
+    "existing_preprocess_rigid_clearance"
+  ],
+  "recognition_issue": "Current live scene rejected by shared PS blue-background calibration"
+}
