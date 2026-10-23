@@ -12,14 +12,14 @@
 | PL 适配 | `vision/linux_pl.py`、`control/pl_rigid.py`、`control/pl_clearance.py` | PS 统一持锁调度，传输/协议错误阻止任务继续 |
 | 随机候选距离 | `src/hls/candidate/`、`control/pl_candidate.py` | 凹/凸多边形批量距离，只做带保护带的候选粗筛；见 [接口说明](pl-candidate-scan.md) |
 | 菜单与任务生命周期 | `gui/board_menu.py`、`menu_model.py`、`controller.py` | Tk 主线程处理鼠标/键盘，后台线程释放相机 |
-| 预览通信 / 识别 | `gui/camera_pipe.py`、`production_preview.py` | 采集进程只保留最新帧；分析慢时画面继续刷新 |
+| 预览通信 / 识别 | `gui/camera_pipe.py`、`preview_server.py`、`production_preview.py` | 常驻进程复用依赖；每次关闭预览仍释放相机、PL 和锁；采集只保留最新帧 |
 | 预览顶点显示 | `gui/preview_tracking.py` | 小幅抖动滤波；不影响正式观测或运动坐标 |
 | 视觉运行初始化 | `vision/runtime.py` | 空闲预热 Lab 查找表，限制 OpenCV 工作线程 |
 | 结果投影 | `gui/plan_preview.py` | 只显示已检查的方案，不修改执行坐标；令牌隔离本次结果 |
 | 运动 | `sw/src/ec_26_e/motion/` | 沿用实际机械标定、等待和 M0 桥接策略 |
 | 部署和板端验证 | `deploy/axu5ev/` | 安装器、只读核验、无运动基准分开 |
 
-`gui/plan_preview.py` 将稳定采图时的透视矩阵反向用于目标投影，因此预测轮廓与实际方案使用同一坐标转换。实时预览显示最新画面；任务结果使用本次稳定快照，避免把过期识别叠在已移动的纸片上。`/run/ec26e/task-display` 最多保留四次任务，避免内存文件系统持续增长。
+`gui/plan_preview.py` 将稳定采图时的透视矩阵反向用于目标投影，因此预测轮廓与实际方案使用同一坐标转换。任务采集时先显示本次新帧（最多 2 FPS，仅显示），只有通过稳定审查的帧才保存为预测快照；采集图不能直接发布运动方案。实时预览显示最新画面；任务结果使用本次稳定快照，避免把过期识别叠在已移动的纸片上。`/run/ec26e/task-display` 最多保留四次任务，避免内存文件系统持续增长。
 
 ## 测试、记录与历史材料
 

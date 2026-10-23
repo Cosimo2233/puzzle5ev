@@ -1,0 +1,32 @@
+{
+  "preview": {
+    "candidate_count": 4,
+    "valid": false,
+    "reason": "轮廓质量不足或疑似粘连",
+    "overlay_current": true,
+    "paper_detected": true,
+    "piece_count": 0,
+    "analysis_age_seconds": 0.8195102449999467,
+    "frames": 35,
+    "analysis_frames": 5,
+    "display_fps": 12.833867795051797,
+    "analysis_fps": 1.8334096850073995,
+    "sequence": 82,
+    "updated_at_unix": 1792576524.1997652,
+    "camera_started_seconds": 0.7168670990001829
+  },
+  "cursor": {
+    "x": 640,
+    "y": 360,
+    "width": 16,
+    "height": 16,
+    "visible_pixels": 118
+  },
+  "ui_received_frames": 45,
+  "preview_first_frame_seconds": 2.7877540259999023,
+  "task_first_image_seconds": 1.2843100820000473,
+  "message": "当前任务已取消",
+  "prediction_state": null,
+  "prediction_token": null,
+  "elapsed_seconds": 121.23235614100008
+}

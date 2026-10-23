@@ -111,6 +111,9 @@ def _acquire_stable_pieces(camera, resizer, detector, options, observer, task_la
             if after_sequence is not None and frame.sequence_id <= after_sequence:
                 raise Task1Error("相机必须返回序号严格递增的新帧")
             after_sequence = frame.sequence_id
+            if display is not None:
+                from ec_26_e.gui.plan_preview import display_call
+                display_call(display, 'acquiring', frame)
             processed_frames += 1
             logger.info("正在观测纸片：处理第 %d 帧（相机序号 %d）",
                         processed_frames, frame.sequence_id)
@@ -213,7 +216,9 @@ def run_puzzle_task(
     try:
         if observer is not None:
             observer.start()
+        phase = time.perf_counter()
         camera.start()
+        metrics['camera_start_seconds'] = time.perf_counter() - phase
         logger.info("摄像头已启动，正在采集新画面")
         pieces = _acquire_stable_pieces(
             camera,
@@ -234,7 +239,9 @@ def run_puzzle_task(
         raise
     finally:
         try:
+            phase = time.perf_counter()
             camera.close()
+            metrics['camera_close_seconds'] = time.perf_counter() - phase
         finally:
             if observer is not None:
                 observer.close()

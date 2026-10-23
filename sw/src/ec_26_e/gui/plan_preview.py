@@ -82,6 +82,7 @@ class PlanPreviewPublisher:
             raise ValueError('预览任务令牌无效')
         self.directory, self.token, self.rotation = Path(directory), token, rotation
         self.snapshot = None
+        self.last_live_at = 0.0
         self.directory.mkdir(parents=True, exist_ok=True)
         self._prune_previous()
         self.state('acquiring')
@@ -121,6 +122,15 @@ class PlanPreviewPublisher:
         self.snapshot = (frame.image_bgr.copy(), rect.homography.copy(), rect.target_size)
         self._write('.ppm', ppm(cv2.resize(frame.image_bgr, (880, 495))))
         self.state('solving', sequence=frame.sequence_id)
+
+    def acquiring(self, frame):
+        """Show fresh input immediately; it is not a stable snapshot or a plan."""
+        now = time.monotonic()
+        if now - self.last_live_at < .5:
+            return
+        self._write('.ppm', ppm(cv2.resize(frame.image_bgr, (880, 495))))
+        self.state('acquiring', sequence=frame.sequence_id)
+        self.last_live_at = now
 
     def publish(self, plan):
         if self.snapshot is None:

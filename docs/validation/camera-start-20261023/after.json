@@ -1,0 +1,41 @@
+{
+  "software_preload_seconds": 3.371559054000045,
+  "trials": [
+    {
+      "trial": 0,
+      "mode": "固定四片",
+      "first_frame_seconds": 0.7708624189999682,
+      "stop_seconds": 0.23250109499986138,
+      "worker_pid": 1583
+    },
+    {
+      "trial": 1,
+      "mode": "随机拼图",
+      "first_frame_seconds": 0.5954598440000609,
+      "stop_seconds": 0.3011895419999746,
+      "worker_pid": 1583
+    },
+    {
+      "trial": 2,
+      "mode": "固定四片",
+      "first_frame_seconds": 0.5826858069999616,
+      "stop_seconds": 0.19580694800015408,
+      "worker_pid": 1583
+    },
+    {
+      "trial": 3,
+      "mode": "随机拼图",
+      "first_frame_seconds": 0.5871755910000047,
+      "stop_seconds": 0.3177510269999857,
+      "worker_pid": 1583
+    },
+    {
+      "trial": 4,
+      "mode": "固定四片",
+      "first_frame_seconds": 0.6028426780001155,
+      "stop_seconds": 0.24402933999999732,
+      "worker_pid": 1583
+    }
+  ],
+  "motion_executed": false
+}

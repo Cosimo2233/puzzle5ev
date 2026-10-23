@@ -4,8 +4,10 @@ import struct
 import subprocess
 import sys
 import threading
+import time
 
 ERROR_PACKET = 0xFFFFFFFF
+IDLE_PACKET = 0xFFFFFFFE
 
 
 def write_preview_error(stream, message, code='preview_error'):
@@ -27,6 +29,8 @@ class CameraPipe:
         self.version = 0
         self.label = None
         self.ready = False
+        self._idle = threading.Event()
+        self.started_at = self.first_frame_seconds = None
 
     @property
     def active(self):
@@ -39,6 +43,7 @@ class CameraPipe:
         self.close()
         self.label = None
         self.ready = False
+        self._idle.clear()
         self.latest = self.error = None
         self.error_code = None
         self._closing = False
@@ -52,12 +57,29 @@ class CameraPipe:
         if self.active:
             if self.label == label and self.process.poll() is None:
                 return
-            self.close()
+            self.stop()
         self.prime()
         self.label = label
+        self.ready = False
+        self._idle.clear()
+        self.latest = self.error = self.error_code = None
+        self.started_at = time.monotonic()
+        self.first_frame_seconds = None
         self.process.stdin.write((json.dumps({'label': label})+'\n').encode('utf-8'))
         self.process.stdin.flush()
-        self.process.stdin.close()
+
+    def stop(self):
+        """Release preview hardware, retaining the imported worker for next start."""
+        if not self.active:
+            return
+        if self.process.poll() is None and not self._idle.is_set():
+            self.process.stdin.write(b'{"action":"stop"}\n')
+            self.process.stdin.flush()
+            if not self._idle.wait(timeout=15):
+                self.close()
+                raise RuntimeError('预览释放设备超时')
+        self.label = None
+        self.latest = None
 
     def _read(self):
         stream = self.process.stdout
@@ -69,8 +91,10 @@ class CameraPipe:
                 if len(header) != 4:
                     raise RuntimeError('摄像头管道报头截断')
                 length = struct.unpack('!I', header)[0]
-                if length == 0:
+                if length in (0, IDLE_PACKET):
                     self.ready = True
+                    if length == IDLE_PACKET:
+                        self._idle.set()
                     continue
                 is_error = length == ERROR_PACKET
                 if is_error:
@@ -98,12 +122,14 @@ class CameraPipe:
                         self.error = report['message']
                         self.error_code = report.get('code', 'preview_error')
                         self.ready = False
-                    return
+                    continue
                 with self.lock:
+                    if self.first_frame_seconds is None and self.started_at is not None:
+                        self.first_frame_seconds = time.monotonic() - self.started_at
                     self.latest = bytes(data)
                     self.version += 1
             with self.lock:
-                if not self._closing:
+                if not self._closing and self.error is None:
                     self.error = '预览进程已退出，请重新打开预览或查看日志'
         except Exception as error:
             with self.lock:
@@ -114,8 +140,9 @@ class CameraPipe:
         if process is None:
             return
         self._closing = True
+        if process.stdin is not None and not process.stdin.closed:
+            process.stdin.close()  # EOF stops the control reader and active session.
         if process.poll() is None:
-            process.terminate()
             try:
                 process.wait(timeout=15)
             except subprocess.TimeoutExpired:
@@ -123,8 +150,7 @@ class CameraPipe:
                 process.wait()
         self.reader.join(timeout=2)
         process.stdout.close()
-        if process.stdin is not None and not process.stdin.closed:
-            process.stdin.close()
         self.process = None
         self.label = None
         self.ready = False
+        self._idle.clear()

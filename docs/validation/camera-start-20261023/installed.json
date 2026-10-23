@@ -1,0 +1,27 @@
+{
+  "menu": {
+    "boot_id": "ebfb5660-301e-485b-b0c7-27cf5cf4a970",
+    "pid": 1989,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": false,
+    "busy": false,
+    "motion_enabled": true,
+    "message": "选择任务模式，按确认开始；按预览查看摄像头",
+    "board": "axu5ev",
+    "plan_only": false,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 0,
+    "events": [],
+    "transition": false,
+    "prediction_state": null,
+    "prediction_token": null,
+    "cursor": "arrow",
+    "preview_worker_ready": true,
+    "preview_first_frame_seconds": null,
+    "warm_task_ready": true
+  },
+  "configuration_unchanged": true,
+  "motion_executed": false
+}

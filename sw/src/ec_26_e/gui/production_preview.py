@@ -139,27 +139,9 @@ def draw_latest(raw, small, result, now):
     return image, report
 
 
-def main():
-    prepare_vision_runtime()
-    if '--wait-for-start' in sys.argv:
-        sys.stdout.buffer.write(struct.pack('!I', 0))  # Software ready, no hardware open.
-        sys.stdout.buffer.flush()
-        request = sys.stdin.buffer.readline(4096)
-        if not request:
-            return
-        label = json.loads(request)['label']
-        if label not in MODES:
-            raise ValueError('未知预览模式')
-    else:
-        label = sys.argv[1] if len(sys.argv) > 1 else next(iter(MODES))
+def preview_session(label, running):
+    """一次预览独占硬件；结束后释放设备，保留软件依赖。"""
     requested_at = time.monotonic()
-    running = True
-
-    def stop(*_):
-        nonlocal running
-        running = False
-
-    signal.signal(signal.SIGTERM, stop)
     board = load_menu_config()
     config = load_profile(*profile_paths(board), label, preview_backend(board))
     lock = TaskExecutionLock()
@@ -176,7 +158,7 @@ def main():
             started = last_status = time.monotonic()
             last_frame = started
             try:
-                while running:
+                while running():
                     if analysis.error is not None:
                         raise analysis.error
                     try:
@@ -223,6 +205,20 @@ def main():
     finally:
         camera.close()
         lock.release()
+
+
+def main():
+    prepare_vision_runtime()
+    if '--wait-for-start' in sys.argv:
+        from ec_26_e.gui.preview_server import serve
+        # The control thread can still be waiting when SIGTERM arrives. Raw
+        # stdin avoids a BufferedReader lock during interpreter finalization.
+        serve(preview_session, MODES, sys.stdin.buffer.raw, sys.stdout.buffer)
+    else:
+        stopped = threading.Event()
+        signal.signal(signal.SIGTERM, lambda *_: stopped.set())
+        label = sys.argv[1] if len(sys.argv) > 1 else next(iter(MODES))
+        preview_session(label, lambda: not stopped.is_set())
 
 
 def run():

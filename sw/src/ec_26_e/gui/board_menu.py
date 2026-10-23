@@ -95,6 +95,7 @@ class BoardMenu:
         self.pending_action = None
         self.display_token = None
         self.display_state = None
+        self.display_sequence = None
         self.display_directory = Path('/run/ec26e/task-display')
         self.last_display_poll = 0.0
         root.title('几何拼图 · 任务菜单')
@@ -245,7 +246,7 @@ class BoardMenu:
             self.transition_error = None
             def release_camera():
                 try:
-                    self.camera.close()
+                    self.camera.stop()
                 except Exception as error:
                     self.transition_error = error
             self.transition = threading.Thread(target=release_camera, daemon=True)
@@ -273,6 +274,7 @@ class BoardMenu:
 
     def clear_prediction(self):
         self.display_token = self.display_state = None
+        self.display_sequence = None
         self.result_image.configure(image='')
         self.result_photo = None
         self.legend.configure(text='点击开始后，识别、求解\n通过才显示本次目标位置。')
@@ -309,10 +311,14 @@ class BoardMenu:
             return
         try:
             report = json.loads((self.display_directory / (self.display_token + '.json')).read_text(encoding='utf-8'))
-            if report.get('token') != self.display_token or report.get('state') == self.display_state:
+            if report.get('token') != self.display_token:
+                return
+            if (report.get('state') == self.display_state
+                    and (report.get('state') != 'acquiring'
+                         or report.get('sequence') == self.display_sequence)):
                 return
             state = report['state']
-            if state in ('solving', 'ready'):
+            if state in ('solving', 'ready') or (state == 'acquiring' and 'sequence' in report):
                 self.photo = self.tk.PhotoImage(file=str(self.display_directory / (self.display_token + '.ppm')))
                 self.video.configure(image=self.photo, text='')
             if state == 'ready':
@@ -325,6 +331,7 @@ class BoardMenu:
                 self.result_image.configure(image='')
                 self.legend.configure(text=report.get('reason', '求解失败'))
             self.display_state = state
+            self.display_sequence = report.get('sequence')
         except (OSError, ValueError, self.tk.TclError):
             pass  # Atomic writer may not have published its first image yet.
 
@@ -411,6 +418,7 @@ class BoardMenu:
         report.update(transition=self.transition is not None, prediction_state=self.display_state,
                       prediction_token=self.display_token, cursor='arrow',
                       preview_worker_ready=self.camera.ready)
+        report['preview_first_frame_seconds'] = self.camera.first_frame_seconds
         if self.warm_task is not None:
             report['warm_task_ready'] = self.warm_task.ready
         temporary = path.with_suffix('.tmp')

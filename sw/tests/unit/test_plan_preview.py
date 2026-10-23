@@ -46,6 +46,38 @@ def test_prediction_requires_this_tasks_snapshot_and_failure_invalidates(tmp_pat
     assert not (tmp_path/'second.ppm').exists()
 
 
+def test_early_camera_image_is_not_a_stable_plan_snapshot(tmp_path):
+    publisher = PlanPreviewPublisher(tmp_path, 'live', 'clockwise')
+    raw = np.zeros((120, 200, 3), np.uint8)
+    publisher.acquiring(SimpleNamespace(image_bgr=raw, sequence_id=7))
+    state = json.loads((tmp_path/'live.json').read_text())
+    assert state['state'] == 'acquiring' and state['sequence'] == 7
+    assert (tmp_path/'live.ppm').exists() and publisher.snapshot is None
+    assert not raw.any()
+    with pytest.raises(RuntimeError, match='快照'):
+        publisher.publish(plan())
+
+
+def test_menu_refreshes_acquiring_images_by_sequence_and_rejects_old_token(tmp_path):
+    from ec_26_e.gui.board_menu import BoardMenu
+    menu = BoardMenu.__new__(BoardMenu)
+    menu.display_directory = tmp_path
+    menu.display_token = 'current'
+    menu.display_state = menu.display_sequence = None
+    menu.tk = Mock(TclError=RuntimeError)
+    menu.video = Mock()
+    report = tmp_path/'current.json'
+    for sequence in (3, 7):
+        report.write_text(json.dumps(dict(token='current', state='acquiring', sequence=sequence)))
+        menu.poll_prediction()
+    assert menu.tk.PhotoImage.call_count == 2
+    menu.poll_prediction()  # No repeated Tk image allocation for the same frame.
+    assert menu.tk.PhotoImage.call_count == 2
+    report.write_text(json.dumps(dict(token='old', state='acquiring', sequence=8)))
+    menu.poll_prediction()
+    assert menu.tk.PhotoImage.call_count == 2
+
+
 def test_preview_hides_old_contours_after_motion_or_age():
     a = np.zeros((90,160),np.uint8)
     assert overlay_is_current(a,a,.2)

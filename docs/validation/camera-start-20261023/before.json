@@ -1,0 +1,20 @@
+[
+  {
+    "trial": 0,
+    "software_ready_seconds": 3.1942776220000724,
+    "first_frame_seconds": 0.7406363959998998,
+    "close_seconds": 0.7159437789998719
+  },
+  {
+    "trial": 1,
+    "software_ready_seconds": 3.193300001999887,
+    "first_frame_seconds": 0.7530929409999771,
+    "close_seconds": 0.6656944769999882
+  },
+  {
+    "trial": 2,
+    "software_ready_seconds": 3.1960217490000105,
+    "first_frame_seconds": 0.7624975549999817,
+    "close_seconds": 0.9165946050000002
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "menu_ready_seconds": 3.162934058000019,
+  "preview": {
+    "candidate_count": 4,
+    "valid": false,
+    "reason": "轮廓质量不足或疑似粘连",
+    "overlay_current": true,
+    "paper_detected": true,
+    "piece_count": 0,
+    "analysis_age_seconds": 0.9649899790001655,
+    "frames": 46,
+    "analysis_frames": 7,
+    "display_fps": 12.299253920385437,
+    "analysis_fps": 1.8716255965803927,
+    "sequence": 112,
+    "updated_at_unix": 1792576753.3353925,
+    "camera_started_seconds": 0.7021541710000747
+  },
+  "cursor": {
+    "x": 640,
+    "y": 360,
+    "width": 16,
+    "height": 16,
+    "visible_pixels": 118
+  },
+  "ui_received_frames": 59,
+  "preview_first_frame_seconds": 0.7562816419999763,
+  "elapsed_seconds": 9.062429810999902
+}

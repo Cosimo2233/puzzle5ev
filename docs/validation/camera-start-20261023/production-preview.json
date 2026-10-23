@@ -1,0 +1,29 @@
+{
+  "boot_id": "ebfb5660-301e-485b-b0c7-27cf5cf4a970",
+  "pid": 1989,
+  "python": "3.11.17",
+  "mode": "固定四片",
+  "preview": true,
+  "busy": false,
+  "motion_enabled": true,
+  "message": "正式识别候选 4 个：轮廓质量不足或疑似粘连",
+  "board": "axu5ev",
+  "plan_only": false,
+  "button_error": "",
+  "pressed": {},
+  "camera_frames": 40,
+  "events": [
+    {
+      "action": "preview",
+      "source": "keyboard",
+      "at": 1792576878.960693
+    }
+  ],
+  "transition": false,
+  "prediction_state": null,
+  "prediction_token": null,
+  "cursor": "arrow",
+  "preview_worker_ready": false,
+  "preview_first_frame_seconds": 0.7317215069999747,
+  "warm_task_ready": true
+}

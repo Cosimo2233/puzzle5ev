@@ -59,22 +59,36 @@ def main(output: Path = typer.Argument(...), seconds: int = typer.Option(20),
     os.environ.update(EC_MENU_CONFIG=str(config_path),EC_MOTION_ENABLED='false')
     import tkinter as tk
     from ec_26_e.gui.board_menu import BoardMenu
+    records={}
     class TestMenu(BoardMenu):
         def write_status(self): pass  # Do not overwrite production service status.
+        def poll_prediction(self):
+            super().poll_prediction()
+            if self.display_state == 'acquiring' and self.display_sequence is not None:
+                records.setdefault('task_first_image_seconds', time.monotonic()-self._task_requested_at)
     root=tk.Tk()
     menu=TestMenu(root)
     menu.display_directory=output/'display'
     root.lift()
-    records={}
     started=time.monotonic()
     def preview():
+        if not menu.camera.ready or (menu.warm_task is not None and not menu.warm_task.ready):
+            if time.monotonic()-started > 20:
+                records['startup_error'] = 'menu software preload timed out'
+                finish()
+                return
+            root.after(50, preview)
+            return
+        records['menu_ready_seconds'] = time.monotonic()-started
         menu.choose(0 if mode == 'fixed' else 1)
         menu.action('preview','validation')
+        root.after(seconds*1000,capture)
     def capture():
         records['preview']=json.loads(Path('/run/ec26e/preview-status.json').read_text())
         records['cursor']=cursor_info()
         framebuffer(output/'preview.png')
         records['ui_received_frames']=menu.camera.version
+        records['preview_first_frame_seconds']=menu.camera.first_frame_seconds
         if solve:
             menu.action('confirm','validation-plan-only')
             root.after(1000,finish_solve)
@@ -96,7 +110,6 @@ def main(output: Path = typer.Argument(...), seconds: int = typer.Option(20),
         (output/'result.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
         menu.close()
     root.after(300,preview)
-    root.after(seconds*1000,capture)
     root.mainloop()
     print(json.dumps(records,ensure_ascii=False))
 
