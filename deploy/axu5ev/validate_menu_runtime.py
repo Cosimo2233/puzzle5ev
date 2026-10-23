@@ -48,7 +48,9 @@ def cursor_info():
 
 @app.command()
 def main(output: Path = typer.Argument(...), seconds: int = typer.Option(20),
-         solve: bool = typer.Option(False)):
+         solve: bool = typer.Option(False), mode: str = typer.Option('random')):
+    if mode not in ('fixed', 'random'):
+        raise ValueError('mode 必须为 fixed 或 random')
     output.mkdir(parents=True,exist_ok=True)
     config=json.loads(Path('/opt/ec26e/config/axu5ev/menu.json').read_text())
     config.update(plan_only=True,motion_enabled=False)
@@ -66,7 +68,7 @@ def main(output: Path = typer.Argument(...), seconds: int = typer.Option(20),
     records={}
     started=time.monotonic()
     def preview():
-        menu.choose(1)
+        menu.choose(0 if mode == 'fixed' else 1)
         menu.action('preview','validation')
     def capture():
         records['preview']=json.loads(Path('/run/ec26e/preview-status.json').read_text())

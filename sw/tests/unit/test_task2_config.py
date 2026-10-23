@@ -25,6 +25,17 @@ TEST_ENV = {"MOTION_MAGNET_GPIO_LINE": "12"}
 class Task2ConfigTest(unittest.TestCase):
     """验证 Task2 的随机模式和白纸检测模式不会泄漏到 Task1 环境项。"""
 
+    def test_fixed_preprocessing_overrides_global_card_parameters(self):
+        from ec_26_e.config import load_task1_config
+        env = dict(TEST_ENV, EC_BLUE_RATIO_Q8='320', EC_BLUE_BACKGROUND_FRACTION_Q8='218',
+                   TASK1_BLUE_RATIO_Q8='275', TASK1_BLUE_BACKGROUND_FRACTION_Q8='0', TASK1_BLUE_PROFILE='fixed_auto')
+        fixed = load_task1_config(environ=env, env_path=None)
+        random = load_task2_config(environ=env, env_path=None)
+        self.assertEqual((fixed.detect1.blue_ratio_q8, fixed.detect1.blue_background_fraction_q8), (275, 0))
+        self.assertEqual((random.detect1.blue_ratio_q8, random.detect1.blue_background_fraction_q8), (320, 218))
+        self.assertEqual(fixed.detect1.blue_profile, 'fixed_auto')
+        self.assertEqual(random.detect1.blue_profile, 'configured')
+
     def test_card_preprocessing_is_scoped_to_random_mode(self):
         from ec_26_e.config import load_task1_config
         env = dict(TEST_ENV, EC_BLUE_RATIO_Q8='275', TASK2_BLUE_RATIO_Q8='300',

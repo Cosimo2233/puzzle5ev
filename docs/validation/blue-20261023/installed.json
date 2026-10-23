@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "package_files_checked": 92,
+  "changes": {
+    "TASK1_BLUE_RATIO_Q8": "275",
+    "TASK1_BLUE_BACKGROUND_FRACTION_Q8": "0",
+    "TASK1_BLUE_PROFILE": "fixed_auto"
+  },
+  "mechanics_and_permissions_unchanged": true,
+  "hardware_unchanged": true,
+  "motion_executed": false,
+  "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+  "menu": {
+    "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+    "pid": 1309,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": false,
+    "busy": false,
+    "motion_enabled": true,
+    "message": "选择任务模式，按确认开始；按预览查看摄像头",
+    "board": "axu5ev",
+    "plan_only": false,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 0,
+    "events": [],
+    "transition": false,
+    "prediction_state": null,
+    "prediction_token": null,
+    "cursor": "arrow",
+    "preview_worker_ready": true,
+    "warm_task_ready": true
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "passed": true,
+  "motion_executed": false,
+  "rows": [
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-00.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-01.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-02.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-03.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-04.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-05.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-06.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-07.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-08.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-09.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-10.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/capture-20261022/frame-11.png",
+      "pieces": 4,
+      "ratio": 320,
+      "blue_min": 195,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/blue-20261023/verified-frame-00.png",
+      "pieces": 4,
+      "ratio": 275,
+      "blue_min": 45,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    },
+    {
+      "path": "/opt/ec26e/validation/blue-20261023/verified-frame-29.png",
+      "pieces": 4,
+      "ratio": 275,
+      "blue_min": 45,
+      "mask_mismatches": 0,
+      "geometry_equal": true
+    }
+  ]
+}

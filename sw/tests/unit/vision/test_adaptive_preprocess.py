@@ -8,7 +8,7 @@ import pytest
 
 from ec_26_e.vision.contracts import Detect1Config
 from ec_26_e.vision.factory import create_production_detector
-from ec_26_e.vision.preprocess import CpuPreprocessor, PreprocessConfig, resolve_blue_min
+from ec_26_e.vision.preprocess import CpuPreprocessor, PreprocessConfig, resolve_blue_min, resolve_blue_parameters
 
 
 CARD = Path(__file__).parents[2] / 'fixtures/vision/poker-j-blue-print.png'
@@ -39,6 +39,45 @@ def test_original_scene_reproduces_static_threshold_failure():
     with create_production_detector(replace(CONFIG, blue_ratio_q8=275,
                                              blue_background_fraction_q8=0)) as owner:
         assert not owner.detector.detect(cv2.imread(str(CARD))).pieces
+
+
+def test_fixed_cyan_scene_uses_its_own_color_profile():
+    image = cv2.imread(str(CARD.with_name('fixed-cyan-background.png')))
+    fixed = replace(CONFIG, expected_pieces=4, max_vertices=6,
+                    blue_ratio_q8=275, blue_background_fraction_q8=0)
+    with create_production_detector(CONFIG) as owner:
+        with pytest.raises(ValueError, match='蓝底采样不足'):
+            owner.detector.detect(image)
+        assert '0%' in owner.detector.last_failure
+    for gain in (.7, .85, 1., 1.1):
+        adjusted = np.clip(image.astype(float)*gain, 0, 255).astype(np.uint8)
+        with create_production_detector(fixed) as owner:
+            result = owner.detector.detect(adjusted)
+            assert sorted(len(p.corners_px) for p in result.pieces) == [3, 4, 4, 4]
+
+
+@pytest.mark.parametrize('name,ratio', [('fixed-cyan-background.png',275),('fixed-blue-cast.png',320)])
+@pytest.mark.parametrize('gain', [.7, .85, 1., 1.1])
+def test_fixed_auto_profile_handles_both_recorded_color_states(name, ratio, gain):
+    raw = cv2.imread(str(CARD.with_name(name)))
+    image = np.clip(raw.astype(float)*gain, 0, 255).astype(np.uint8)
+    config = replace(CONFIG, expected_pieces=4, max_vertices=6, blue_profile='fixed_auto')
+    with create_production_detector(config) as owner:
+        result = owner.detector.detect(image)
+        assert sorted(len(p.corners_px) for p in result.pieces) == [3,4,4,4], owner.detector.last_failure
+        assert owner.detector.preprocessor.last_blue_ratio_q8 == ratio
+
+
+def test_auto_profile_rejects_missing_or_insufficient_blue_without_stale_reuse():
+    params = PreprocessConfig(blue_profile='fixed_auto')
+    image = np.full((120,120,3), (185,163,70), np.uint8)
+    assert resolve_blue_parameters(image, params) == (275,45)
+    image[:] = 230
+    with pytest.raises(ValueError, match='蓝底采样不足'):
+        resolve_blue_parameters(image, params)
+    image[:30] = (185,163,70)  # 少量蓝色物体不能代表整个底板。
+    with pytest.raises(ValueError, match='蓝底采样不足'):
+        resolve_blue_parameters(image, params)
 
 
 def test_print_rejection_does_not_fill_concavity_or_bridge_gap():

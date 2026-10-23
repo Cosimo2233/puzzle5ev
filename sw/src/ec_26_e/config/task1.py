@@ -540,6 +540,7 @@ def _detect1_from_sources(
         brightness_min=_env_integer(environ, "EC_BRIGHTNESS_MIN", 0),
         blue_background_fraction_q8=_env_integer(environ, f"{preprocess_env_prefix}_BLUE_BACKGROUND_FRACTION_Q8",
                                                  _env_integer(environ, "EC_BLUE_BACKGROUND_FRACTION_Q8", 0)),
+        blue_profile=environ.get(f"{preprocess_env_prefix}_BLUE_PROFILE", 'configured'),
         piece_mode=_env_integer(
             environ,
             piece_mode_env,
@@ -592,7 +593,7 @@ def _task1_from_sources(
     return Task1Config(
         camera=_camera_from_env(environ),
         resize=_resize_from_sources(environ, resize_section),
-        detect1=_detect1_from_sources(environ, detect1_section),
+        detect1=_detect1_from_sources(environ, detect1_section, preprocess_env_prefix="TASK1"),
         options=options,
         actuation=_actuation_from_env(environ),
     )

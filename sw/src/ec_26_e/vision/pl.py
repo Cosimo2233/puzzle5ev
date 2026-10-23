@@ -3,7 +3,7 @@ import threading
 import time
 import numpy as np
 from ec_26_e.vision._blue import validate_bgr_image
-from ec_26_e.vision.preprocess import PreprocessConfig, resolve_blue_min
+from ec_26_e.vision.preprocess import PreprocessConfig, resolve_blue_parameters
 
 class PynqPreprocessor:
     def __init__(self, bitstream, config=PreprocessConfig(), *, timeout_seconds=5.0):
@@ -54,14 +54,14 @@ class PynqPreprocessor:
         with self._lock:
             if self._failed or self._closed:
                 raise RuntimeError("PL 后端已关闭或失步，需要重新加载 overlay")
-            self.last_blue_min = resolve_blue_min(image, self.config)
+            self.last_blue_ratio_q8, self.last_blue_min = resolve_blue_parameters(image, self.config)
             tx, rx = self._get_buffers(h, w)
             try:
                 # AXIS 字节顺序是 B/G/R/0。直接写字节，避免三个 uint32
                 # 通道、移位和按位或产生的全帧临时数组。asarray 去掉
                 # PynqBuffer 子类，使临时视图不会拥有释放 CMA 的职责。
                 np.asarray(tx).view(np.uint8).reshape(h, w, 4)[..., :3] = image
-                for offset, value in ((0x10,w),(0x18,h),(0x20,self.config.blue_ratio_q8),
+                for offset, value in ((0x10,w),(0x18,h),(0x20,self.last_blue_ratio_q8),
                     (0x28,self.last_blue_min),(0x30,self.config.brightness_min),(0x38,frame_id)):
                     self.ip.write(offset,value)
                 self.dma.recvchannel.transfer(rx)

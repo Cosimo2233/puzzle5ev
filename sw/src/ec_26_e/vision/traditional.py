@@ -90,12 +90,17 @@ class TraditionalVisionDetector:
         height, width = image.shape[:2]
         validate_a4_image_size(width, height)
         self._frame_id += 1
-        if callable(getattr(self.preprocessor, 'process_into', None)):
-            if self._mask_buffer is None or self._mask_buffer.shape != (height, width):
-                self._mask_buffer = np.empty((height, width), dtype=np.uint8)
-            mask = self.preprocessor.process_into(image, self._frame_id, self._mask_buffer)
-        else:
-            mask = self.preprocessor.process(image, self._frame_id)
+        self.last_failure = None
+        try:
+            if callable(getattr(self.preprocessor, 'process_into', None)):
+                if self._mask_buffer is None or self._mask_buffer.shape != (height, width):
+                    self._mask_buffer = np.empty((height, width), dtype=np.uint8)
+                mask = self.preprocessor.process_into(image, self._frame_id, self._mask_buffer)
+            else:
+                mask = self.preprocessor.process(image, self._frame_id)
+        except ValueError as error:
+            self.last_failure = str(error)
+            raise
         if mask.dtype != np.uint8 or mask.shape != (height, width) or not np.all((mask == 0) | (mask == 255)):
             raise ValueError("预处理返回非法掩膜")
         preprocessing_ms = (time.perf_counter() - started) * 1000

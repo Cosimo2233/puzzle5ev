@@ -14,7 +14,7 @@ import numpy as np
 import cv2
 
 from ec_26_e.vision._blue import validate_bgr_image
-from ec_26_e.vision.preprocess import PreprocessConfig, resolve_blue_min
+from ec_26_e.vision.preprocess import PreprocessConfig, resolve_blue_parameters
 
 
 def verify_loaded_hardware(bitstream):
@@ -167,7 +167,7 @@ class LinuxPreprocessor:
             if self._closed or self._failed:
                 raise RuntimeError('PL 后端已关闭或失步')
             started = time.perf_counter()
-            self.last_blue_min = resolve_blue_min(image, self.config)
+            self.last_blue_ratio_q8, self.last_blue_min = resolve_blue_parameters(image, self.config)
             self.calibration_seconds += time.perf_counter() - started
             try:
                 started = time.perf_counter()
@@ -177,7 +177,7 @@ class LinuxPreprocessor:
                 cv2.cvtColor(image, cv2.COLOR_BGR2BGRA,
                              dst=self._tx[:h*w].reshape(h, w, 4))
                 self.pack_seconds += time.perf_counter() - started
-                args = struct.pack('<6I', w, h, self.config.blue_ratio_q8,
+                args = struct.pack('<6I', w, h, self.last_blue_ratio_q8,
                                    self.last_blue_min, self.config.brightness_min, frame_id)
                 started = time.perf_counter()
                 fcntl.ioctl(self._fd, self.SUBMIT, args)

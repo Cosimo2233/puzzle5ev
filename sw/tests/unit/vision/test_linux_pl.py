@@ -96,6 +96,22 @@ def test_transport_fault_latches_until_reopen(transport, monkeypatch):
     device.close()
 
 
+def test_fixed_auto_updates_ratio_and_brightness_together_per_frame(transport, monkeypatch):
+    calls = []
+    monkeypatch.setitem(sys.modules, 'fcntl', SimpleNamespace(
+        ioctl=lambda fd, command, args: calls.append(struct.unpack('<6I', args))))
+    device = linux_pl.LinuxPreprocessor('test.bit', linux_pl.PreprocessConfig(blue_profile='fixed_auto'))
+    try:
+        device.process(np.full((120,120,3), (233,169,45), np.uint8), 1)
+        device.process(np.full((120,120,3), (185,163,70), np.uint8), 2)
+        with pytest.raises(ValueError, match='蓝底采样不足'):
+            device.process(np.full((120,120,3), 230, np.uint8), 3)
+        device.process(np.full((120,120,3), (233,169,45), np.uint8), 4)
+        assert [(c[2],c[3],c[5]) for c in calls] == [(320,198,1),(275,45,2),(320,198,4)]
+    finally:
+        device.close()
+
+
 def test_adaptive_threshold_sent_per_frame_without_poisoning_dma(transport, monkeypatch):
     calls = []
     monkeypatch.setitem(sys.modules, 'fcntl', SimpleNamespace(

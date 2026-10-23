@@ -97,7 +97,8 @@ class TaskPreviewObserver:
             for contour in getattr(getattr(detector, 'detector', None), 'last_preview_contours', ()):
                 source = cv2.perspectiveTransform(contour.astype(np.float32), inverse)
                 cv2.polylines(canvas, [np.rint(source).astype(np.int32)], True, (0,180,255), 2)
-        self.controller._publish(canvas, "正在确认工作区和纸片，请保持分开放置")
+        detail = getattr(getattr(detector, 'detector', detector), 'last_failure', None)
+        self.controller._publish(canvas, detail or "正在确认工作区和纸片，请保持分开放置")
         return False
 
     def close(self):

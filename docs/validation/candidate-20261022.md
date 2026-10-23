@@ -57,6 +57,8 @@
 
 ## 版本选择和回滚
 
+上述冷启动时发现的固定模式蓝底采样失败，后续已按 [识别稳定性修正](blue-20261023.md) 完成修复和真实菜单只求解验证；本记录保留当时原始验收结果。
+
 新硬件选择通过 `/opt/ec26e/config/axu5ev/hardware.json` 显式指定。没有该文件时继续原硬件包及候选 CPU 路径。`select_candidate_hardware.py` 校验新包、备份监督程序和选择配置后，仅更新下次启动选择；不会在 HDMI/DMA 驱动运行时热重载 PL。
 
 软件可用发布目录的 `install_robust_release.py --release /opt/ec26e/releases/candidate-20261022 --apply --rollback` 恢复。若已切换硬件选择，先用 `select_candidate_hardware.py --release /opt/ec26e/releases/candidate-20261022 --apply --rollback` 恢复旧包选择，再冷启动；它检查配置哈希，拒绝覆盖后续人工修改。机械参数与运动权限不属于本轮回滚范围。

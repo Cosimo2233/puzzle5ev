@@ -15,7 +15,7 @@ from ec_26_e.vision.preprocess import PreprocessConfig
 def preprocess_config(config: Detect1Config) -> PreprocessConfig:
     """预览和任务必须采用同一组颜色参数。"""
     return PreprocessConfig(config.blue_ratio_q8, config.blue_min,
-                            config.brightness_min, config.blue_background_fraction_q8)
+                            config.brightness_min, config.blue_background_fraction_q8, config.blue_profile)
 
 
 def create_legacy_yolo_detector(

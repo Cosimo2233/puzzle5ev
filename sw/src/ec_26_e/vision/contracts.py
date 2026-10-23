@@ -72,6 +72,7 @@ class Detect1Config:
     blue_min: int = 45
     brightness_min: int = 0
     blue_background_fraction_q8: int = 0
+    blue_profile: str = 'configured'
 
     def __post_init__(self) -> None:
         """校验比例、顶点数量和候选数量约束。"""
@@ -86,7 +87,7 @@ class Detect1Config:
         if self.preprocess_backend == "pl" and not self.pl_bitstream:
             raise ValueError("PL 后端必须配置 bitstream 路径")
         PreprocessConfig(self.blue_ratio_q8, self.blue_min, self.brightness_min,
-                         self.blue_background_fraction_q8)
+                         self.blue_background_fraction_q8, self.blue_profile)
 
         if isinstance(self.piece_mode, bool) or not isinstance(
             self.piece_mode,

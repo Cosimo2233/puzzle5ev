@@ -1,0 +1,141 @@
+{
+  "motion_executed": false,
+  "rows": [
+    {
+      "run": "menu-fixed-auto",
+      "prediction_state": "ready",
+      "preview": {
+        "candidate_count": 4,
+        "valid": true,
+        "reason": "",
+        "overlay_current": true,
+        "paper_detected": true,
+        "piece_count": 4,
+        "analysis_age_seconds": 0.7305551250001372,
+        "frames": 195,
+        "analysis_frames": 25,
+        "display_fps": 16.578893732410727,
+        "analysis_fps": 2.1254991964629135,
+        "sequence": 353,
+        "updated_at_unix": 1792572272.8472464,
+        "camera_started_seconds": 0.6864883739999641
+      },
+      "message": "求解完成（未执行运动）",
+      "performance": [
+        {
+          "capture_seconds": 0.0004757130002417398,
+          "click_to_plan_seconds": 5.892027897999924,
+          "detect_seconds": 0.8999926500000583,
+          "invalid_frames": 0,
+          "mode": "fixed",
+          "preprocess_seconds": 0.08239276199992673,
+          "processed_frames": 6,
+          "resize_seconds": 1.584966789999953,
+          "review_seconds": 0.17679527800032702,
+          "solve_seconds": 1.546387753999852,
+          "success": true,
+          "task_seconds": 4.959516783000026,
+          "vision_pl": {
+            "calibration_seconds": 0.014284432000067682,
+            "copy_seconds": 0.018814958000120896,
+            "dma_seconds": 0.029750248000027568,
+            "frame_count": 6,
+            "last_blue_min": 45,
+            "pack_seconds": 0.005208982000112883
+          }
+        }
+      ]
+    },
+    {
+      "run": "menu-fixed-auto-2",
+      "prediction_state": "ready",
+      "preview": {
+        "candidate_count": 4,
+        "valid": true,
+        "reason": "",
+        "overlay_current": true,
+        "paper_detected": true,
+        "piece_count": 4,
+        "analysis_age_seconds": 0.7591508410000642,
+        "frames": 79,
+        "analysis_frames": 9,
+        "display_fps": 16.694917612533718,
+        "analysis_fps": 1.9019526394025756,
+        "sequence": 141,
+        "updated_at_unix": 1792572320.6843958,
+        "camera_started_seconds": 0.6899226589998761
+      },
+      "message": "求解完成（未执行运动）",
+      "performance": [
+        {
+          "capture_seconds": 0.0005495149998751003,
+          "click_to_plan_seconds": 5.900466202000189,
+          "detect_seconds": 0.8756858069998543,
+          "invalid_frames": 0,
+          "mode": "fixed",
+          "preprocess_seconds": 0.08403576199998497,
+          "processed_frames": 6,
+          "resize_seconds": 1.5987349470003664,
+          "review_seconds": 0.1530914410002424,
+          "solve_seconds": 1.5427892179998253,
+          "success": true,
+          "task_seconds": 4.879289410999945,
+          "vision_pl": {
+            "calibration_seconds": 0.010197343000072578,
+            "copy_seconds": 0.021992949999912526,
+            "dma_seconds": 0.030172892000337015,
+            "frame_count": 6,
+            "last_blue_min": 45,
+            "pack_seconds": 0.005093389999956344
+          }
+        }
+      ]
+    },
+    {
+      "run": "menu-fixed-auto-3",
+      "prediction_state": "ready",
+      "preview": {
+        "candidate_count": 4,
+        "valid": true,
+        "reason": "",
+        "overlay_current": true,
+        "paper_detected": true,
+        "piece_count": 4,
+        "analysis_age_seconds": 0.8523025529998449,
+        "frames": 81,
+        "analysis_frames": 9,
+        "display_fps": 17.185509610013742,
+        "analysis_fps": 1.9095010677793045,
+        "sequence": 141,
+        "updated_at_unix": 1792572338.8630285,
+        "camera_started_seconds": 0.6871336809999775
+      },
+      "message": "求解完成（未执行运动）",
+      "performance": [
+        {
+          "capture_seconds": 0.0005007359998216998,
+          "click_to_plan_seconds": 5.741626103000044,
+          "detect_seconds": 0.8847580159997506,
+          "invalid_frames": 0,
+          "mode": "fixed",
+          "preprocess_seconds": 0.08508901099980903,
+          "processed_frames": 6,
+          "resize_seconds": 1.5289627409997593,
+          "review_seconds": 0.18283511899994664,
+          "solve_seconds": 1.5301291509999828,
+          "success": true,
+          "task_seconds": 4.822204659999898,
+          "vision_pl": {
+            "calibration_seconds": 0.008886539000059201,
+            "copy_seconds": 0.02750286399941615,
+            "dma_seconds": 0.031253801999810094,
+            "frame_count": 6,
+            "last_blue_min": 45,
+            "pack_seconds": 0.005149221000010584
+          }
+        }
+      ]
+    }
+  ],
+  "passed": true
+}
