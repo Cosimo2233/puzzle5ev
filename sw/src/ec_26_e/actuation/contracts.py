@@ -184,6 +184,7 @@ class MotionLifecycleState(str, Enum):
     INITIAL_Z_RAISING = "initial_z_raising"
     EXECUTING = "executing"
     RETURNING_TO_START = "returning_to_start"
+    FINAL_Z_LOWERING = "final_z_lowering"
     FINISH = "finish"
     SHUTTING_DOWN = "shutting_down"
     EXITED = "exited"

@@ -5,11 +5,24 @@ import subprocess
 import sys
 import threading
 
+ERROR_PACKET = 0xFFFFFFFF
+
+
+def write_preview_error(stream, message, code='preview_error'):
+    """Send a bounded error over the same pipe, without publishing it as an image."""
+    data = json.dumps(dict(code=code, message=str(message)[:1000]),
+                      ensure_ascii=False).encode('utf-8')
+    stream.write(struct.pack('!II', ERROR_PACKET, len(data)) + data)
+    stream.flush()
+
+
 class CameraPipe:
     def __init__(self):
         self.process = self.reader = None
         self.latest = None
         self.error = None
+        self.error_code = None
+        self._closing = False
         self.lock = threading.Lock()
         self.version = 0
         self.label = None
@@ -27,6 +40,8 @@ class CameraPipe:
         self.label = None
         self.ready = False
         self.latest = self.error = None
+        self.error_code = None
+        self._closing = False
         self.process = subprocess.Popen(
             [sys.executable, '-u', '-m', 'ec_26_e.gui.production_preview', '--wait-for-start'],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -57,6 +72,14 @@ class CameraPipe:
                 if length == 0:
                     self.ready = True
                     continue
+                is_error = length == ERROR_PACKET
+                if is_error:
+                    header = stream.read(4)
+                    if len(header) != 4:
+                        raise RuntimeError('预览错误报头截断')
+                    length = struct.unpack('!I', header)[0]
+                    if not 1 <= length <= 8192:
+                        raise RuntimeError('预览错误报文长度无效')
                 if not 1 <= length <= 1280 * 720 * 3 + 64:
                     raise RuntimeError('摄像头帧长度无效')
                 data = bytearray(length)
@@ -67,11 +90,21 @@ class CameraPipe:
                     if not count:
                         raise RuntimeError('摄像头管道帧截断')
                     received += count
+                if is_error:
+                    report = json.loads(data)
+                    if not isinstance(report, dict) or not isinstance(report.get('message'), str):
+                        raise RuntimeError('预览错误报文无效')
+                    with self.lock:
+                        self.error = report['message']
+                        self.error_code = report.get('code', 'preview_error')
+                        self.ready = False
+                    return
                 with self.lock:
                     self.latest = bytes(data)
                     self.version += 1
             with self.lock:
-                self.error = '摄像头采集已停止，请检查 USB 接线'
+                if not self._closing:
+                    self.error = '预览进程已退出，请重新打开预览或查看日志'
         except Exception as error:
             with self.lock:
                 self.error = str(error)
@@ -80,6 +113,7 @@ class CameraPipe:
         process = self.process
         if process is None:
             return
+        self._closing = True
         if process.poll() is None:
             process.terminate()
             try:

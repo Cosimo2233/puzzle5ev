@@ -1,5 +1,6 @@
 """真实桥接客户端 + 模拟线协议，绝不打开实物串口。"""
 import time
+import struct
 
 import pytest
 import serial
@@ -63,6 +64,8 @@ class WirePeer:
                         self.rx.extend(p.encode(p.Frame(p.RX, ch, 0, data)))
             ack = bytes((frame.kind, 3 if reject else 0, self.armed,
                          self.magnet, self.fault, self.version)) + bytes(4)
+            if frame.kind == p.DIAGNOSTICS and not reject:
+                ack += struct.pack("<BBI27I", 1, 5, 1000, *([0] * 27))
             self.rx.extend(p.encode(p.Frame(p.ACK, frame.channel, frame.sequence, ack)))
         return len(packet)
 
@@ -132,8 +135,39 @@ def test_unsafe_initial_status_never_arms(peer, field, value):
     setattr(peer, field, value)
     with pytest.raises(RuntimeError, match="初始状态"):
         M0Session("fake").open()
-    assert [f.kind for f in peer.commands] == [p.STATUS]
+    assert [f.kind for f in peer.commands] == (
+        [p.STATUS, p.DIAGNOSTICS] if field == "fault" else [p.STATUS])
     assert peer.closes == 1
+
+
+def test_latched_fault_is_recorded_without_clearing_or_arming(peer, caplog):
+    peer.fault = 2
+    with pytest.raises(RuntimeError, match="UART 接收异常.*故障已锁存"):
+        M0Session("fake").open()
+    assert "M0_UART_DIAGNOSTICS" in caplog.text
+    assert '"rx_enabled": false' in caplog.text
+    assert peer.fault == 2 and not peer.armed and not peer.magnet
+    assert [f.kind for f in peer.commands] == [p.STATUS, p.DIAGNOSTICS]
+
+
+def test_failed_diagnostic_does_not_mask_original_status(peer, caplog):
+    peer.fault = 2
+    peer.reject = p.DIAGNOSTICS
+    with pytest.raises(RuntimeError, match="M0 初始状态.*故障已锁存"):
+        M0Session("fake").open()
+    assert "保留原始 STATUS" in caplog.text
+    assert [f.kind for f in peer.commands] == [p.STATUS, p.DIAGNOSTICS]
+    assert peer.closes == 1 and peer.fault == 2
+
+
+def test_old_client_without_diagnostic_api_keeps_original_rejection(peer):
+    peer.fault = 2
+    session = M0Session("fake")
+    session.bridge.diagnostics = None
+    with pytest.raises(RuntimeError, match="M0 初始状态.*故障已锁存"):
+        session.open()
+    assert [f.kind for f in peer.commands] == [p.STATUS]
+    assert peer.closes == 1 and not peer.armed
 
 
 @pytest.mark.parametrize("short", [False, True])

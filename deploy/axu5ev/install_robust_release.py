@@ -26,7 +26,9 @@ def config_hashes():
 
 
 def package_paths(site):
-    return [site/name for name in PACKAGES] + [site/'shapely', site/'shapely.libs'] + list(site.glob('shapely-*.dist-info'))
+    return ([site/name for name in PACKAGES] + [site/'shapely', site/'shapely.libs',
+            site/'puzzle_bridge'] + list(site.glob('shapely-*.dist-info'))
+            + list(site.glob('puzzle_m0_bridge-*.dist-info')))
 
 
 def restore(backup, site):

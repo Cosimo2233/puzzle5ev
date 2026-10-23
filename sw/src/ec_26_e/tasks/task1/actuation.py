@@ -157,6 +157,7 @@ class MovePlanActuator:
             MotionLifecycleState.INITIAL_Z_RAISING: "正在抬升 Z 轴并初始化旋转轴",
             MotionLifecycleState.EXECUTING: "正在搬运和拼接纸片",
             MotionLifecycleState.RETURNING_TO_START: "正在返回本次运动的 XY 起点",
+            MotionLifecycleState.FINAL_Z_LOWERING: "XY 已回起点，正在放下 Z 轴",
             MotionLifecycleState.FINISH: "纸片搬运和返回起点指令执行完成",
             MotionLifecycleState.SHUTTING_DOWN: "正在关闭磁铁并失能电机",
             MotionLifecycleState.EXITED: "运动执行器已退出",
@@ -393,7 +394,7 @@ class MovePlanActuator:
         magnet: MagnetOutput,
         xy_controller: MksXYController,
     ) -> None:
-        """最后一片放置完成后，Z 保持抬升并输出一秒最终提示。"""
+        """空载返回起点后，Z 在抬升位输出一秒提示，再由调用方下降。"""
 
         self._move_z_to(
             self._config.z_up_degrees,
@@ -700,19 +701,29 @@ class MovePlanActuator:
                 magnet,
                 xy_controller,
             )
+            # Only normal completion lowers Z at the start position. Returning
+            # XY and the existing raised-head indicator must finish first.
+            if not xy_controller.is_at_origin():
+                raise RuntimeError("XY 尚未返回起点，禁止执行收尾 Z 下降")
+            magnet.set_enabled(False)
+            self._transition(MotionLifecycleState.FINAL_Z_LOWERING)
+            self._move_z_to(
+                self._config.z_down_degrees,
+                transport,
+                xy_controller,
+            )
 
             if (
                 not math.isclose(
                     self._presumed_z_degrees,
-                    self._config.z_up_degrees,
+                    self._config.z_down_degrees,
                     abs_tol=1e-9,
                 )
                 or not xy_controller.is_at_origin()
             ):
                 raise RuntimeError(
-                    "结束状态不满足 Z 抬起且 XY 已返回起点"
+                    "结束状态不满足 Z 放下且 XY 已返回起点"
                 )
-            magnet.set_enabled(False)
             self._transition(MotionLifecycleState.FINISH)
             plan_finished = True
 

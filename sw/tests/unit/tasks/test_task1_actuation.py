@@ -507,8 +507,8 @@ class MovePlanActuatorTest(unittest.TestCase):
             )
             if frame[0] == 0xE3 and frame[1] == 0xFD
         ]
-        self.assertEqual(len(z_move_times), 5)
-        placement_descent_started = z_move_times[-2]
+        self.assertEqual(len(z_move_times), 6)
+        placement_descent_started = z_move_times[-3]
         placement_magnet_disabled = magnet.value_times[2]
         self.assertAlmostEqual(
             placement_magnet_disabled - placement_descent_started,
@@ -519,7 +519,7 @@ class MovePlanActuatorTest(unittest.TestCase):
     def test_completion_signal_keeps_z_raised_and_lights_pin33_one_second(
         self,
     ) -> None:
-        """末片放下后应回 Z 抬升位，并只点亮 pin33 恰好一秒。"""
+        """Z 抬升位提示一秒，再下降；提示期间不吸合磁铁。"""
 
         config = make_config(
             z_up_degrees=90.0,
@@ -541,7 +541,7 @@ class MovePlanActuatorTest(unittest.TestCase):
             )
             if frame[0] == 0xE3 and frame[1] == 0xFD
         ]
-        self.assertEqual(len(z_move_times), 5)
+        self.assertEqual(len(z_move_times), 6)
         completion_enabled = led.value_times[0]
         completion_disabled = led.value_times[1]
         self.assertEqual(led.values, [True, False])
@@ -549,7 +549,7 @@ class MovePlanActuatorTest(unittest.TestCase):
         self.assertTrue(led.closed)
         self.assertEqual(magnet.values, [False, True, False, False, False])
         self.assertGreaterEqual(
-            completion_enabled - z_move_times[-1],
+            completion_enabled - z_move_times[-2],
             config.z_move_wait_seconds + config.rotation_zero_wait_seconds,
         )
         self.assertAlmostEqual(
@@ -557,6 +557,10 @@ class MovePlanActuatorTest(unittest.TestCase):
             1.0,
             places=9,
         )
+        self.assertGreaterEqual(z_move_times[-1], completion_disabled)
+        self.assertGreaterEqual(transport.frame_times[-4] - z_move_times[-1],
+                                config.z_move_wait_seconds - 1e-9)
+        self.assertEqual(actuator._presumed_z_degrees, config.z_down_degrees)
 
     def test_returns_to_start_after_release_before_completion_and_disable(self) -> None:
         """固定/随机、多片和负 Y 坐标均应空载返回启动零点后才提示完成。"""
@@ -588,7 +592,7 @@ class MovePlanActuatorTest(unittest.TestCase):
                 result = actuator.execute(plan)
 
                 # 每个 XY 电机的有符号总脉冲为零，确实返回启动位置。
-                for address in (0xE0, 0xE1, 0xE2):
+                for address in (0xE0, 0xE1, 0xE2, 0xE3):
                     moves = [frame for frame in transport.frames
                              if frame[0] == address and frame[1] == 0xFD]
                     self.assertEqual(sum(
@@ -597,7 +601,8 @@ class MovePlanActuatorTest(unittest.TestCase):
                     ), 0)
                 return_start = len(rotation.frames_before_counterclockwise[-1])
                 return_frames = transport.frames[return_start:-4]
-                self.assertEqual([frame[0] for frame in return_frames], [0xE0, 0xE1, 0xE2])
+                self.assertEqual([frame[0] for frame in return_frames],
+                                 [0xE0, 0xE1, 0xE2, 0xE3, 0xE3])
                 self.assertTrue(all(frame[1] == 0xFD for frame in return_frames))
                 returned_at = led.value_times[0]
                 last_cycle = compile_move_plan(plan, config)[-1]
@@ -615,6 +620,12 @@ class MovePlanActuatorTest(unittest.TestCase):
                                      zip(magnet.values, magnet.value_times)
                                      if return_started_at <= timestamp < returned_at))
                 self.assertGreaterEqual(transport.frame_times[-4], led.value_times[-1])
+                self.assertGreaterEqual(transport.frame_times[-4] - transport.frame_times[-5],
+                                        config.z_move_wait_seconds - 1e-9)
+                self.assertLess(result.state_history.index(MotionLifecycleState.RETURNING_TO_START),
+                                result.state_history.index(MotionLifecycleState.FINAL_Z_LOWERING))
+                self.assertLess(result.state_history.index(MotionLifecycleState.FINAL_Z_LOWERING),
+                                result.state_history.index(MotionLifecycleState.FINISH))
                 self.assertEqual(result.completed_cycles, len(plan.moves))
 
     def test_return_handles_zero_distance_and_single_axis(self) -> None:
@@ -639,7 +650,7 @@ class MovePlanActuatorTest(unittest.TestCase):
                 return_start = len(rotation.frames_before_counterclockwise[-1])
                 self.assertEqual(
                     [frame[0] for frame in transport.frames[return_start:-4]],
-                    expected_addresses,
+                    expected_addresses + [0xE3, 0xE3],
                 )
                 self.assertEqual(result.state, MotionLifecycleState.EXITED)
                 self.assertEqual(led.values, [True, False])
@@ -669,6 +680,7 @@ class MovePlanActuatorTest(unittest.TestCase):
 
                 self.assertIn(MotionLifecycleState.RETURNING_TO_START, actuator.state_history)
                 self.assertNotIn(MotionLifecycleState.FINISH, actuator.state_history)
+                self.assertNotIn(MotionLifecycleState.FINAL_Z_LOWERING, actuator.state_history)
                 self.assertEqual(actuator.state, expected_state)
                 cleanup = transport.frames[transport.frames_before_failure:]
                 self.assertTrue(all(frame[1] in (0xF7, 0xF3) for frame in cleanup))
@@ -678,6 +690,33 @@ class MovePlanActuatorTest(unittest.TestCase):
                 self.assertTrue(magnet.closed)
                 self.assertFalse(magnet.values[-1])
                 self.assertFalse(led.opened)
+
+    def test_final_descent_failure_or_cancel_never_finishes_or_retries(self):
+        """归位后下降异常只能清理退出，不重发 Z 指令或报告完成。"""
+        for error, expected, state in (
+            (RuntimeError('模拟收尾下降失败'), ActuationExecutionError, MotionLifecycleState.FAILED),
+            (KeyboardInterrupt(), KeyboardInterrupt, MotionLifecycleState.ABORTED),
+        ):
+            with self.subTest(error=type(error).__name__):
+                class FailedDescent(FakeTransport):
+                    attempts = 0
+                    def send_frame(self, frame):
+                        if actuator.state == MotionLifecycleState.FINAL_Z_LOWERING and frame[1] == 0xFD:
+                            self.attempts += 1
+                            self.before_failure = len(self.frames)
+                            raise error
+                        super().send_frame(frame)
+                transport = FailedDescent()
+                magnet = FakeMagnet()
+                actuator, _, _ = self._actuator(transport, magnet)
+                with self.assertRaises(expected):
+                    actuator.execute(make_plan())
+                self.assertEqual(transport.attempts, 1)
+                self.assertEqual(actuator.state, state)
+                self.assertNotIn(MotionLifecycleState.FINISH, actuator.state_history)
+                self.assertTrue(all(f[1] in (0xF7, 0xF3) for f in transport.frames[transport.before_failure:]))
+                self.assertFalse(magnet.values[-1])
+                self.assertTrue(transport.closed and magnet.closed)
 
     def test_start_outside_software_limits_is_rejected_before_hardware(self) -> None:
         """返回起点超出配置限位时，应在访问硬件前拒绝整份方案。"""

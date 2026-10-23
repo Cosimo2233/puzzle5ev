@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import json
 import logging
 
 from puzzle_bridge.client import Bridge
@@ -42,8 +43,20 @@ class M0Session:
         if (status["version"] != 1 or status["armed"] or status["magnet"]
                 or status["fault"]):
             self.failed = True
+            # Query only: retain the first failure, never ARM/DISARM to clear it.
+            # Old host libraries/firmware may lack the optional diagnostic API.
+            if status["fault"] and not status["armed"] and not status["magnet"]:
+                diagnostics = getattr(self.bridge, "diagnostics", None)
+                if callable(diagnostics):
+                    try:
+                        LOGGER.error("M0_UART_DIAGNOSTICS %s", json.dumps(
+                            diagnostics(), ensure_ascii=False, sort_keys=True))
+                    except Exception as error:
+                        LOGGER.warning("M0 故障明细不可用，保留原始 STATUS：%s", error)
             self.close()
-            raise RuntimeError(f"M0 初始状态不允许执行：{status}")
+            reason = {1: "心跳超时", 2: "UART 接收异常/溢出（故障已锁存）",
+                      3: "上游发送队列满"}.get(status["fault"], "状态检查未通过")
+            raise RuntimeError(f"M0 初始状态不允许执行：{reason}；{status}")
 
     def arm(self):
         self.open()

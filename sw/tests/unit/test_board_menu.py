@@ -2,10 +2,14 @@
 import io
 import struct
 import threading
+import pytest
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 from ec_26_e.gui.board_menu import BoardMenu, CameraPipe
+from ec_26_e.gui import production_preview
+from ec_26_e.gui.camera_pipe import ERROR_PACKET
+from ec_26_e.tasks.execution_lock import TaskBusyError
 
 
 class ShortStream(io.BytesIO):
@@ -37,6 +41,36 @@ def test_warm_camera_ack_is_not_a_frame():
     pipe._read()
     assert pipe.ready
     assert pipe.latest is None and pipe.version == 0
+
+
+@pytest.mark.parametrize('error,code,text', [
+    (TaskBusyError('lock is held'), 2, '设备正由其他任务或维护占用'),
+    (RuntimeError('摄像头连续 3 秒没有新帧'), 1, '摄像头连续 3 秒没有新帧'),
+])
+def test_preview_worker_error_reaches_menu_without_becoming_image(monkeypatch, error, code, text):
+    output = io.BytesIO()
+    monkeypatch.setattr(production_preview, 'main', Mock(side_effect=error))
+    monkeypatch.setattr(production_preview, 'sys', SimpleNamespace(stdout=SimpleNamespace(buffer=output)))
+    assert production_preview.run() == code
+    pipe = CameraPipe()
+    pipe.process = SimpleNamespace(stdout=ShortStream(output.getvalue()))
+    pipe._read()
+    assert text in pipe.error
+    assert pipe.version == 0 and pipe.latest is None
+    if code == 2:
+        assert pipe.error_code == 'busy' and 'USB' not in pipe.error
+
+
+def test_preview_rejects_unbounded_error_and_normal_close_is_not_usb_failure():
+    pipe = CameraPipe()
+    pipe.process = SimpleNamespace(stdout=io.BytesIO(struct.pack('!II', ERROR_PACKET, 8193)))
+    pipe._read()
+    assert '长度无效' in pipe.error and pipe.latest is None
+    pipe = CameraPipe()
+    pipe._closing = True
+    pipe.process = SimpleNamespace(stdout=io.BytesIO())
+    pipe._read()
+    assert pipe.error is None
 
 
 def test_menu_updates_changed_text_and_keeps_button_polling():

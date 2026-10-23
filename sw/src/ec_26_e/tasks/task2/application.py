@@ -108,7 +108,7 @@ def execute_task2(
     if not callable(execute):
         raise TypeError("actuator_factory 必须返回提供 execute 方法的对象")
     try:
-        print("开始运动。", flush=True)
+        print("准备执行运动，正在检查控制接口。", flush=True)
         execute(plan)
     except ActuationError as error:
         print(f"运动异常：{error}", flush=True)

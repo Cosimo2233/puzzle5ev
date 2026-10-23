@@ -14,7 +14,8 @@ from ec_26_e.cam import FFmpegCamera, CameraTimeoutError
 from ec_26_e.gui.controller import load_profile
 from ec_26_e.gui.menu_model import MODES
 from ec_26_e.gui.board_profile import load_menu_config, preview_backend, profile_paths
-from ec_26_e.tasks.execution_lock import TaskExecutionLock
+from ec_26_e.tasks.execution_lock import TaskExecutionLock, TaskBusyError
+from ec_26_e.gui.camera_pipe import write_preview_error
 from ec_26_e.vision import Resize
 from ec_26_e.vision.factory import create_production_detector
 from ec_26_e.gui.preview_tracking import PreviewContours
@@ -224,5 +225,23 @@ def main():
         lock.release()
 
 
+def run():
+    try:
+        main()
+        return 0
+    except TaskBusyError:
+        write_preview_error(sys.stdout.buffer,
+            '设备正由其他任务或维护占用，请稍后重新打开预览', 'busy')
+        return 2
+    except Exception as error:
+        import traceback
+        traceback.print_exc()
+        try:
+            write_preview_error(sys.stdout.buffer, f'预览失败：{error}')
+        except BrokenPipeError:
+            pass
+        return 1
+
+
 if __name__ == '__main__':
-    main()
+    sys.exit(run())
