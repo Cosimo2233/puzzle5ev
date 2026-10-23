@@ -1,0 +1,120 @@
+{
+  "verified_files": 97,
+  "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+  "m0_after_user_test": {
+    "armed": false,
+    "magnet": false,
+    "fault": 0,
+    "version": 1,
+    "malformed": 0,
+    "diagnostics": {
+      "format": 1,
+      "uptime_ms": 868700,
+      "ports": {
+        "host": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": true
+        },
+        "xyz": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": false
+        },
+        "rotation": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": true
+        }
+      }
+    }
+  },
+  "read_only_preflight": true,
+  "preview_busy_message": "设备正由其他任务或维护占用，请稍后重新打开预览",
+  "preview_received_frames": 60,
+  "preview_seconds": 8.385295259000031,
+  "preview": {
+    "candidate_count": 5,
+    "valid": false,
+    "reason": "预期 4 片，检测到 5 个连通域；请分开放置",
+    "overlay_current": true,
+    "paper_detected": true,
+    "piece_count": 0,
+    "analysis_age_seconds": 0.6187253469997813,
+    "frames": 59,
+    "analysis_frames": 12,
+    "display_fps": 13.599174128886094,
+    "analysis_fps": 2.765933721129375,
+    "sequence": 130,
+    "updated_at_unix": 1792574838.1773405,
+    "camera_started_seconds": 0.6933123930002694
+  },
+  "menu": {
+    "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+    "pid": 2105,
+    "python": "3.11.17",
+    "mode": "固定四片",
+    "preview": false,
+    "busy": false,
+    "motion_enabled": true,
+    "message": "选择任务模式，按确认开始；按预览查看摄像头",
+    "board": "axu5ev",
+    "plan_only": false,
+    "button_error": "",
+    "pressed": {},
+    "camera_frames": 0,
+    "events": [],
+    "transition": false,
+    "prediction_state": null,
+    "prediction_token": null,
+    "cursor": "arrow",
+    "preview_worker_ready": true,
+    "warm_task_ready": true
+  },
+  "deployed": {
+    "artifacts": {
+      "ec_26_e-0.1.0-py3-none-any.whl": "e998fd415ecc3a6ec923137dc17f7f61e14a142440bb79d82e25b5bf53a15837",
+      "puzzle_m0_bridge-0.1.0-py3-none-any.whl": "8b3f6fc26381b62a812b4a22fb451638b6faec7aa82c0b8ca9bad4d1cb8e9ea9",
+      "install_robust_release.py": "43ddf3b362df7c17e9ff7b36d666387004f9562957560b969346f5306ea6fb64",
+      "install_speed_release.py": "51781c0b615481d18157d94ecc1b1a5bb96972e8bb21a0dece039876767a6bc3",
+      "start_menu.sh": "b886f7182ac158ab7bdaf3ab4c8583d3acfd587ed46eb78c632fb91dede92c88",
+      "xorg-hdmi.conf": "33d7bec9c97dbb8f5fa7f0e89cc7d245be52e9c96e8895b70f47e11d64f0912f",
+      "validate_menu_runtime.py": "16dc998b1b1edbd2fbcd484672149816c51afb6f7a08480c44d364a0252879dd"
+    },
+    "hardware": {
+      "bit": "4c5018108f512bcb3bc03f0e53aee7054f2c2819b219f0513ee56666483c1cf9",
+      "hwh": "1c48f33ebb041a50b3d8782963c7005016d0b371f45e5c97c37095bfae8bbeae"
+    },
+    "boot_id": "ec247e57-1f82-449f-8854-dd64123dbfb8",
+    "config_sha256": {
+      "menu.json": "0046eddb46f61aaa70da790a61a2e91ff2c31f0204be565084540988525d516b",
+      "machine.env": "53ba707587b3481c6cd3867a06b31fd8b47570d0439b902848b92e5f2a9d3ee0",
+      "hardware.json": "7521a6e49b94cac4b5383cd06754d7276216bdc1d6ec07b8427b7a80290dd40d",
+      "tasks/random.json": "1fb1eedc27a91d4a60fcf6ba5539b88edfc468acd9448b5d0690d258049fadf1",
+      "tasks/fixed.json": "179bc5026cc960e7c23104025e537d42a6475f0af961ba9575f3740190353c0e"
+    },
+    "motion_tested": false,
+    "hardware_changed": false
+  }
+}
