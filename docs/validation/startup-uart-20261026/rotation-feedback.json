@@ -1,0 +1,57 @@
+{
+  "query_hex": "7a020e02747b",
+  "reply_hex": "7a02020000008bf17b",
+  "valid_feedback": true,
+  "angle_deg": 13.9,
+  "status": {
+    "armed": true,
+    "magnet": false,
+    "fault": 0,
+    "version": 1,
+    "malformed": 0,
+    "diagnostics": {
+      "format": 1,
+      "uptime_ms": 369049,
+      "ports": {
+        "host": {
+          "events": 3,
+          "overrun": 0,
+          "break": 3,
+          "parity": 0,
+          "framing": 3,
+          "queue_full": 0,
+          "first_ms": 81795,
+          "last_ms": 276447,
+          "armed_events": 2,
+          "rx_enabled": true
+        },
+        "xyz": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": false
+        },
+        "rotation": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": true
+        }
+      }
+    }
+  },
+  "motor_enable_sent": false,
+  "motion_executed": false
+}

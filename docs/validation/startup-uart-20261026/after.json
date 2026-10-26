@@ -1,0 +1,1578 @@
+{
+  "before": {
+    "armed": false,
+    "magnet": false,
+    "fault": 0,
+    "version": 1,
+    "malformed": 0,
+    "diagnostics": {
+      "format": 1,
+      "uptime_ms": 81791,
+      "ports": {
+        "host": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": true
+        },
+        "xyz": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": false
+        },
+        "rotation": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": true
+        }
+      }
+    }
+  },
+  "after_break": {
+    "armed": false,
+    "magnet": false,
+    "fault": 0,
+    "version": 1,
+    "malformed": 0,
+    "diagnostics": {
+      "format": 1,
+      "uptime_ms": 82282,
+      "ports": {
+        "host": {
+          "events": 1,
+          "overrun": 0,
+          "break": 1,
+          "parity": 0,
+          "framing": 1,
+          "queue_full": 0,
+          "first_ms": 81795,
+          "last_ms": 81795,
+          "armed_events": 0,
+          "rx_enabled": true
+        },
+        "xyz": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": false
+        },
+        "rotation": {
+          "events": 0,
+          "overrun": 0,
+          "break": 0,
+          "parity": 0,
+          "framing": 0,
+          "queue_full": 0,
+          "first_ms": 0,
+          "last_ms": 0,
+          "armed_events": 0,
+          "rx_enabled": true
+        }
+      }
+    }
+  },
+  "samples": [
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82286,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82392,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82497,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82603,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82708,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82814,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 82919,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83025,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83131,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83236,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83342,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83447,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83553,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83658,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83764,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83869,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 83975,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84081,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84186,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84292,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84397,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84503,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84608,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84714,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84820,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 84925,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 85031,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 85136,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 85242,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    },
+    {
+      "armed": false,
+      "magnet": false,
+      "fault": 0,
+      "version": 1,
+      "malformed": 0,
+      "diagnostics": {
+        "format": 1,
+        "uptime_ms": 85347,
+        "ports": {
+          "host": {
+            "events": 1,
+            "overrun": 0,
+            "break": 1,
+            "parity": 0,
+            "framing": 1,
+            "queue_full": 0,
+            "first_ms": 81795,
+            "last_ms": 81795,
+            "armed_events": 0,
+            "rx_enabled": true
+          },
+          "xyz": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": false
+          },
+          "rotation": {
+            "events": 0,
+            "overrun": 0,
+            "break": 0,
+            "parity": 0,
+            "framing": 0,
+            "queue_full": 0,
+            "first_ms": 0,
+            "last_ms": 0,
+            "armed_events": 0,
+            "rx_enabled": true
+          }
+        }
+      }
+    }
+  ],
+  "commands": [
+    "DIAGNOSTICS",
+    "host BREAK injection while unarmed",
+    "DIAGNOSTICS x31"
+  ],
+  "motion_executed": false
+}

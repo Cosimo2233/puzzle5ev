@@ -1,0 +1,49 @@
+{
+  "armed": false,
+  "magnet": false,
+  "fault": 2,
+  "version": 1,
+  "malformed": 0,
+  "diagnostics": {
+    "format": 1,
+    "uptime_ms": 1320743,
+    "ports": {
+      "host": {
+        "events": 52,
+        "overrun": 0,
+        "break": 45,
+        "parity": 0,
+        "framing": 52,
+        "queue_full": 0,
+        "first_ms": 23159,
+        "last_ms": 23442,
+        "armed_events": 0,
+        "rx_enabled": true
+      },
+      "xyz": {
+        "events": 0,
+        "overrun": 0,
+        "break": 0,
+        "parity": 0,
+        "framing": 0,
+        "queue_full": 0,
+        "first_ms": 0,
+        "last_ms": 0,
+        "armed_events": 0,
+        "rx_enabled": false
+      },
+      "rotation": {
+        "events": 59,
+        "overrun": 0,
+        "break": 59,
+        "parity": 0,
+        "framing": 59,
+        "queue_full": 0,
+        "first_ms": 0,
+        "last_ms": 25,
+        "armed_events": 0,
+        "rx_enabled": true
+      }
+    }
+  }
+}
