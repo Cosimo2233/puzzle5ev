@@ -46,22 +46,26 @@ def digest(data):
 @app.command()
 def main(release: Path = typer.Option(...), rollback: bool = typer.Option(False),
          fixed_vision: bool = typer.Option(False), rotation_speed: bool = typer.Option(False),
-         axes_speed: bool = typer.Option(False), axes_max: bool = typer.Option(False)):
-    if sum((fixed_vision, rotation_speed, axes_speed, axes_max)) > 1:
+         axes_speed: bool = typer.Option(False), axes_max: bool = typer.Option(False),
+         background_auto: bool = typer.Option(False)):
+    if sum((fixed_vision, rotation_speed, axes_speed, axes_max, background_auto)) > 1:
         raise ValueError('一次只修改一种配置')
     release = release.resolve()
     if not release.is_relative_to(BASE/'releases') or not (release/'deployed.json').exists():
         raise ValueError('先完成对应软件发布')
     path = CONFIG/'machine.env'
-    backup = release/('machine-before-axes-max.env' if axes_max else
+    backup = release/('machine-before-background.env' if background_auto else
+                      'machine-before-axes-max.env' if axes_max else
                       'machine-before-axes.env' if axes_speed else
                       'machine-before-rotation.env' if rotation_speed else
                       'machine-before-vision.env' if fixed_vision else 'machine-before-capture.env')
-    record = release/('axes-max-settings.json' if axes_max else
+    record = release/('background-settings.json' if background_auto else
+                      'axes-max-settings.json' if axes_max else
                       'axes-settings.json' if axes_speed else
                       'rotation-settings.json' if rotation_speed else
                       'vision-settings.json' if fixed_vision else 'settings.json')
-    settings = (AXES_MAX_SPEED if axes_max else AXES_SPEED if axes_speed else {'FOC_RPM': '25'} if rotation_speed
+    settings = (dict(TASK1_BLUE_PROFILE='background_auto', TASK2_BLUE_PROFILE='background_auto')
+                if background_auto else AXES_MAX_SPEED if axes_max else AXES_SPEED if axes_speed else {'FOC_RPM': '25'} if rotation_speed
                 else FIXED_VISION if fixed_vision else SETTINGS)
     with TaskExecutionLock():
         menu = json.loads(Path('/run/ec26e/menu-status.json').read_text())
@@ -86,7 +90,14 @@ def main(release: Path = typer.Option(...), rollback: bool = typer.Option(False)
                 profile = loader(CONFIG/'tasks'/f'{name}.json', env_path=temporary,
                     environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
                 if not rollback:
-                    if axes_speed or axes_max:
+                    if background_auto:
+                        previous = loader(CONFIG/'tasks'/f'{name}.json', env_path=path,
+                            environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
+                        expected = replace(previous, detect1=replace(previous.detect1,
+                            blue_profile='background_auto'))
+                        if profile != expected:
+                            raise ValueError('背景自适应修改了其他配置，未应用')
+                    elif axes_speed or axes_max:
                         previous = loader(CONFIG/'tasks'/f'{name}.json', env_path=path,
                             environ={'EC_PL_BITSTREAM': os.environ.get('EC_PL_BITSTREAM', '')})
                         before = previous.actuation

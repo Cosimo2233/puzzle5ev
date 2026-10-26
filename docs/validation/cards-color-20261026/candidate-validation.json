@@ -1,0 +1,743 @@
+{
+  "replay": {
+    "fixed": [
+      {
+        "file": "rect-00.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-01.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-02.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-03.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-04.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-05.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-06.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-07.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-08.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-09.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-10.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-11.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-12.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-13.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-14.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-15.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      }
+    ],
+    "random": [
+      {
+        "file": "rect-00.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-01.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-02.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-03.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-04.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-05.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-06.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-07.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-08.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-09.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-10.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-11.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-12.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-13.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-14.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "file": "rect-15.png",
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      }
+    ]
+  },
+  "live": {
+    "fixed": [
+      {
+        "sequence": 1,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 16,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 28,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 39,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 50,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 61,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 73,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 84,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 95,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 106,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 117,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 127,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 139,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 150,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 161,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 172,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      }
+    ],
+    "random": [
+      {
+        "sequence": 0,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 18,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 31,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 42,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 52,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 63,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 74,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 85,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 96,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 107,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 117,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 128,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 139,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 149,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 160,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      },
+      {
+        "sequence": 171,
+        "pieces": 4,
+        "reason": null,
+        "vertices": [
+          3,
+          5,
+          4,
+          4
+        ]
+      }
+    ]
+  },
+  "solve": {
+    "fixed": {
+      "success": false,
+      "error": "没有可用的固定模板候选",
+      "elapsed_seconds": 3.71287270799985
+    },
+    "random": {
+      "success": true,
+      "pieces": 4,
+      "confidence": 0.99,
+      "elapsed_seconds": 9.935830133999843
+    }
+  },
+  "motion_executed": false,
+  "cpu_pl_identical_frames": 16,
+  "max_vertex_deviation_from_first_mm": {
+    "replay": {
+      "fixed": 1.1110490921230107,
+      "random": 1.1110490921230107
+    },
+    "live": {
+      "fixed": 0.9959440970528496,
+      "random": 0.6866028618555252
+    }
+  }
+}

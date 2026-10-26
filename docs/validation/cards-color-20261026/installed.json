@@ -1,0 +1,27 @@
+{
+  "profiles": {
+    "fixed": {
+      "blue_profile": "background_auto",
+      "xy": 127,
+      "z": 80,
+      "rotation_rpm": 50
+    },
+    "random": {
+      "blue_profile": "background_auto",
+      "xy": 127,
+      "z": 80,
+      "rotation_rpm": 50
+    }
+  },
+  "checked_sources": 92,
+  "menu": {
+    "pid": 2023,
+    "busy": false,
+    "preview": false,
+    "motion_enabled": true,
+    "cursor": "arrow",
+    "warm_task_ready": true,
+    "preview_worker_ready": true
+  },
+  "motion_executed": false
+}

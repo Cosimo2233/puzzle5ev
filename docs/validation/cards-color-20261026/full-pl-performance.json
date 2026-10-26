@@ -1,0 +1,51 @@
+{
+  "PL_PERFORMANCE": {
+    "mode": "random",
+    "elapsed_seconds": 4.0823100220000015,
+    "backends": {
+      "rigid_backend": {
+        "request_count": 722,
+        "batch_count": 57,
+        "scan_count": 0,
+        "numerical_cpu_fallbacks": 0,
+        "unsupported_count": 0,
+        "pack_seconds": 0.06470074199887677,
+        "transfer_seconds": 0.0981934749975153,
+        "kernel_wait_seconds": 0.010028349998719932
+      },
+      "candidate_backend": {
+        "request_count": 570,
+        "batch_count": 9,
+        "scan_count": 0,
+        "numerical_cpu_fallbacks": 0,
+        "unsupported_count": 0,
+        "pack_seconds": 0.009273663000385568,
+        "transfer_seconds": 0.02862304599966592,
+        "kernel_wait_seconds": 0.013706446000014694
+      }
+    }
+  },
+  "TASK_PERFORMANCE": {
+    "camera_close_seconds": 0.11744436499975563,
+    "camera_start_seconds": 0.6363329730002079,
+    "capture_seconds": 0.00048501600031158887,
+    "detect_seconds": 1.2255129770005624,
+    "invalid_frames": 0,
+    "mode": "random",
+    "preprocess_seconds": 0.09400342099934278,
+    "processed_frames": 6,
+    "resize_seconds": 1.9193160810000336,
+    "review_seconds": 0.13475990799906867,
+    "solve_seconds": 4.145697684999959,
+    "success": true,
+    "task_seconds": 8.23285527500002,
+    "vision_pl": {
+      "calibration_seconds": 0.027755709000757633,
+      "copy_seconds": 0.01863588800006255,
+      "dma_seconds": 0.032859238000128244,
+      "frame_count": 6,
+      "last_blue_min": 164,
+      "pack_seconds": 0.0035418050001680967
+    }
+  }
+}

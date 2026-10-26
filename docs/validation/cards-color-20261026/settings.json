@@ -1,0 +1,10 @@
+{
+  "changes": {
+    "TASK1_BLUE_PROFILE": "background_auto",
+    "TASK2_BLUE_PROFILE": "background_auto"
+  },
+  "before_sha256": "7fd96925c7ded1a0b2179eaaa8467d6b8fb8d60d668492d5a42340e100e60ebb",
+  "after_sha256": "aa4797769280d67e009b580bf99c0be0e4d53af79c6d44c8fea7dd4d9fde60af",
+  "motion_executed": false,
+  "rollback": false
+}

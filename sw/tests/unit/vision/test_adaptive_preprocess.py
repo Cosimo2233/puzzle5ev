@@ -41,6 +41,31 @@ def test_original_scene_reproduces_static_threshold_failure():
         assert not owner.detector.detect(cv2.imread(str(CARD))).pieces
 
 
+@pytest.mark.parametrize('gain', [.6, .8, 1., 1.1, 1.2])
+@pytest.mark.parametrize('expected', [4, None])
+def test_intermediate_blue_card_print_keeps_cut_edges_across_exposure(gain, expected):
+    raw = cv2.imread(str(CARD.with_name('poker-j-mid-blue.png')))
+    image = np.clip(raw.astype(float)*gain, 0, 255).astype(np.uint8)
+    config = replace(CONFIG, expected_pieces=expected, max_vertices=6 if expected else 5,
+                     blue_profile='background_auto')
+    with create_production_detector(config) as owner:
+        reference = owner.detector.detect(raw)
+        result = owner.detector.detect(image)
+        assert [len(p.corners_px) for p in result.pieces] == [3,5,4,4], owner.detector.last_failure
+        for a, b in zip(reference.pieces, result.pieces):
+            delta = (np.asarray(a.corners_px)-np.asarray(b.corners_px))*[292/761,207/539]
+            assert np.linalg.norm(delta, axis=1).max() < 2.0
+
+
+def test_intermediate_profile_requires_current_background_evidence():
+    raw = cv2.imread(str(CARD.with_name('poker-j-mid-blue.png')))
+    p = PreprocessConfig(blue_profile='background_auto')
+    ratio, minimum = resolve_blue_parameters(raw, p)
+    assert 275 < ratio < 320 and minimum > p.blue_min
+    with pytest.raises(ValueError, match='蓝底采样不足'):
+        resolve_blue_parameters(np.full_like(raw, 230), p)
+
+
 def test_fixed_cyan_scene_uses_its_own_color_profile():
     image = cv2.imread(str(CARD.with_name('fixed-cyan-background.png')))
     fixed = replace(CONFIG, expected_pieces=4, max_vertices=6,

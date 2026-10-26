@@ -1,0 +1,114 @@
+[
+  {
+    "i": 0,
+    "sequence": 1,
+    "pieces": 0,
+    "reason": "预期 4 片，检测到 5 个连通域；请分开放置",
+    "corners": []
+  },
+  {
+    "i": 1,
+    "sequence": 20,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 2,
+    "sequence": 32,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 3,
+    "sequence": 43,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 4,
+    "sequence": 56,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 5,
+    "sequence": 68,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 6,
+    "sequence": 80,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 7,
+    "sequence": 92,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 8,
+    "sequence": 104,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 9,
+    "sequence": 116,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 10,
+    "sequence": 128,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 11,
+    "sequence": 141,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 12,
+    "sequence": 153,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 13,
+    "sequence": 166,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 14,
+    "sequence": 179,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  },
+  {
+    "i": 15,
+    "sequence": 191,
+    "pieces": 0,
+    "reason": "无效多边形",
+    "corners": []
+  }
+]

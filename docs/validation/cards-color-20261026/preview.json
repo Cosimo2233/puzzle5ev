@@ -1,0 +1,16 @@
+{
+  "candidate_count": 4,
+  "valid": true,
+  "reason": "",
+  "overlay_current": true,
+  "paper_detected": true,
+  "piece_count": 4,
+  "analysis_age_seconds": 0.7660479999999552,
+  "frames": 63,
+  "analysis_frames": 6,
+  "display_fps": 16.73449198325142,
+  "analysis_fps": 1.59376114126204,
+  "sequence": 112,
+  "updated_at_unix": 1792583982.8166974,
+  "camera_started_seconds": 0.692433144000006
+}
