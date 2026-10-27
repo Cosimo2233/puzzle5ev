@@ -188,7 +188,7 @@ class TaskRegistryTest(unittest.TestCase):
     def test_task1_registration_is_complete(self) -> None:
         """正式注册项应关联 Task1 配置、加载器和任务层执行适配器。"""
 
-        self.assertEqual(tuple(TASK_REGISTRY), ("task1", "task2"))
+        self.assertEqual(set(TASK_REGISTRY), {"task1", "task2", "tangram"})
         registration = TASK_REGISTRY["task1"]
         self.assertIs(registration.config_type, Task1Config)
         self.assertIs(registration.result_type, type(None))

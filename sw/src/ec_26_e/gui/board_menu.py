@@ -110,17 +110,34 @@ class BoardMenu:
         self.body = tk.Frame(root, bg='#101926')
         self.body.pack(fill='both', expand=True, padx=24)
         self.cards = []
+        self.tangram_pattern = 'square'
+        self.tangram_motion_verified = False
+        tangram_path = profile_paths(self.config)[1]/'tangram.json'
+        if tangram_path.exists():
+            self.tangram_motion_verified = json.loads(tangram_path.read_text()).get('motion_verified') is True
         self.menu = tk.Frame(self.body, bg='#101926', width=292)
         self.menu.pack(side='left', fill='y', padx=(0, 12))
         self.menu.pack_propagate(False)
         for index, label in enumerate(MODES):
             card = tk.Button(self.menu, text=f'{index+1}    {label}', anchor='w', relief='flat',
-                             font=('WenQuanYi Micro Hei', 21), padx=16, pady=16, cursor='hand2',
+                             font=('WenQuanYi Micro Hei', 18), padx=16, pady=8, cursor='hand2',
                              activebackground='#6de3bd', activeforeground='#071c16',
                              highlightthickness=2, highlightbackground='#263a51',
                              command=lambda i=index: self.choose(i))
             card.pack(fill='x', pady=7)
             self.cards.append(card)
+        from puzzle_solver import PATTERN_NAMES
+        self.pattern_names = PATTERN_NAMES
+        self.pattern_value = tk.StringVar(value='正方形')
+        from tkinter import ttk
+        self.pattern_font = ('WenQuanYi Micro Hei', 14)
+        # 展开的列表是独立 Listbox，不继承 Combobox 的 font 参数。
+        root.option_add('*TCombobox*Listbox.font', self.pattern_font)
+        self.pattern_picker = ttk.Combobox(self.menu,textvariable=self.pattern_value,
+            values=list(PATTERN_NAMES.values()),state='readonly',font=self.pattern_font,
+            height=len(PATTERN_NAMES))
+        self.pattern_picker.pack(fill='x',pady=3)
+        self.pattern_picker.bind('<<ComboboxSelected>>',self.select_pattern)
         self.result_title = tk.Label(self.menu, text='摆放预测', anchor='w', bg='#101926',
             fg='#b3c5d8', font=('WenQuanYi Micro Hei', 15))
         self.result_title.pack(fill='x', pady=(12, 4))
@@ -128,7 +145,7 @@ class BoardMenu:
         self.result_image.pack()
         self.legend = tk.Label(self.menu, text='点击开始后，识别、求解\n通过才显示本次目标位置。',
             justify='left', anchor='nw', wraplength=282, bg='#101926', fg='#b3c5d8',
-            font=('WenQuanYi Micro Hei', 13))
+            font=('WenQuanYi Micro Hei', 10))
         self.legend.pack(fill='x', pady=6)
         self.video = tk.Label(self.body, bg='#080e16', fg='white', font=('WenQuanYi Micro Hei', 20),
             text='点击“摄像头预览”查看实时画面', cursor='arrow')
@@ -167,6 +184,25 @@ class BoardMenu:
     def start_task(self, label):
         launched_at = getattr(self, '_task_requested_at', time.monotonic())
         validate_menu_config(self.config)
+        if MODES[label][0] == 'tangram':
+            from ec_26_e.config.tangram import load_tangram_config
+            env_path,task_dir = profile_paths(self.config)
+            profile = load_tangram_config(task_dir/'tangram.json',env_path=env_path)
+            self.tangram_motion_verified = profile.motion_verified
+            execute = (self.config.get('motion_enabled') is True and
+                       self.config.get('plan_only') is not True and profile.motion_verified)
+            if execute and (profile.actuation.bridge_port != '/dev/ec26e-m0-bridge' or
+                            not Path(profile.actuation.bridge_port).exists()):
+                raise RuntimeError('七巧板运动必须连接已配置的 M0 桥接')
+            if hasattr(self,'model'): self.model.task_plan_only = not execute
+            environment = dict(os.environ,EC_MOTION_ENABLED='true' if execute else 'false',
+                EC_TANGRAM_PATTERN=getattr(self,'tangram_pattern','square'),
+                EC_PREPROCESS_BACKEND='cpu',EC_DRAW_ENABLED='false')
+            return self._spawn_task([sys.executable,'-u','-m','ec_26_e.commands.app','tangram',
+                '--env',str(env_path),'--config',str(task_dir/'tangram.json'),
+                '--pattern',environment['EC_TANGRAM_PATTERN'],
+                '--execute' if execute else '--plan-only'],environment)
+        if hasattr(self,'model'): self.model.task_plan_only = self.model.plan_only
         if self.config.get('plan_only') is True:
             env_path, task_dir = profile_paths(self.config)
             mode, _ = MODES[label]
@@ -226,6 +262,13 @@ class BoardMenu:
              '--task', 'task1' if mode == 'fixed' else 'task2', '--task-config', str(task_path)],
              env=environment)
 
+    def select_pattern(self, _event=None):
+        if self.model.busy or self.transition is not None:
+            self.pattern_value.set(self.pattern_names[self.tangram_pattern])
+            return
+        self.tangram_pattern = next(k for k,v in self.pattern_names.items() if v == self.pattern_value.get())
+        self.choose(tuple(MODES).index('七巧板'))
+
     def choose(self, index):
         if self.model.busy or self.transition is not None:
             return
@@ -282,15 +325,19 @@ class BoardMenu:
 
     def update_controls(self):
         blocked = self.model.busy or self.transition is not None
-        state = (blocked, self.model.preview)
+        state = (blocked, self.model.preview, self.model.label)
         if state == getattr(self, '_controls_state', None):
             return
         self._controls_state = state
         for action, button in self.buttons.items():
             button.configure(state='disabled' if blocked and action != 'cancel' else 'normal')
         self.buttons['preview'].configure(text=('关闭预览' if self.model.preview else '摄像头预览') + '  [P]')
+        plan_only = self.model.plan_only or (self.model.label == '七巧板' and not self.tangram_motion_verified)
+        key = BUTTONS['confirm'][1] if physical_buttons_enabled(self.config) else 'Enter'
+        self.buttons['confirm'].configure(text=('开始求解' if plan_only else '开始拼图')+f'  [{key}]')
         for card in self.cards:
             card.configure(state='disabled' if blocked else 'normal')
+        self.pattern_picker.configure(state='disabled' if blocked else 'readonly')
 
     def refresh(self):
         if self.model.preview:
@@ -324,8 +371,9 @@ class BoardMenu:
             if state == 'ready':
                 self.result_photo = self.tk.PhotoImage(file=str(self.display_directory / (self.display_token + '-result.ppm')))
                 self.result_image.configure(image=self.result_photo)
-                self.result_title.configure(text=f"预计拼合 {report['width_mm']:.1f} × {report['height_mm']:.1f} mm")
-                self.legend.configure(text='\n'.join(f"{m['order']}. 碎片 {m['piece_id']}  顺时针 {m['rotation']:.1f}°" for m in report['legend']) + '\nS：当前位置  T：目标位置\n画面为本次采图快照')
+                mirror = '（镜像）' if report.get('mirrored') else ''
+                self.result_title.configure(text=f"预计拼合{mirror} {report['width_mm']:.1f} × {report['height_mm']:.1f} mm")
+                self.legend.configure(text='\n'.join(f"{m['order']}. 碎片 {m['piece_id']}  顺时针 {m['rotation']:.1f}°" for m in report['legend']) + '\nS：起点  T：落点 · 本次快照')
             elif state == 'failed':
                 self.video.configure(image='', text='本次未生成有效方案')
                 self.result_image.configure(image='')
@@ -383,8 +431,9 @@ class BoardMenu:
         if self.model.message != self._status_text:
             self.status.configure(text=self.model.message)
             self._status_text = self.model.message
+        mode_motion = self.model.motion_enabled and (self.model.label != '七巧板' or self.tangram_motion_verified)
         health_text = ('Python ' + sys.version.split()[0] +
-            ('  |  运动已启用  |  ' if self.model.motion_enabled else '  |  运动未启用  |  ') +
+            ('  |  运动已启用  |  ' if mode_motion else '  |  运动未启用  |  ') +
             ('按键异常：' + self.key_error if self.key_error else
              '四键监听中；键盘 M / Enter / P / Esc 也可操作' if self.keys is not None else
              '键鼠操作：M / Enter / P / Esc'))
@@ -419,6 +468,8 @@ class BoardMenu:
                       prediction_token=self.display_token, cursor='arrow',
                       preview_worker_ready=self.camera.ready)
         report['preview_first_frame_seconds'] = self.camera.first_frame_seconds
+        report['task_plan_only'] = self.model.plan_only or (self.model.label == '七巧板' and not self.tangram_motion_verified)
+        if self.model.label == '七巧板':report['acquisition_mode'] = 'single_frame'
         if self.warm_task is not None:
             report['warm_task_ready'] = self.warm_task.ready
         temporary = path.with_suffix('.tmp')

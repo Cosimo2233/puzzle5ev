@@ -72,9 +72,9 @@ def fit_polygon(contour, epsilon, *, mm_scale=None, config=None, coarse=None):
 class TraditionalVisionDetector:
     def __init__(self, config=None, *, expected_pieces=4, preprocessor=None):
         if expected_pieces is not None and (
-            type(expected_pieces) is not int or not 2 <= expected_pieces <= 4
+            type(expected_pieces) is not int or expected_pieces not in {2,3,4,7}
         ):
-            raise ValueError("expected_pieces 必须为 2～4 或 None（自动）")
+            raise ValueError("expected_pieces 必须为 2～4、7（七巧板）或 None（自动）")
         self.config = config or Detect1Config(short_edge_merge_mm=8, minimum_physical_edge_mm=8)
         self.expected_pieces = expected_pieces
         self.preprocessor = preprocessor or CpuPreprocessor()
@@ -149,9 +149,14 @@ class TraditionalVisionDetector:
                             polygon, residual = candidate, candidate_residual
                             break
                 # PL 掩膜提供候选和边序；原图色差梯度细化交点，避免阈值和阶梯边造成偏移。
-                polygon = canonicalize_corners(refine_polygon_edges(
-                    image, polygon.astype(np.float32).reshape(-1, 1, 2),
-                    band=3, is_polygon=True).reshape(-1, 2))
+                if self.expected_pieces == 7:
+                    # 白色实体片的投影阴影可形成两条色差边，逐帧跳选会使顶点
+                    # 移动约 3 mm。七巧板使用掩膜边缘的整条直线鲁棒拟合交点。
+                    polygon = canonicalize_corners(polygon)
+                else:
+                    polygon = canonicalize_corners(refine_polygon_edges(
+                        image, polygon.astype(np.float32).reshape(-1, 1, 2),
+                        band=3, is_polygon=True).reshape(-1, 2))
                 physical = polygon * mm_scale
                 iou = polygon_iou(contour, polygon)
                 shallow_supported = self.expected_pieces is None and supported_shallow_corner(

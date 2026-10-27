@@ -198,4 +198,30 @@ def gui(
         raise typer.BadParameter('界面需要 Python Tk 支持；Linux 请安装 python3-tk') from error
     launch(Controller(env,config_dir,backend,demo,motion_enabled=motion_enabled),fullscreen)
 
+@app.command('tangram')
+def tangram(
+    config: Path = typer.Option(...,'--config',exists=True,dir_okay=False,envvar='EC_TANGRAM_CONFIG'),
+    env: Path = typer.Option(...,'--env',exists=True,dir_okay=False,envvar='EC_GUI_ENV'),
+    pattern: str = typer.Option('square','--pattern',envvar='EC_TANGRAM_PATTERN'),
+    execute: bool = typer.Option(False,'--execute/--plan-only',help='仅七巧板专用标定通过后执行运动'),
+):
+    """七巧板图案选择、稳定识别、落点预览和显式启用的实物拼装。"""
+    from dataclasses import replace
+    from ec_26_e.config.tangram import load_tangram_config
+    from ec_26_e.tasks.tangram import execute_tangram
+    from ec_26_e.tasks.contracts import TaskContext
+    from ec_26_e.tasks.execution_lock import TaskExecutionLock
+    try:
+        profile = load_tangram_config(config,env_path=env)
+        profile = replace(profile,planning=replace(profile.planning,pattern_id=pattern))
+        with TaskExecutionLock():
+            os.environ['EC_MOTION_ENABLED'] = 'true' if execute else 'false'
+            execute_tangram(profile,TaskContext())
+    except KeyboardInterrupt:
+        raise typer.Exit(130)
+    except Exception as error:
+        logger.error('七巧板任务失败：%s',error)
+        raise typer.Exit(1)
+
+
 if __name__=='__main__': app()

@@ -68,8 +68,8 @@ def create_production_detector(legacy_config: Detect1Config) -> StableVisionDete
     params = preprocess_config(legacy_config)
     backend = legacy_config.preprocess_backend
     expected = legacy_config.expected_pieces
-    if expected is not None and not 2 <= expected <= 4:
-        raise ValueError("EC_EXPECTED_PIECES 必须为 2～4")
+    if expected is not None and expected not in {2,3,4,7}:
+        raise ValueError("EC_EXPECTED_PIECES 必须为 2～4 或七巧板的 7")
     if backend == "cpu":
         preprocessor = CpuPreprocessor(params)
     elif backend == "pl":

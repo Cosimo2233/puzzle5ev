@@ -6,6 +6,7 @@ from pathlib import Path
 
 from fontTools import subset
 from fontTools.ttLib import TTFont
+from puzzle_solver import PATTERN_NAMES
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--font', type=Path, required=True)
@@ -15,6 +16,7 @@ parser.add_argument('--output', type=Path, required=True)
 args = parser.parse_args()
 sources = sorted((args.root / 'sw/src').rglob('*.py'))
 text = ''.join(p.read_text(encoding='utf-8') for p in sources)
+text += ''.join(PATTERN_NAMES.values())
 text += ''.join(chr(value) for value in range(32, 127))
 font = TTFont(args.font, fontNumber=0)
 processor = subset.Subsetter(subset.Options())
@@ -29,5 +31,5 @@ font.save(destination)
     'upstream_font_sha256': hashlib.sha256(args.font.read_bytes()).hexdigest(),
     'font_sha256': hashlib.sha256(destination.read_bytes()).hexdigest(),
     'requested_codepoints': len(set(text)),
-    'scope': 'ASCII and codepoints present in sw/src Python files; regenerate after adding UI text',
+    'scope': 'ASCII, sw/src Python codepoints and public puzzle_solver pattern labels; regenerate after adding UI text',
 }, indent=2), encoding='utf-8')

@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-27",
+  "authorization": "User requested enabling motion for manual testing after fixing dropdown text",
+  "tangram_motion_enabled": true,
+  "auto_task_started": false,
+  "motion_tested": false,
+  "acquisition_mode": "single_frame",
+  "inherited_calibration": true,
+  "unchanged_config_sha256": {
+    "machine.env": "aa4797769280d67e009b580bf99c0be0e4d53af79c6d44c8fea7dd4d9fde60af",
+    "menu.json": "0046eddb46f61aaa70da790a61a2e91ff2c31f0204be565084540988525d516b",
+    "tasks/fixed.json": "179bc5026cc960e7c23104025e537d42a6475f0af961ba9575f3740190353c0e",
+    "tasks/random.json": "1fb1eedc27a91d4a60fcf6ba5539b88edfc468acd9448b5d0690d258049fadf1"
+  }
+}

@@ -302,15 +302,10 @@ class MovePlanActuator:
                 cycle.rotation_degrees_clockwise,
                 wait=True,
             )
-            self._require_rotation_angle(
-                rotation,
-                self._config.rotation.clockwise_mechanical_sign
-                * cycle.rotation_degrees_clockwise,
-                "顺时针旋转到位检查",
-            )
+            # 搬运期间不追加机械单圈角 1° 复核；底层位置等待、通信和超时仍有效。
         except Exception as error:
             raise RuntimeError(f"旋转轴运动失败：{error}") from error
-        LOGGER.info("旋转轴：顺时针旋转已到位")
+        LOGGER.info("旋转轴：顺时针运动完成，位置反馈等待已通过")
         self._wait_xy_move(deadline, xy_controller)
 
     @staticmethod
@@ -342,8 +337,10 @@ class MovePlanActuator:
         rotation: RotationAxis,
         target_degrees: float,
         xy_controller: MksXYController,
+        *,
+        verify_angle: bool = True,
     ) -> None:
-        """逆时针回零，并同时满足反馈到位和最小回零等待。"""
+        """等待回零与最小时长；启动时严格复核机械角，运动中不追加 1° 限制。"""
 
         deadline = (
             self._monotonic() + self._config.rotation_zero_wait_seconds
@@ -359,8 +356,11 @@ class MovePlanActuator:
         remaining = deadline - self._monotonic()
         if remaining > 0:
             self._wait_duration(remaining, xy_controller=xy_controller)
-        self._require_rotation_angle(rotation, 0.0, "逆时针回零到位检查")
-        LOGGER.info("旋转轴：已确认回到 0°")
+        if verify_angle:
+            self._require_rotation_angle(rotation, 0.0, "逆时针回零到位检查")
+            LOGGER.info("旋转轴：已确认回到 0°")
+        else:
+            LOGGER.info("旋转轴：回零运动完成，位置反馈等待已通过")
 
     def _move_next_pick_and_return_rotation_to_zero(
         self,
@@ -387,10 +387,11 @@ class MovePlanActuator:
             rotation,
             cycle.rotation_degrees_clockwise,
             xy_controller,
+            verify_angle=False,
         )
         self._wait_xy_move(xy_deadline, xy_controller)
         if next_cycle is not None:
-            LOGGER.info("下一片拾取位置已到达，旋转轴已回零，可以开始吸取")
+            LOGGER.info("下一片拾取位置已到达，回零运动完成；吸取前检查零位")
 
     def _signal_completion(
         self,
@@ -695,7 +696,6 @@ class MovePlanActuator:
                 self._completed_cycles += 1
                 LOGGER.info("第 %d/%d 片搬运指令执行完成", index + 1, len(cycles))
 
-            self._require_rotation_angle(rotation, 0.0, "任务结束旋转轴零位检查")
             self._signal_completion(
                 transport,
                 magnet,

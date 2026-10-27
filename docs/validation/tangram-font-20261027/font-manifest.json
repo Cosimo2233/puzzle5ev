@@ -1,0 +1,7 @@
+{
+  "upstream_package": "Debian fonts-wqy-microhei 0.2.0-beta-3.1",
+  "upstream_font_sha256": "2420e8078af796b19a3f6ef13de527a1a91c1e7171eea115926c614ced1009b3",
+  "font_sha256": "b8efc05f5b247701668fda828ea5e3c610d0d29c287a8444f5ed46bad7200c89",
+  "requested_codepoints": 973,
+  "scope": "ASCII, sw/src Python codepoints and public puzzle_solver pattern labels; regenerate after adding UI text"
+}

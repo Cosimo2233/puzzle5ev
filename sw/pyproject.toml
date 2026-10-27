@@ -41,5 +41,6 @@ testpaths = ["tests/unit", "tests/integration"]
 [dependency-groups]
 dev = [
     "pypdf (>=6.19.0,<7.0.0)",
-    "pytest (>=9.1.1,<10.0.0)"
+    "pytest (>=9.1.1,<10.0.0)",
+    "fonttools (>=4.61,<5)"
 ]

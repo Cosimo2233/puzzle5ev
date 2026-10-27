@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "base_profile": "random.json",
+  "planning": {
+    "pattern_id": "square",
+    "side_mm": 100.0,
+    "source_bounds_mm": [2, 2, 205, 138],
+    "target_bounds_mm": [2, 140, 205, 290],
+    "assembly_gap_mm": 1.0
+  },
+  "motion_verified": false,
+  "actuation_overrides": {},
+  "stable_frames": 1,
+  "stability_tolerance_mm": 0.8,
+  "acquisition_timeout_seconds": 30.0
+}

@@ -73,7 +73,7 @@ sh /opt/ec26e/install/install_runtime_offline.sh /opt/ec26e/wheelhouse
 FFmpeg 7.0.2 来自固定版本 `imageio-ffmpeg` 的 AArch64 wheel，通过虚拟环境中的 `ffmpeg` 链接调用。
 图形界面使用现有 Xorg 和独立 Python 自带 Tcl/Tk。硬件包同时包含 UI 字体及授权文件，运行包内 `setup_x11_fonts.sh` 安装字体并生成 X11 核心字体索引；随后使用包内 `xorg-hdmi.conf` 启动 Xorg。
 
-字体来自 Debian `fonts-wqy-microhei 0.2.0-beta-3.1`。`scripts/axu5ev/prepare_ui_font.py` 使用 fontTools 从原始 TTC 提取 ASCII 和 `sw/src` 中的 UI 字符；增加菜单文字后应重新生成。产物及来源哈希在 `artifacts/fonts/manifest.json`。
+字体来自 Debian `fonts-wqy-microhei 0.2.0-beta-3.1`。`scripts/axu5ev/prepare_ui_font.py` 使用 Poetry 开发依赖 fontTools，从原始 TTC 提取 ASCII、`sw/src` 和求解器公共图案名称中的 UI 字符；增加菜单文字后应重新生成。产物及来源哈希在 `artifacts/fonts/manifest.json`。展开的 Combobox 列表须显式指定中文字体；安装新版字体后重启 Xorg/菜单，使 X11 核心字体重新加载。
 
 ## 后续迁移边界
 

@@ -79,9 +79,9 @@ class Detect1Config:
 
         from ec_26_e.vision.preprocess import PreprocessConfig
         if self.expected_pieces is not None and (
-            type(self.expected_pieces) is not int or not 2 <= self.expected_pieces <= 4
+            type(self.expected_pieces) is not int or self.expected_pieces not in {2,3,4,7}
         ):
-            raise ValueError("expected_pieces 必须为 2～4 或 None（自动）")
+            raise ValueError("expected_pieces 必须为 2～4、7（七巧板）或 None（自动）")
         if self.preprocess_backend not in {"cpu", "pl"}:
             raise ValueError("preprocess_backend 必须为 cpu/pl")
         if self.preprocess_backend == "pl" and not self.pl_bitstream:

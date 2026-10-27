@@ -25,6 +25,8 @@ from ec_26_e.tasks.task1 import Task1Error
 from ec_26_e.tasks.task1.application import execute_task1
 from ec_26_e.tasks.task2.application import execute_task2
 from ec_26_e.tasks.task2 import Task2Error
+from ec_26_e.config.tangram import TangramConfig, load_tangram_config
+from ec_26_e.tasks.tangram import execute_tangram
 
 
 _TASK_NAME_PATTERN = re.compile(r"^[a-z][a-z0-9_-]*$")
@@ -214,6 +216,11 @@ def build_task_registry(
 
 TASK_REGISTRY = build_task_registry(
     (
+        TaskRegistration(
+            name="tangram", config_type=TangramConfig, result_type=type(None),
+            loader=load_tangram_config, runner=execute_tangram,
+            expected_errors=(CameraCaptureError, PlanningError, ActuationError, ValueError, OSError),
+        ),
         TaskRegistration(
             name="task1",
             config_type=Task1Config,

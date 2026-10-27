@@ -12,7 +12,8 @@ import cv2
 import numpy as np
 
 logger = logging.getLogger(__name__)
-COLORS = ((95, 210, 65), (35, 180, 255), (75, 85, 255), (215, 90, 225))  # BGR
+COLORS = ((95, 210, 65), (35, 180, 255), (75, 85, 255), (215, 90, 225),
+          (240,190,40), (180,210,240), (210,120,65))  # BGR
 
 
 def sheet_to_camera(points, homography, target_size, rotation):
@@ -137,9 +138,10 @@ class PlanPreviewPublisher:
             raise RuntimeError('预测结果缺少本次稳定快照')
         image, inset, legend = render_plan(*self.snapshot, self.rotation, plan)
         self._write('.ppm', ppm(image))
-        self._write('-result.ppm', ppm(inset))
+        self._write('-result.ppm', ppm(cv2.resize(inset,(204,120),interpolation=cv2.INTER_AREA)))
         self.state('ready', legend=legend, width_mm=plan.target_width_mm,
-                   height_mm=plan.target_height_mm, confidence=plan.confidence)
+                   height_mm=plan.target_height_mm, confidence=plan.confidence,
+                   mirrored=any((getattr(m,'template_id',None) or '').endswith(':mirrored') for m in plan.moves))
 
     def fail(self, error):
         self.state('failed', reason=str(error))

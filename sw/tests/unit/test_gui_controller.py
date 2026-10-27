@@ -14,10 +14,13 @@ CONFIGS = Path('../deploy/axu5ev/tasks')
 
 
 def test_all_modes_override_piece_count_and_use_correct_task():
-    assert tuple(MODES) == ('固定四片', '随机拼图')
+    assert tuple(MODES) == ('固定四片', '随机拼图', '七巧板')
     for label,(mode,count) in MODES.items():
         config = load_profile(ENV,CONFIGS,label,'cpu')
-        assert config.options.planning_options.mode == mode
+        if mode == 'tangram':
+            assert config.planning.pattern_id == 'square'
+        else:
+            assert config.options.planning_options.mode == mode
         assert config.detect1.expected_pieces == count
         assert config.detect1.preprocess_backend == 'cpu'
 

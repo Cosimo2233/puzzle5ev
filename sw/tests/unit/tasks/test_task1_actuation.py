@@ -1088,29 +1088,62 @@ class MovePlanActuatorTest(unittest.TestCase):
                 self.assertNotIn(True, magnet.values)
                 self.assertEqual(actuator.state, MotionLifecycleState.FAILED)
 
-    def test_incorrect_clockwise_target_feedback_prevents_placement(self) -> None:
-        """顺时针接口返回但角度未到位时，不得下降放置或报告完成。"""
+    def test_in_motion_single_turn_deviation_does_not_abort_placement(self) -> None:
+        """底层已等待完成后，搬运中的单圈偏差不再触发中途断磁。"""
 
         class IncorrectTarget(FakeRotation):
             def move_clockwise_from_zero(self, target_degrees, *, wait=True):
                 result = super().move_clockwise_from_zero(target_degrees, wait=wait)
-                self.angle -= 5.0
+                self.angle += 1.7
                 return result
 
         transport = FakeTransport()
         magnet = FakeMagnet()
         rotation = IncorrectTarget(transport=transport)
         actuator, _, led = self._actuator(transport, magnet, rotation=rotation)
-        with self.assertRaisesRegex(ActuationExecutionError, '顺时针旋转到位检查失败'):
-            actuator.execute(make_plan())
-        self.assertEqual(actuator.state, MotionLifecycleState.FAILED)
+        result = actuator.execute(make_plan(rotation=199.3))
+        self.assertEqual(result.completed_cycles, 1)
+        self.assertEqual(actuator.state, MotionLifecycleState.EXITED)
         self.assertTrue(rotation.closed)
         self.assertFalse(magnet.values[-1])
-        self.assertFalse(led.opened)
+        self.assertTrue(led.opened)
         z_moves = [frame for frame in transport.frames if frame[0] == 0xE3 and frame[1] == 0xFD]
         before_rotation = [frame for frame in rotation.frames_before_clockwise
                            if frame[0] == 0xE3 and frame[1] == 0xFD]
-        self.assertEqual(z_moves, before_rotation)  # 失败后未执行放置下降。
+        self.assertGreater(len(z_moves), len(before_rotation))
+        start = rotation.calls.index(('clockwise', 199.3, True))
+        end = rotation.calls.index(('counterclockwise', 199.3, True))
+        self.assertNotIn('angle', rotation.calls[start+1:end])
+
+    def test_final_return_deviation_does_not_abort_finished_placement(self) -> None:
+        """末片释放后的回零单圈偏差不导致任务再次失败。"""
+        class ReturnDrift(FakeRotation):
+            def return_counterclockwise_to_zero(self, target_degrees, *, wait=True):
+                result = super().return_counterclockwise_to_zero(target_degrees, wait=wait)
+                if target_degrees != 0.0:
+                    self.angle = 358.9
+                return result
+        transport, magnet = FakeTransport(), FakeMagnet()
+        rotation = ReturnDrift(transport=transport)
+        actuator, _, _ = self._actuator(transport, magnet, rotation=rotation)
+        self.assertEqual(actuator.execute(make_plan()).completed_cycles, 1)
+        self.assertEqual(actuator.state, MotionLifecycleState.EXITED)
+
+    def test_next_pick_keeps_strict_pre_motion_zero_check(self) -> None:
+        """运动中不复核回零偏差，下一片吸取前仍按 1° 门槛拒绝。"""
+        class ReturnDrift(FakeRotation):
+            def return_counterclockwise_to_zero(self, target_degrees, *, wait=True):
+                result = super().return_counterclockwise_to_zero(target_degrees, wait=wait)
+                if target_degrees != 0.0:
+                    self.angle = 358.9
+                return result
+        transport, magnet = FakeTransport(), FakeMagnet()
+        rotation = ReturnDrift(transport=transport)
+        actuator, _, _ = self._actuator(transport, magnet, rotation=rotation)
+        with self.assertRaisesRegex(ActuationExecutionError, '吸取前旋转轴零位检查失败'):
+            actuator.execute(make_two_piece_plan())
+        self.assertEqual(magnet.values.count(True), 1)
+        self.assertFalse(magnet.values[-1])
 
     def test_shutdown_failure_preserves_finish_state(self) -> None:
         """FINISH 后失能失败应保留 FINISH 并报告中文安全退出错误。"""

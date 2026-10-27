@@ -4,6 +4,7 @@ from __future__ import annotations
 import signal
 
 MODES = {"固定四片": ("fixed", 4), "随机拼图": ("random", None)}
+MODES["七巧板"] = ("tangram", 7)
 
 
 class MenuModel:
@@ -12,6 +13,7 @@ class MenuModel:
             raise ValueError('只求解模式不能同时启用运动')
         self.motion_enabled = motion_enabled
         self.plan_only = plan_only
+        self.task_plan_only = plan_only
         self.start_task = start_task
         self.index = 0
         self.preview = False
@@ -59,7 +61,7 @@ class MenuModel:
                 raise RuntimeError("没有配置正式任务入口")
             self.process = self.start_task(self.label)
             self.cancel_requested = False
-            self.message = ("正在识别与求解（不运动）：" if self.plan_only else "正在执行：") + self.label
+            self.message = ("正在识别与求解（不运动）：" if self.task_plan_only else "正在执行：") + self.label
         else:
             raise ValueError("未知菜单动作：" + action)
 
@@ -70,7 +72,7 @@ class MenuModel:
         if code is None:
             return
         self.message = ("当前任务已取消" if self.cancel_requested else
-                        ("求解完成（未执行运动）" if self.plan_only else "任务完成")
+                        ("求解完成（未执行运动）" if self.task_plan_only else "任务完成")
                         if code == 0 else f"任务失败（{code}），请检查日志")
         self.process = None
         self.cancel_requested = False

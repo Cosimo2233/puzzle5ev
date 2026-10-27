@@ -41,6 +41,8 @@ def annotate(raw, resizer, detector):
         cv2.polylines(canvas, [np.rint(rect.source_corners_px).astype(np.int32)],
                       True, (0, 220, 0), 2)
         report['workspace_source_px'] = np.asarray(rect.source_corners_px).tolist()
+        report['homography'] = rect.homography.tolist()
+        report['target_size'] = getattr(rect,'target_size',(rect.image_bgr.shape[1],rect.image_bgr.shape[0]))
         report['contours_source_px'] = []
         inverse = np.linalg.inv(rect.homography)
         for index, contour in enumerate(contours, 1):
@@ -175,6 +177,12 @@ def preview_session(label, running):
                     with analysis.condition:
                         result, count = analysis.result, analysis.frames
                     image, report = draw_latest(frame.image_bgr, small, result, now)
+                    if MODES[label][0] == 'tangram' and report.get('overlay_current') and 'homography' in report:
+                        from types import SimpleNamespace
+                        from ec_26_e.tasks.tangram import annotate_regions
+                        rect = SimpleNamespace(homography=np.array(report['homography']),target_size=report['target_size'])
+                        image = annotate_regions(image,rect,config.base.options.landscape_rotation,config.planning,
+                            (880/frame.image_bgr.shape[1],495/frame.image_bgr.shape[0]))
                     frames += 1
                     elapsed = max(.001, now-started)
                     report.update(frames=frames, analysis_frames=count, display_fps=frames/elapsed,

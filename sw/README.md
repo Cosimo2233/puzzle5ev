@@ -22,3 +22,6 @@
 `poetry run pytest` 默认收集 `tests/unit`、`tests/integration`；需要真实外部库或设备的 `tests/external` 必须显式指定。GPIO、执行锁、标定发布等 Linux 测试应在 Linux 环境运行，Windows 主机用于算法及模拟传输测试。旧板专用参考测试在 `../baselines/zynq7020-tests`，不参与新板测试。
 
 部署使用固定版本 wheel，不依赖开发机的相邻源码目录。硬件与 Linux 配置见主工程 `deploy/` 和 `docs/`；构建入口在主工程根目录。
+## 七巧板扩展
+
+七巧板任务使用独立配置 `configs/tasks/tangram.json`，默认单张采图，公共求解接口来自同级 `puzzle-solver`，运动默认关闭。板端操作和配置见 [七巧板说明](../docs/tangram.md)。

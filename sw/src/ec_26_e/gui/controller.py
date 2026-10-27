@@ -107,6 +107,9 @@ class TaskPreviewObserver:
 
 def load_profile(env_path, config_dir, label, backend):
     mode, count = MODES[label]
+    if mode == 'tangram':
+        from ec_26_e.config.tangram import load_tangram_config
+        return load_tangram_config(config_dir / 'tangram.json',env_path=env_path)
     loader = load_task1_config if mode == "fixed" else load_task2_config
     config = loader(config_dir / f"{mode}.json", env_path=env_path)
     return replace(config, detect1=replace(config.detect1, expected_pieces=count,
@@ -213,9 +216,14 @@ class Controller:
                     label = self.label
                 if label != previous_label:
                     config = load_profile(self.env_path, self.config_dir, label, self.backend_name)
+                    if MODES[label][0] == 'tangram':
+                        from ec_26_e.vision.preprocess import CpuPreprocessor
+                        lease = CpuPreprocessor(preprocess_config(config.detect1))
+                    else:
+                        lease = self.shared.for_config(config.detect1)
                     detector = TraditionalVisionDetector(config.detect1,
                         expected_pieces=config.detect1.expected_pieces,
-                        preprocessor=self.shared.for_config(config.detect1))
+                        preprocessor=lease)
                     resizer = Resize(config.resize)
                     previous_label = label
                 try:
@@ -264,6 +272,8 @@ class Controller:
             if self.busy or not self.ready or not self.motion_enabled or self.demo is not None or self.stop.is_set():
                 raise RuntimeError("当前状态不能启动真实任务")
             config = load_profile(self.env_path, self.config_dir, self.label, self.backend_name)
+            if MODES[self.label][0] == 'tangram' and not config.motion_verified:
+                raise RuntimeError('七巧板尚未完成专用视觉/运动标定，请在板载菜单使用只规划功能')
             self.busy = True
             self.status = "正在确认连续稳定轮廓…"
             self.task = threading.Thread(target=self._run_task, args=(config,), name="puzzle-task")
@@ -290,6 +300,14 @@ class Controller:
             self._status("正在拾放与拼接 · 请等待本次动作完成")
             return MovePlanActuator(params.actuation)
         try:
+            from ec_26_e.config.tangram import TangramConfig
+            if isinstance(config,TangramConfig):
+                from ec_26_e.tasks.tangram import run_tangram
+                with self._vision_lock:
+                    self._task_observing.set()
+                run_tangram(config,execute_motion=True,camera_factory=lambda _:CameraLease(self.camera))
+                self._status('七巧板任务完成')
+                return
             execute = execute_task1 if config.options.planning_options.mode == "fixed" else execute_task2
             execute(config, TaskContext(draw_enabled=True), observer_factory=lambda: TaskPreviewObserver(self),
                 camera_factory=lambda _: CameraLease(self.camera),
