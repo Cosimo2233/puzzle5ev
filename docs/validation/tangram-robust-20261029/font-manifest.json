@@ -1,0 +1,21 @@
+{
+  "upstream_package": "Debian fonts-wqy-microhei 0.2.0-beta-3.1",
+  "upstream_font_sha256": "2420e8078af796b19a3f6ef13de527a1a91c1e7171eea115926c614ced1009b3",
+  "font_sha256": "86a48f156f8ed348b17ba852047df12744186d40e947a3222ec0a9cb45fdb86d",
+  "requested_codepoints": 997,
+  "patterns": {
+    "square": "\u6b63\u65b9\u5f62",
+    "cat": "\u732b",
+    "rabbit": "\u5154",
+    "fish": "\u9c7c",
+    "boat": "\u8239",
+    "house": "\u623f\u5b50",
+    "dog": "\u72d7",
+    "swan": "\u5929\u9e45",
+    "bird": "\u9e1f",
+    "penguin": "\u4f01\u9e45",
+    "seal": "\u6d77\u8c79",
+    "chair": "\u6905\u5b50"
+  },
+  "scope": "ASCII, sw/src Python codepoints and public puzzle_solver pattern labels; regenerate after adding UI text"
+}

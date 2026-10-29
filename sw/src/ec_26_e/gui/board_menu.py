@@ -135,7 +135,7 @@ class BoardMenu:
         root.option_add('*TCombobox*Listbox.font', self.pattern_font)
         self.pattern_picker = ttk.Combobox(self.menu,textvariable=self.pattern_value,
             values=list(PATTERN_NAMES.values()),state='readonly',font=self.pattern_font,
-            height=len(PATTERN_NAMES))
+            height=min(8, len(PATTERN_NAMES)))
         self.pattern_picker.pack(fill='x',pady=3)
         self.pattern_picker.bind('<<ComboboxSelected>>',self.select_pattern)
         self.result_title = tk.Label(self.menu, text='摆放预测', anchor='w', bg='#101926',

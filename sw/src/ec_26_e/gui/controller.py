@@ -217,8 +217,8 @@ class Controller:
                 if label != previous_label:
                     config = load_profile(self.env_path, self.config_dir, label, self.backend_name)
                     if MODES[label][0] == 'tangram':
-                        from ec_26_e.vision.preprocess import CpuPreprocessor
-                        lease = CpuPreprocessor(preprocess_config(config.detect1))
+                        from ec_26_e.vision.tangram import TangramPreprocessor
+                        lease = TangramPreprocessor()
                     else:
                         lease = self.shared.for_config(config.detect1)
                     detector = TraditionalVisionDetector(config.detect1,

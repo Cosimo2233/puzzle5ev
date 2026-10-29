@@ -22,6 +22,10 @@ font = TTFont(args.font, fontNumber=0)
 processor = subset.Subsetter(subset.Options())
 processor.populate(text=text)
 processor.subset(font)
+required = set(map(ord, '七巧板' + ''.join(PATTERN_NAMES.values())))
+missing = required - font.getBestCmap().keys()
+if missing:
+    raise ValueError(f'UI font is missing required pattern glyphs: {sorted(missing)}')
 args.output.mkdir(parents=True, exist_ok=True)
 destination = args.output / 'wqy-microhei-ui.ttf'
 font.save(destination)
@@ -31,5 +35,6 @@ font.save(destination)
     'upstream_font_sha256': hashlib.sha256(args.font.read_bytes()).hexdigest(),
     'font_sha256': hashlib.sha256(destination.read_bytes()).hexdigest(),
     'requested_codepoints': len(set(text)),
+    'patterns': dict(PATTERN_NAMES),
     'scope': 'ASCII, sw/src Python codepoints and public puzzle_solver pattern labels; regenerate after adding UI text',
 }, indent=2), encoding='utf-8')

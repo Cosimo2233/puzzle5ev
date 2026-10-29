@@ -69,6 +69,40 @@ def fit_polygon(contour, epsilon, *, mm_scale=None, config=None, coarse=None):
         corners.append(np.linalg.solve(matrix, -np.array([previous_offset, offset])))
     return canonicalize_corners(np.asarray(corners)), float(np.quantile(residuals, 0.95))
 
+
+def fit_tangram_contour(contour, epsilon, *, mm_scale, config):
+    """在同一轮廓尝试多个分边尺度，必须由实测直边和面积交并比支持。
+
+    只选真实三/四边形，不使用凸包、理想模板顶点或放宽残差门槛。
+    这允许小毛刺不再把一个尖角误分成两个角，同时仍拒绝粘连和遮挡。
+    """
+    candidates = []
+    seen = set()
+    for factor in (1., .65, 1.4, 2.):
+        try:
+            coarse = simplify_contour(contour, epsilon * factor, mm_scale=mm_scale, config=config)
+            key = tuple(map(tuple, coarse))
+            if key in seen or len(coarse) not in (3, 4):
+                continue
+            seen.add(key)
+            polygon, residual = fit_polygon(contour, epsilon * factor,
+                mm_scale=mm_scale, config=config, coarse=coarse)
+            physical = polygon * mm_scale
+            iou = polygon_iou(contour, polygon)
+            if (not cv2.isContourConvex(polygon.astype(np.float32))
+                or polygon_edge_lengths(physical).min() < config.minimum_physical_edge_mm
+                or polygon_corner_depths(physical).min() < config.minimum_corner_depth_mm
+                or np.abs(polygon_turn_angles_deg(physical)).min() < config.minimum_corner_turn_deg
+                or residual * max(mm_scale) > 1. or iou < config.minimum_polygon_iou):
+                continue
+            candidates.append((iou, -residual, polygon, residual))
+        except ValueError:
+            continue
+    if not candidates:
+        raise ValueError('七巧板轮廓缺少可靠的三条或四条直边，请分开放置并避免遮挡')
+    best = max(candidates, key=lambda item: item[:2])
+    return best[2], best[3]
+
 class TraditionalVisionDetector:
     def __init__(self, config=None, *, expected_pieces=4, preprocessor=None):
         if expected_pieces is not None and (
@@ -128,7 +162,8 @@ class TraditionalVisionDetector:
                     raise ValueError("纸片接触工作区边界")
                 mm_scale = np.array([292.0 / (width - 1), 207.0 / (height - 1)])
                 epsilon = cv2.arcLength(contour, True) * self.config.polygon_epsilon_ratio
-                polygon, residual = fit_polygon(
+                fitter = fit_tangram_contour if self.expected_pieces == 7 else fit_polygon
+                polygon, residual = fitter(
                     contour, epsilon,
                     mm_scale=mm_scale, config=self.config)
                 if self.expected_pieces is None and len(polygon) < self.config.max_vertices:

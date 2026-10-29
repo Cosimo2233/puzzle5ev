@@ -12,6 +12,7 @@ app=typer.Typer(pretty_exceptions_show_locals=False)
 
 def validate_gui(output):
     import tkinter as tk
+    from puzzle_solver import PATTERN_NAMES
     from ec_26_e.gui.board_menu import BoardMenu
     from validate_menu_runtime import framebuffer
     path=output/'plan-only-menu.json'
@@ -35,6 +36,26 @@ def validate_gui(output):
         menu.choose(2)
         root.update_idletasks()
         framebuffer(output/'gui-menu.png')
+        picker = menu.pattern_picker
+        values = tuple(picker['values'])
+        if values != tuple(PATTERN_NAMES.values()):
+            raise RuntimeError('菜单图案与求解器图案库不一致')
+        popup = str(picker.tk.call('ttk::combobox::PopdownWindow',str(picker)))
+        result['picker'] = dict(values=values,visible_rows=int(picker['height']),
+            field_font=str(picker['font']),list_font=str(picker.tk.call(popup+'.f.l','cget','-font')))
+        picker.tk.call('ttk::combobox::Post',str(picker))
+        root.after(300,lambda: capture_picker(popup))
+    def capture_picker(popup):
+        framebuffer(output/'gui-picker-first.png')
+        menu.pattern_picker.tk.call(popup+'.f.l','yview','moveto',1.)
+        root.after(300,capture_picker_end)
+    def capture_picker_end():
+        framebuffer(output/'gui-picker-last.png')
+        menu.pattern_picker.tk.call('ttk::combobox::Unpost',str(menu.pattern_picker))
+        # 通过菜单分派一个新增图案，整个验证配置仍强制只规划。
+        menu.pattern_value.set(PATTERN_NAMES['chair'])
+        menu.select_pattern()
+        result['gui_pattern'] = menu.tangram_pattern
         root.after(100,solve)
     def solve():
         menu.action('confirm','tangram-validation-plan-only')
@@ -55,7 +76,8 @@ def validate_gui(output):
 
 
 @app.command()
-def main(output: Path=typer.Option(...,'--output'), gui: bool=typer.Option(False,'--gui')):
+def main(output: Path=typer.Option(...,'--output'), gui: bool=typer.Option(False,'--gui'),
+         replay: Path|None=typer.Option(None,'--replay',help='复用已有 live-results.json 的实测轮廓，不再采图')):
     from puzzle_solver import PATTERN_NAMES,PuzzlePiece,plan_tangram_moves
     from ec_26_e.config.tangram import load_tangram_config
     from ec_26_e.tasks.tangram import run_tangram,validate_tangram_machine_plan
@@ -69,6 +91,9 @@ def main(output: Path=typer.Option(...,'--output'), gui: bool=typer.Option(False
     config=replace(config,stable_frames=1)
     records=[]
     pieces=None
+    if replay is not None:
+        observed=json.loads(replay.read_text())[0]['plan']['moves']
+        pieces=tuple(PuzzlePiece(m['piece_id'],tuple(map(tuple,m['observed_vertices_a4_mm']))) for m in observed)
     for name in PATTERN_NAMES:
         os.environ.update(EC_TASK_DISPLAY_DIR=str(output/'display'),EC_TASK_DISPLAY_ID=name)
         start=time.monotonic()
@@ -82,7 +107,8 @@ def main(output: Path=typer.Option(...,'--output'), gui: bool=typer.Option(False
             plan=plan_tangram_moves(pieces,selected.planning)
             validate_tangram_machine_plan(plan,selected)
         records.append(dict(pattern=name,elapsed_seconds=time.monotonic()-start,
-            acquisition_mode='single_shared_snapshot',temporal_stability_validated=False,
+            acquisition_mode='saved_observation_replay' if replay is not None else 'single_shared_snapshot',
+            temporal_stability_validated=False,
             motion_executed=False,plan=plan.to_dict()))
         print(name,'complete',round(records[-1]['elapsed_seconds'],3),flush=True)
         (output/'live-results.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))

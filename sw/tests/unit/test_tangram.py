@@ -18,6 +18,8 @@ from ec_26_e.vision.resize.contracts import ResizeResult
 from ec_26_e.vision.traditional import TraditionalVisionDetector
 from ec_26_e.vision.factory import preprocess_config
 from ec_26_e.vision.preprocess import CpuPreprocessor
+from ec_26_e.vision.tangram import TangramPreprocessor
+from scipy.optimize import linear_sum_assignment
 
 ROOT=Path(__file__).resolve().parents[3]
 
@@ -119,7 +121,9 @@ def test_menu_dispatches_unverified_tangram_as_plan_only_even_with_old_motion_pe
     assert '--plan-only' in command and '--execute' not in command
     assert environment['EC_MOTION_ENABLED']=='false' and environment['EC_TANGRAM_PATTERN']=='cat'
     assert menu.model.task_plan_only
-    assert len(PATTERN_NAMES)==6 and MODES['七巧板']==('tangram',7)
+    assert {'square','cat','rabbit','fish','boat','house','dog','swan','bird',
+            'penguin','seal','chair'} <= PATTERN_NAMES.keys()
+    assert MODES['七巧板']==('tangram',7)
 
 
 def test_config_rejects_unknown_or_nonboolean_authorization(tmp_path,config):
@@ -165,4 +169,124 @@ def test_invalid_single_frame_does_not_retry_capture_or_open_motor(config):
     with pytest.raises(PlanningError,match='单帧'):
         run_tangram(config,camera_factory=lambda _:camera,resizer_factory=lambda _:resizer(image),actuator_factory=actuator)
     assert camera.sequence==1 and camera.closed
+    actuator.assert_not_called()
+
+
+def perturb(image, change):
+    """固定种子的单帧退化，不向识别器提供变换参数或模板。"""
+    values = image.astype(np.float32)
+    h, w = image.shape[:2]
+    if change == 'dim':
+        values *= .3
+    elif change == 'shadow':
+        yy, xx = np.mgrid[:h, :w]
+        shadow = 1 - .68 * np.exp(-((xx-w*.72)/(w*.2))**2 - ((yy-h*.5)/(h*.9))**2)
+        values *= shadow[..., None]
+    elif change == 'warm':
+        values *= (.75, .95, 1.13)
+    elif change == 'cool':
+        values *= (1.10, .97, .85)
+    elif change == 'desaturated':
+        values = values * .60 + values.mean(axis=2, keepdims=True) * .40
+    elif change == 'noise':
+        values += np.random.default_rng(292207).normal(0, 5, values.shape)
+    elif change == 'glare':
+        yy, xx = np.mgrid[:h, :w]
+        values += 45 * np.exp(-((xx-w*.75)/(w*.3))**2 - ((yy-h*.3)/(h*.5))**2)[..., None]
+    elif change == 'blur_jpeg':
+        blurred = cv2.GaussianBlur(image, (5, 5), .8)
+        ok, encoded = cv2.imencode('.jpg', blurred, [cv2.IMWRITE_JPEG_QUALITY, 55])
+        assert ok
+        return cv2.imdecode(encoded, cv2.IMREAD_COLOR)
+    elif change != 'clean':
+        raise AssertionError(change)
+    return np.clip(values, 0, 255).astype(np.uint8)
+
+
+def detect_tangram(image, config):
+    with TraditionalVisionDetector(config.detect1, expected_pieces=7,
+                                   preprocessor=TangramPreprocessor()) as detector:
+        result = detector.detect(image)
+        assert len(result.pieces) == 7, detector.last_failure
+        return result
+
+
+@pytest.mark.parametrize('source', ['synthetic', 'real'])
+@pytest.mark.parametrize('change', ['clean','dim','shadow','warm','cool','desaturated','noise','glare','blur_jpeg'])
+def test_single_frame_robustness_preserves_seven_shapes_and_measured_edges(config, source, change):
+    from puzzle_solver import classify_tangram_piece
+    from ec_26_e.tasks.task1.review import review_visual_frame
+    original = (scene() if source == 'synthetic' else
+                cv2.imread(str(ROOT/'sw/tests/fixtures/tangram/white7-20261027.png')))
+    assert original is not None
+    image = perturb(original, change)
+    clean = detect_tangram(original, config)
+    result = detect_tangram(image, config)
+    scale = np.array((292/(image.shape[1]-1), 207/(image.shape[0]-1)))
+    costs = np.array([[np.linalg.norm((np.array(a.center_px)-b.center_px)*scale)
+                       for b in result.pieces] for a in clean.pieces])
+    rows, cols = linear_sum_assignment(costs)
+    assert costs[rows, cols].max() < .8
+    for a, b in zip(rows, cols):
+        reference = np.array(clean.pieces[a].corners_px) * scale
+        observed = np.array(result.pieces[b].corners_px) * scale
+        assert len(reference) == len(observed)
+        assert min(np.linalg.norm(reference-np.roll(observed,k,axis=0),axis=1).max()
+                   for k in range(len(observed))) < 1.
+    rect = resizer(image).resize(image)
+    reviewed = review_visual_frame(CameraFrame(1,1,image), rect, result,
+                                   config.base.options.landscape_rotation)
+    kinds = [classify_tangram_piece(p.vertices_mm, 100, 3) for p in reviewed.pieces]
+    assert sorted(kinds) == sorted(('large','large','small','small','medium','square','parallel'))
+
+
+@pytest.mark.parametrize('change', ['missing','extra','touching','occluded','no_blue','empty'])
+def test_robust_segmentation_never_turns_invalid_scene_into_motion(config, change):
+    image = scene()
+    if change == 'missing':
+        cv2.rectangle(image, (775,0), (875,620), (180,60,30), -1)
+    elif change == 'extra':
+        # 目标区灰色异物也必须报告，不能只保留最大的七个候选。
+        cv2.rectangle(image, (300,80), (350,130), (100,100,100), -1)
+    elif change == 'touching':
+        cv2.rectangle(image, (525,225), (540,275), (240,240,240), -1)
+    elif change == 'occluded':
+        cv2.rectangle(image, (530,35), (610,95), (180,60,30), -1)
+    elif change == 'no_blue':
+        image[:] = (160,160,160)
+    elif change == 'empty':
+        image[:] = (180,60,30)
+    camera, actuator = Camera(image), Mock()
+    with pytest.raises(PlanningError):
+        run_tangram(replace(config,motion_verified=True),execute_motion=True,
+            camera_factory=lambda _:camera,resizer_factory=lambda _:resizer(image),actuator_factory=actuator)
+    assert camera.closed and camera.sequence == 1
+    actuator.assert_not_called()
+
+
+@pytest.mark.parametrize('background', [(180,170,60),(160,40,20)])
+def test_white_pieces_on_cyan_and_deep_blue_background(config, background):
+    image = scene()
+    image[np.all(image == (180,60,30), axis=2)] = background
+    result = detect_tangram(image, config)
+    assert len(result.pieces) == 7
+
+
+def test_production_preview_uses_same_adaptive_segmentation_as_task(config):
+    from ec_26_e.vision.factory import create_production_detector
+    with create_production_detector(config.detect1) as owner:
+        assert isinstance(owner.detector.preprocessor,TangramPreprocessor)
+        result = owner.detector.detect(perturb(scene(),'shadow'))
+        assert len(result.pieces) == 7
+
+
+@pytest.mark.parametrize('pattern', PATTERN_NAMES)
+def test_saved_photo_recognition_plans_every_pattern_inside_machine_limits(config, pattern):
+    image = cv2.imread(str(ROOT/'sw/tests/fixtures/tangram/white7-20261027.png'))
+    camera, actuator = Camera(image), Mock()
+    selected = replace(config, planning=replace(config.planning, pattern_id=pattern))
+    plan = run_tangram(selected, camera_factory=lambda _:camera,
+        resizer_factory=lambda _:resizer(image), actuator_factory=actuator)
+    assert len(plan.moves) == 7 and plan.mode == 'tangram'
+    assert camera.sequence == 1 and camera.closed
     actuator.assert_not_called()

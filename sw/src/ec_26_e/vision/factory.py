@@ -70,7 +70,11 @@ def create_production_detector(legacy_config: Detect1Config) -> StableVisionDete
     expected = legacy_config.expected_pieces
     if expected is not None and expected not in {2,3,4,7}:
         raise ValueError("EC_EXPECTED_PIECES 必须为 2～4 或七巧板的 7")
-    if backend == "cpu":
+    if expected == 7:
+        # 七巧板预览与单张采图任务使用同一个白片分割算法。
+        from ec_26_e.vision.tangram import TangramPreprocessor
+        preprocessor = TangramPreprocessor()
+    elif backend == "cpu":
         preprocessor = CpuPreprocessor(params)
     elif backend == "pl":
         import os

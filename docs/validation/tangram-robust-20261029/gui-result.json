@@ -1,0 +1,26 @@
+{
+  "picker": {
+    "values": [
+      "正方形",
+      "猫",
+      "兔",
+      "鱼",
+      "船",
+      "房子",
+      "狗",
+      "天鹅",
+      "鸟",
+      "企鹅",
+      "海豹",
+      "椅子"
+    ],
+    "visible_rows": 8,
+    "field_font": "{WenQuanYi Micro Hei} 14",
+    "list_font": "{WenQuanYi Micro Hei} 14"
+  },
+  "gui_pattern": "chair",
+  "prediction_state": "ready",
+  "message": "求解完成（未执行运动）",
+  "motion_executed": false,
+  "elapsed_seconds": 16.833965972999977
+}

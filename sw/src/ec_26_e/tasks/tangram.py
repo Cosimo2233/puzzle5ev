@@ -20,8 +20,7 @@ from ec_26_e.gui.plan_preview import PlanPreviewPublisher, sheet_to_camera, disp
 from ec_26_e.tasks.contracts import TaskContext
 from ec_26_e.tasks.task1.review import review_visual_frame
 from ec_26_e.vision import Resize
-from ec_26_e.vision.factory import preprocess_config
-from ec_26_e.vision.preprocess import CpuPreprocessor
+from ec_26_e.vision.tangram import TangramPreprocessor
 from ec_26_e.vision.traditional import TraditionalVisionDetector
 
 logger = logging.getLogger(__name__)
@@ -95,7 +94,7 @@ def run_tangram(config, *, execute_motion=False, camera_factory=FFmpegCamera,
         raise PlanningError('七巧板接线、厚度/Z 高度、吸取偏心和旋转标定尚未核验，禁止运动')
     params = config.detect1
     detector = (detector_factory(params) if detector_factory else
-                TraditionalVisionDetector(params,expected_pieces=7,preprocessor=CpuPreprocessor(preprocess_config(params))))
+                TraditionalVisionDetector(params,expected_pieces=7,preprocessor=TangramPreprocessor()))
     camera = None
     rotation = config.base.options.landscape_rotation
     display = PlanPreviewPublisher.from_environment(rotation)
