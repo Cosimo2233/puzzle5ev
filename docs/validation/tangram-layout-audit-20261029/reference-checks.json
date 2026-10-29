@@ -1,0 +1,148 @@
+{
+  "cat": {
+    "source": "chart2",
+    "location": "第三行第二列 Cat",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 22.294247260215837,
+      "allowed_error_px": 10.700000000000001
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 1.9983381075628817,
+      "allowed_error_px": 10.700000000000001
+    }
+  },
+  "rabbit": {
+    "source": "chart2",
+    "location": "第四行第四列 Rabbit",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 111.66040158383197,
+      "allowed_error_px": 12.4
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 5.570358668484909,
+      "allowed_error_px": 12.4
+    }
+  },
+  "fish": {
+    "source": "chart2",
+    "location": "第二行第五列 Fish",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 113.93199726152439,
+      "allowed_error_px": 9.950000000000001
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 6.448747846813223,
+      "allowed_error_px": 9.950000000000001
+    }
+  },
+  "boat": {
+    "source": "chart4",
+    "location": "第一行第一列 boat",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 80.26047880189041,
+      "allowed_error_px": 23.3
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 4.008856765840182,
+      "allowed_error_px": 23.3
+    }
+  },
+  "house": {
+    "source": "chart4",
+    "location": "第二行第三列 house",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 196.70599889174707,
+      "allowed_error_px": 17.0
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 3.5601438062840787,
+      "allowed_error_px": 17.0
+    }
+  },
+  "dog": {
+    "source": "chart1",
+    "location": "第一行第二列 dog",
+    "before": {
+      "reference_check": "pass"
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 2.8592947746719886,
+      "allowed_error_px": 14.9
+    }
+  },
+  "swan": {
+    "source": "chart2",
+    "location": "第三行第一列 Swan",
+    "before": {
+      "reference_check": "pass"
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 1.3942395560680698,
+      "allowed_error_px": 11.700000000000001
+    }
+  },
+  "bird": {
+    "source": "chart2",
+    "location": "第二行第四列 Bird",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 21.79580156169506,
+      "allowed_error_px": 9.15
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 3.636792542397302,
+      "allowed_error_px": 9.15
+    }
+  },
+  "penguin": {
+    "source": "chart2",
+    "location": "第二行第二列 Penguin",
+    "before": {
+      "reference_check": "pass"
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 2.0377829441251714,
+      "allowed_error_px": 11.75
+    }
+  },
+  "seal": {
+    "source": "chart2",
+    "location": "第三行第三列 Seal",
+    "before": {
+      "reference_check": "fail",
+      "maximum_error_px": 13.300084388556813,
+      "allowed_error_px": 11.55
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 2.0977237893063023,
+      "allowed_error_px": 11.55
+    }
+  },
+  "chair": {
+    "source": "chart4",
+    "location": "第二行第二列 chair",
+    "before": {
+      "reference_check": "pass"
+    },
+    "after": {
+      "reference_check": "pass",
+      "maximum_error_px": 2.0083088652570313,
+      "allowed_error_px": 17.0
+    }
+  }
+}

@@ -10,7 +10,7 @@ import typer
 app=typer.Typer(pretty_exceptions_show_locals=False)
 
 
-def validate_gui(output):
+def validate_gui(output, pattern='chair'):
     import tkinter as tk
     from puzzle_solver import PATTERN_NAMES
     from ec_26_e.gui.board_menu import BoardMenu
@@ -53,7 +53,7 @@ def validate_gui(output):
         framebuffer(output/'gui-picker-last.png')
         menu.pattern_picker.tk.call('ttk::combobox::Unpost',str(menu.pattern_picker))
         # 通过菜单分派一个新增图案，整个验证配置仍强制只规划。
-        menu.pattern_value.set(PATTERN_NAMES['chair'])
+        menu.pattern_value.set(PATTERN_NAMES[pattern])
         menu.select_pattern()
         result['gui_pattern'] = menu.tangram_pattern
         root.after(100,solve)
@@ -77,11 +77,14 @@ def validate_gui(output):
 
 @app.command()
 def main(output: Path=typer.Option(...,'--output'), gui: bool=typer.Option(False,'--gui'),
-         replay: Path|None=typer.Option(None,'--replay',help='复用已有 live-results.json 的实测轮廓，不再采图')):
+         replay: Path|None=typer.Option(None,'--replay',help='复用已有 live-results.json 的实测轮廓，不再采图'),
+         gui_pattern: str=typer.Option('chair','--gui-pattern',help='菜单只规划验证选择的图案')):
     from puzzle_solver import PATTERN_NAMES,PuzzlePiece,plan_tangram_moves
     from ec_26_e.config.tangram import load_tangram_config
     from ec_26_e.tasks.tangram import run_tangram,validate_tangram_machine_plan
     from ec_26_e.tasks.execution_lock import TaskExecutionLock
+    if gui_pattern not in PATTERN_NAMES:
+        raise ValueError('未知 GUI 验证图案')
     state=json.loads(Path('/run/ec26e/menu-status.json').read_text())
     if state.get('busy') or state.get('preview'):raise RuntimeError('生产菜单忙碌')
     output.mkdir(parents=True,exist_ok=True)
@@ -113,7 +116,7 @@ def main(output: Path=typer.Option(...,'--output'), gui: bool=typer.Option(False
         print(name,'complete',round(records[-1]['elapsed_seconds'],3),flush=True)
         (output/'live-results.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
     os.environ.pop('EC_TASK_DISPLAY_DIR',None);os.environ.pop('EC_TASK_DISPLAY_ID',None)
-    if gui:validate_gui(output)
+    if gui:validate_gui(output,gui_pattern)
 
 
 if __name__=='__main__':app()

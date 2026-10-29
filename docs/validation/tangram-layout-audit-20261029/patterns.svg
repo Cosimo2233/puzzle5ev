@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1200 840">
+<rect width="100%" height="100%" fill="#fafaf7"/>
+<g><title>正方形 (square)</title>
+<polygon points="47.500,12.500 252.500,12.500 150.000,115.000" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="47.500,12.500 150.000,115.000 47.500,217.500" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="201.250,63.750 252.500,12.500 252.500,115.000" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="98.750,166.250 150.000,115.000 201.250,166.250" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="252.500,115.000 252.500,217.500 150.000,217.500" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="150.000,115.000 201.250,63.750 252.500,115.000 201.250,166.250" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="47.500,217.500 98.750,166.250 201.250,166.250 150.000,217.500" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="150" y="245" text-anchor="middle" font-family="sans-serif" font-size="19">正方形 · square</text></g>
+<g><title>猫 (cat)</title>
+<polygon points="428.772,132.586 513.685,132.586 428.772,217.500" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="513.685,132.586 513.685,217.500 428.772,217.500" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="453.642,72.543 453.642,12.500 483.664,42.522" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="483.664,42.522 513.685,12.500 513.685,72.543" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="428.772,132.586 471.228,90.129 513.685,132.586" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="483.664,102.565 453.642,72.543 483.664,42.522 513.685,72.543" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="428.772,217.500 386.315,175.043 386.315,132.586 428.772,175.043" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="450" y="245" text-anchor="middle" font-family="sans-serif" font-size="19">猫 · cat</text></g>
+<g><title>兔 (rabbit)</title>
+<polygon points="731.364,142.955 731.364,68.409 805.909,142.955" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="731.364,142.955 805.909,142.955 805.909,217.500" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="731.364,116.599 731.364,169.310 705.008,142.955" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="753.197,164.788 753.197,217.500 726.842,191.144" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="753.197,164.788 805.909,217.500 753.197,217.500" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="694.091,49.773 731.364,49.773 731.364,87.045 694.091,87.045" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="712.727,49.773 750.000,12.500 787.273,12.500 750.000,49.773" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="750" y="245" text-anchor="middle" font-family="sans-serif" font-size="19">兔 · rabbit</text></g>
+<g><title>鱼 (fish)</title>
+<polygon points="1040.382,111.016 947.500,111.016 1040.382,18.134" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1040.382,111.016 1040.382,203.898 947.500,111.016" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1040.382,45.339 1073.220,12.500 1073.220,78.177" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1040.382,184.661 1073.220,151.823 1073.220,217.500" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1040.382,45.339 1086.823,91.780 1040.382,138.220" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1086.823,111.016 1119.661,78.177 1152.500,111.016 1119.661,143.855" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1040.382,138.220 1086.823,91.780 1086.823,138.220 1040.382,184.661" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1050" y="245" text-anchor="middle" font-family="sans-serif" font-size="19">鱼 · fish</text></g>
+<g><title>船 (boat)</title>
+<polygon points="128.553,295.888 201.777,369.112 128.553,442.335" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="128.553,442.335 201.777,369.112 275.000,442.335" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="25.000,433.182 76.777,381.405 76.777,433.182" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="76.777,381.405 128.553,329.629 128.553,381.405" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="102.665,442.335 206.218,442.335 154.442,494.112" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="76.777,433.182 76.777,381.405 128.553,381.405 128.553,433.182" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="50.888,442.335 102.665,442.335 154.442,494.112 102.665,494.112" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="150" y="525" text-anchor="middle" font-family="sans-serif" font-size="19">船 · boat</text></g>
+<g><title>房子 (house)</title>
+<polygon points="335.065,412.586 419.978,327.672 504.892,412.586" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="359.935,497.500 444.849,412.586 529.763,497.500" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="444.849,412.586 529.763,412.586 487.306,455.043" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="529.763,412.586 529.763,497.500 487.306,455.043" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="359.935,412.586 444.849,412.586 359.935,497.500" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="444.849,352.543 444.849,292.500 504.892,292.500 504.892,352.543" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="444.849,352.543 504.892,352.543 564.935,412.586 504.892,412.586" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="450" y="525" text-anchor="middle" font-family="sans-serif" font-size="19">房子 · house</text></g>
+<g><title>狗 (dog)</title>
+<polygon points="656.935,434.919 656.935,344.593 747.260,434.919" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="683.391,371.049 811.130,371.049 747.260,434.919" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="656.935,418.951 656.935,482.821 625.000,450.886" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="779.195,339.114 811.130,307.179 843.065,339.114" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="747.260,434.919 811.130,371.049 811.130,434.919" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="811.130,371.049 843.065,339.114 875.000,371.049 843.065,402.984" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="765.967,434.919 811.130,434.919 856.293,480.081 811.130,480.081" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="750" y="525" text-anchor="middle" font-family="sans-serif" font-size="19">狗 · dog</text></g>
+<g><title>天鹅 (swan)</title>
+<polygon points="1073.843,472.314 1006.405,404.876 1073.843,337.438" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1073.843,472.314 1073.843,337.438 1141.281,404.876" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="925.000,351.405 958.719,385.124 925.000,418.843" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1107.562,371.157 1175.000,371.157 1141.281,404.876" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1006.405,404.876 1054.091,452.562 958.719,452.562" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="925.000,351.405 958.719,317.686 992.438,351.405 958.719,385.124" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="958.719,452.562 958.719,385.124 992.438,351.405 992.438,418.843" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1050" y="525" text-anchor="middle" font-family="sans-serif" font-size="19">天鹅 · swan</text></g>
+<g><title>鸟 (bird)</title>
+<polygon points="139.386,675.000 139.386,777.500 36.886,777.500" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="139.386,675.000 241.886,572.500 241.886,675.000" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="57.848,632.810 109.098,632.810 57.848,684.060" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="139.386,675.000 190.636,675.000 190.636,726.250" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="190.636,687.812 263.114,760.291 190.636,760.291" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="157.505,656.880 121.266,693.120 85.027,656.880 121.266,620.641" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="139.386,675.000 190.636,726.250 190.636,777.500 139.386,726.250" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="150" y="805" text-anchor="middle" font-family="sans-serif" font-size="19">鸟 · bird</text></g>
+<g><title>企鹅 (penguin)</title>
+<polygon points="489.102,611.602 489.102,722.201 433.803,666.902" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="433.803,666.902 489.102,722.201 433.803,777.500" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="489.102,572.500 528.205,572.500 489.102,611.602" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="433.803,777.500 461.453,749.850 489.102,777.500" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="371.795,650.705 450.000,650.705 410.898,689.807" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="450.000,572.500 489.102,572.500 489.102,611.602 450.000,611.602" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="450.000,611.602 489.102,611.602 450.000,650.705 410.898,650.705" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="450" y="805" text-anchor="middle" font-family="sans-serif" font-size="19">企鹅 · penguin</text></g>
+<g><title>海豹 (seal)</title>
+<polygon points="676.722,730.547 676.722,636.640 770.629,730.547" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="704.226,664.144 837.031,664.144 770.629,730.547" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="676.722,730.547 723.675,730.547 723.675,777.500" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="629.768,730.547 676.722,683.593 676.722,730.547" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="770.629,730.547 837.031,664.144 837.031,730.547" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="676.722,636.640 636.059,613.163 659.535,572.500 700.198,595.977" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="837.031,664.144 870.232,697.345 870.232,763.748 837.031,730.547" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="750" y="805" text-anchor="middle" font-family="sans-serif" font-size="19">海豹 · seal</text></g>
+<g><title>椅子 (chair)</title>
+<polygon points="1029.500,736.500 1111.500,654.500 1111.500,736.500" fill="#45a5bd" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="988.500,777.500 988.500,695.500 1070.500,695.500" fill="#98c755" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="988.500,777.500 1029.500,736.500 1029.500,777.500" fill="#edbdbc" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1070.500,572.500 1111.500,572.500 1111.500,613.500" fill="#ffd34e" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1070.500,572.500 1111.500,613.500 1070.500,654.500" fill="#f2da76" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1070.500,736.500 1111.500,736.500 1111.500,777.500 1070.500,777.500" fill="#bb92c5" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<polygon points="1070.500,654.500 1111.500,613.500 1111.500,654.500 1070.500,695.500" fill="#e55d78" stroke="#303c43" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="1050" y="805" text-anchor="middle" font-family="sans-serif" font-size="19">椅子 · chair</text></g>
+</svg>
