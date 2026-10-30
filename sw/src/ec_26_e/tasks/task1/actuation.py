@@ -321,15 +321,17 @@ class MovePlanActuator:
         rotation: RotationAxis,
         expected: float,
         context: str,
+        *,
+        tolerance_deg: float = 1.0,
     ) -> None:
-        """要求有效机械角反馈及 1° 到位容差，异常由任务清理路径处理。"""
+        """启动前默认 1°，任务内逐片拾取允许 2°；非法反馈仍拒绝。"""
 
         actual = float(rotation.current_angle_deg())
         error = self._circular_error(actual, expected)
-        if not math.isfinite(actual) or error > 1.0:
+        if not math.isfinite(actual) or error > tolerance_deg:
             raise RuntimeError(
                 f"{context}失败：目标={expected % 360.0:.1f}°，"
-                f"反馈={actual:.1f}°，误差={error:.1f}°"
+                f"反馈={actual:.1f}°，误差={error:.1f}°，容差={tolerance_deg:.1f}°"
             )
 
     def _return_rotation_to_zero(
@@ -462,7 +464,8 @@ class MovePlanActuator:
     ) -> None:
         """执行一片纸，并等待下一拾取点 XY 预定位和旋转归零均完成。"""
 
-        self._require_rotation_angle(rotation, 0.0, "吸取前旋转轴零位检查")
+        self._require_rotation_angle(rotation, 0.0, "吸取前旋转轴零位检查",
+                                     tolerance_deg=2.0 if pick_positioned else 1.0)
         if pick_positioned:
             if (
                 xy_controller.x_position_0p01mm != cycle.pick_x_0p01mm

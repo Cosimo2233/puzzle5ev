@@ -1077,7 +1077,7 @@ class MovePlanActuatorTest(unittest.TestCase):
                 self.angle = bad_angle
                 return 0.0
 
-        for bad_angle in (3.0, float('nan')):
+        for bad_angle in (1.1, 1.3, 2.0, 3.0, float('nan')):
             with self.subTest(angle=bad_angle):
                 transport = FakeTransport()
                 magnet = FakeMagnet()
@@ -1129,21 +1129,39 @@ class MovePlanActuatorTest(unittest.TestCase):
         self.assertEqual(actuator.execute(make_plan()).completed_cycles, 1)
         self.assertEqual(actuator.state, MotionLifecycleState.EXITED)
 
-    def test_next_pick_keeps_strict_pre_motion_zero_check(self) -> None:
-        """运动中不复核回零偏差，下一片吸取前仍按 1° 门槛拒绝。"""
+    def test_next_pick_allows_two_degree_zero_error_after_task_started(self) -> None:
+        """复现现场 358.7°，并覆盖两侧恰好 2°；完整执行两片。"""
+        for drift in (358.7, 358.0, 2.0):
+            with self.subTest(drift=drift):
+                class ReturnDrift(FakeRotation):
+                    def return_counterclockwise_to_zero(self, target_degrees, *, wait=True):
+                        result = super().return_counterclockwise_to_zero(target_degrees, wait=wait)
+                        if target_degrees != 0.0:
+                            self.angle = drift
+                        return result
+                transport, magnet = FakeTransport(), FakeMagnet()
+                rotation = ReturnDrift(transport=transport)
+                actuator, _, _ = self._actuator(transport, magnet, rotation=rotation)
+                self.assertEqual(actuator.execute(make_two_piece_plan()).completed_cycles, 2)
+                self.assertEqual(magnet.values.count(True), 2)
+
+    def test_next_pick_rejects_more_than_two_degree_or_invalid_zero_feedback(self) -> None:
+        """任务内超过 2° 或反馈非法时，在下一片吸取前拒绝。"""
         class ReturnDrift(FakeRotation):
             def return_counterclockwise_to_zero(self, target_degrees, *, wait=True):
                 result = super().return_counterclockwise_to_zero(target_degrees, wait=wait)
                 if target_degrees != 0.0:
-                    self.angle = 358.9
+                    self.angle = drift
                 return result
-        transport, magnet = FakeTransport(), FakeMagnet()
-        rotation = ReturnDrift(transport=transport)
-        actuator, _, _ = self._actuator(transport, magnet, rotation=rotation)
-        with self.assertRaisesRegex(ActuationExecutionError, '吸取前旋转轴零位检查失败'):
-            actuator.execute(make_two_piece_plan())
-        self.assertEqual(magnet.values.count(True), 1)
-        self.assertFalse(magnet.values[-1])
+        for drift in (357.9, 2.1, float('nan')):
+            with self.subTest(drift=drift):
+                transport, magnet = FakeTransport(), FakeMagnet()
+                rotation = ReturnDrift(transport=transport)
+                actuator, _, _ = self._actuator(transport, magnet, rotation=rotation)
+                with self.assertRaisesRegex(ActuationExecutionError, '吸取前旋转轴零位检查失败'):
+                    actuator.execute(make_two_piece_plan())
+                self.assertEqual(magnet.values.count(True), 1)
+                self.assertFalse(magnet.values[-1])
 
     def test_shutdown_failure_preserves_finish_state(self) -> None:
         """FINISH 后失能失败应保留 FINISH 并报告中文安全退出错误。"""
